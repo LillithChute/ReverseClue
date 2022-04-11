@@ -3,6 +3,7 @@ package gamemodels.playermodels;
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.petinterfaces.Pet;
 import gameinterfaces.playerinterfaces.Player;
+import gameinterfaces.playerinterfaces.PlayerViewModel;
 import gameinterfaces.spaceinterfaces.Space;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * This class will represent all the behaviors that can be enacted by any type of player in the
  * game such as moving, picking up items, etc.
  */
-public class PlayerImpl implements Player {
+public class PlayerImpl implements Player, PlayerViewModel {
 
   private final String playerName;
   private final List<Item> playerItems;

@@ -1,12 +1,13 @@
 package gamemodels.petmodels;
 
 import gameinterfaces.petinterfaces.Pet;
+import gameinterfaces.petinterfaces.PetViewModel;
 
 /**
  * An implementation of a Pet.  The pet allows spaces to be virtually invisible.  A pet is located
  * in a space.
  */
-public class PetImpl implements Pet {
+public class PetImpl implements Pet, PetViewModel {
   private final String name;
 
   /**

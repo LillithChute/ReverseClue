@@ -1,6 +1,7 @@
 package gamemodels.targetmodels;
 
 import gameinterfaces.targetinterfaces.Target;
+import gameinterfaces.targetinterfaces.TargetViewModel;
 
 /**
  * This class represents the "target" of the game.  That is, the individual that the players are
@@ -8,7 +9,7 @@ import gameinterfaces.targetinterfaces.Target;
  * some amount of health such that when the target hits zero, it will die.  Once the target dies,
  * the game will end.
  */
-public class TargetImpl implements Target {
+public class TargetImpl implements Target, TargetViewModel {
   private final String name;
   private final int maxIndexOfSpaces;
   private int health;

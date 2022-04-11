@@ -4,6 +4,7 @@ import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.petinterfaces.Pet;
 import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
+import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.targetinterfaces.Target;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Objects;
  * board.  This space can hold one or more items that are used by a player to damage the target.  A
  * space has other spaces that might share a wall.  The space is where all the action happens.
  */
-public class SpaceImpl implements Space {
+public class SpaceImpl implements Space, SpaceViewModel {
   private final int indexOfThisSpace;
   private final String nameOfThisSpace;
   private final int upperLeftxCoordinate;
