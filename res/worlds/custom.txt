@@ -1,0 +1,50 @@
+50 50 Doctor Lucky's Gigantic Bathroom
+1 Intruder
+Just a dog
+21
+ 2  2 12  5 Entrance
+ 6  6  8 13 Workbench
+ 4 14 12 18 Station
+ 3 23 12 25 AC
+ 6 29  9 39 Hardware
+13  3 22 10 Entertainment Center
+13 11 26 13 Alley
+13 14 14 21 Guest Bathroom
+13 22 18 25 Bar
+10 26 14 31 Corridor
+23  4 34  7 Tunnel
+27 11 30 28 Walk-in Fridge
+23 29 33 32 Electricity
+15 28 22 34 Gaming Room
+17 35 30 45 Farm
+35  2 41 12 Shooting Range
+31 13 37 16 Deck
+38 14 40 37 A Very Wide Room
+31 38 40 43 Garage
+22 14 26 21 Master Bathroom
+19 22 26 23 Guards
+24
+0 3 Dominance
+0 3 Dawn
+1 5 Devourer
+2 5 Liar's Fusil
+4 6 Prime Rifle
+5 6 Massive Bronzed Rifle
+5 234 Storm-Forged Stainless Repeater
+5 2 Infinity, Sculptor Of The Champion
+5 23 Crimson, Rifle Of The Incoming Storm
+6 75 Peacemaker, Dawn Of The Beast
+7 6 Eveningstar
+2 6 Ghostly Carbon Repeater
+3 7 Quick Fix
+5 8 Warped Blaster
+6 1 Refined Repeater
+8 1231 Ferocious Bronzed Sniper
+2 51 Phantom Fiberglass Carbine
+5 1 Doom
+7 54 Endbringer
+13 1 Grim Rifle
+13 1 Warmonger Sniper
+15 4 Refined Stainless Shooter
+10 3 Small Knife
+10 999 Super Weapon

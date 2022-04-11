@@ -73,18 +73,31 @@ public class WorldImpl implements World {
 
   @Override
   public String printWorldImageToDisk() {
+    File file;
+    BufferedImage bufferedImage = this.worldImage();
+    try {
+      file = new File(gameName + ".png");
+      ImageIO.write(bufferedImage, "png", file);
+    } catch (IOException ex) {
+      throw new IncorrectFilePathException("Unable to write image file.");
+    }
 
+    return file.getAbsolutePath();
+  }
+
+  @Override
+  public BufferedImage worldImage() {
     int width = cols + 7; //7
     int height = rows + 1; //1
-    File file;
-    double scale = 2.0;
+
+    double scale = 15.0f;
 
     // Constructs a BufferedImage of one of the predefined image types.
-    BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    BufferedImage bufferedImage = new BufferedImage((int) (width * scale), (int) (height * scale), BufferedImage.TYPE_INT_RGB);
 
     // Create a graphics which can be used to draw into the buffered image
     Graphics2D g2d = bufferedImage.createGraphics();
-
+    g2d.scale(scale, scale);
     for (Space currentSpace :
             spaces) {
       int rectWidth = currentSpace
@@ -97,20 +110,11 @@ public class WorldImpl implements World {
       g2d.draw(new Rectangle2D.Double(x, y, rectWidth, rectHeight));
     }
 
-    g2d.scale(scale, scale);
 
     //g2d.draw(new Rectangle2D.Double(x, y, rectWidth, rectHeight));
 
     g2d.dispose();
-
-    try {
-      file = new File(gameName + ".png");
-      ImageIO.write(bufferedImage, "png", file);
-    } catch (IOException ex) {
-      throw new IncorrectFilePathException("Unable to write image file.");
-    }
-
-    return file.getAbsolutePath();
+    return bufferedImage;
   }
 
   @Override

@@ -1,6 +1,8 @@
 package gamemodels.itemmodels;
 
 import gameinterfaces.iteminterfaces.Item;
+import gameinterfaces.iteminterfaces.ItemViewModel;
+
 import java.util.Objects;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Objects;
  * Items can be literally anything.  All items will have attributes to them that will determine the
  * effectiveness of the item in destroying the target.
  */
-public class ItemImpl implements Item {
+public class ItemImpl implements Item, ItemViewModel {
   private final String name;
   private final int damage;
   private final int spaceLocation;

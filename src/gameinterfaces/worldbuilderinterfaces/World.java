@@ -3,6 +3,8 @@ package gameinterfaces.worldbuilderinterfaces;
 import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
 import gamemodels.targetmodels.TargetImpl;
+
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 
@@ -19,6 +21,8 @@ public interface World {
    * @return The file path location of the image.
    */
   String printWorldImageToDisk();
+
+  BufferedImage worldImage();
 
   /**
    * This method will call the {@link TargetImpl} class to move the target to the next space
