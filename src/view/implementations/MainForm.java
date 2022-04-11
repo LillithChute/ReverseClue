@@ -1,7 +1,10 @@
 package view.implementations;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -24,8 +28,17 @@ public class MainForm extends JFrame implements ImainForm {
   private GridBagLayout mainLayout;
   private JMenuBar bar;
   private JMenu fileMenu;
+  private JMenuItem restartGame;
   private JMenuItem newGame;
   private JMenuItem exitGame;
+
+  private JMenu gameMenu;
+  private JMenuItem targetInfo;
+  private JMenuItem gameInfo;
+
+  private JMenu helpMenu;
+  private JMenuItem gameHelp;
+  private JMenuItem gameAbout;
 
   private JLabel imageLabel;
   private JScrollPane imagePane;
@@ -54,6 +67,7 @@ public class MainForm extends JFrame implements ImainForm {
     super(caption);
 
     setSize(800, 600);
+    setPreferredSize(new Dimension(1350, 950));
     setLocation(400,400);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -64,11 +78,76 @@ public class MainForm extends JFrame implements ImainForm {
     fileMenu = new JMenu("File");
     bar.add(fileMenu);
 
-    newGame = new JMenuItem("New Game...");
+    restartGame = new JMenuItem("New Game With Same World...");
+    newGame = new JMenuItem("New Game With Another World...");
     exitGame = new JMenuItem("Exit");
 
+    fileMenu.add(restartGame);
     fileMenu.add(newGame);
     fileMenu.add(exitGame);
+
+    gameMenu = new JMenu("Game");
+    targetInfo = new JMenuItem("Target Character Info");
+    gameInfo = new JMenuItem("Game Info");
+    gameMenu.add(targetInfo);
+    gameMenu.add(gameInfo);
+    bar.add(gameMenu);
+
+    helpMenu = new JMenu("Help");
+    gameHelp = new JMenuItem("Game Help");
+    gameAbout = new JMenuItem("About...");
+    helpMenu.add(gameHelp);
+    helpMenu.add(gameAbout);
+    bar.add(helpMenu);
+
+    MainForm parent = this;
+    gameAbout.addMouseListener(new MouseListener() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        JOptionPane.showMessageDialog(null,
+                "CS 5010 Milestone 4- Lillith Chute and Donglin Xu\n");
+      }
+
+      /**
+       * Invoked when a mouse button has been pressed on a component.
+       *
+       * @param e the event to be processed
+       */
+      @Override
+      public void mousePressed(MouseEvent e) {
+
+      }
+
+      /**
+       * Invoked when a mouse button has been released on a component.
+       *
+       * @param e the event to be processed
+       */
+      @Override
+      public void mouseReleased(MouseEvent e) {
+
+      }
+
+      /**
+       * Invoked when the mouse enters a component.
+       *
+       * @param e the event to be processed
+       */
+      @Override
+      public void mouseEntered(MouseEvent e) {
+
+      }
+
+      /**
+       * Invoked when the mouse exits a component.
+       *
+       * @param e the event to be processed
+       */
+      @Override
+      public void mouseExited(MouseEvent e) {
+
+      }
+    });
 
     this.setJMenuBar(bar);
 
