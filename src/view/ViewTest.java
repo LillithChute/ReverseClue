@@ -14,7 +14,9 @@ import view.implementations.MainForm;
 public class ViewTest {
   public static void main(String[] args) throws FileNotFoundException {
     MainForm mainForm = new MainForm("main window");
-    World world = new WorldImpl(new BufferedReader(new FileReader(new File("./res/worlds/custom.txt"))));
+    World world =
+            new WorldImpl(new BufferedReader(new FileReader(new File("./res/worlds/CortoMaltese"
+                    + ".txt"))));
     UiController controller = new GraphicalController(world);
     controller.setView(mainForm);
   }
