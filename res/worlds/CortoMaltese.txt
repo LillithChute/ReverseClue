@@ -1,0 +1,59 @@
+40 40 Corto Maltese
+10 Starro The Conqueror
+Baby Starro
+15
+ 9  2 35  5 Beach Head One
+ 2  5  8 11 Beach Head Two
+10 20 26 23 Town
+15  6 30 13 Forest
+19 14 25 16 Insurgent Camp
+16 24 18 26 Road
+10 27 20 30 Palace
+27 34 34 38 Guard House
+ 6 33 26 39 Jotunheim
+10 31 12 32 Overhead Walk
+18 31 20 32 Garden
+5 15 9 20 Training Grounds
+10 15 18 16 Old Ruins
+21 17 22 19 Tunnel
+7 28 9 29 Bird Cage
+39
+0 5 Helicopter
+0 3 Mongal
+0 1 Detachable Arms
+0 2 Boomerang
+1 3 Pistol
+1 1 Ocean Water
+1 1 Conch Shell
+2 2 Beer bottle
+2 2 Butterfly Knife
+2 1 Trash Can
+3 1 Small Stick
+4 2 Blowgun
+4 2 Sling Shot
+4 5 Nanaway
+5 4 Armored Truck
+6 5 Machine Guns
+6 4 Antique Pistol
+6 3 Javelin
+7 2 Blackjack
+7 3 Rifle
+7 3 Bowie Knife
+8 5 C4
+8 5 Bloodsport
+8 5 Polka-dots
+8 6 Rats
+9 2 Broken Glass
+9 1 Pocket Knife
+10 1 Roses
+11 4 Grenade Launcher
+11 2 Bayonet
+11 1 Bullet Casing
+12 2 Rock
+12 3 Bag of Rocks
+13 1 Rusty Fork
+13 1 Flashlight
+13 3 Rifle
+14 2 Birds
+14 4 Flamethrower
+14 1 Bird Food
