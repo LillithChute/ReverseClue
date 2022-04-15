@@ -2,6 +2,7 @@ package gameinterfaces.playerinterfaces;
 
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.spaceinterfaces.Space;
+
 import java.util.List;
 
 /**
@@ -89,10 +90,8 @@ public interface Player {
    * This method will move the pet to the designated space.  Unfortunately, the Player is not
    * aware of all the Spaces, yet can move the pet anywhere.  So, I need to pass the list of all
    * the space to the player so they have them available.
-   *
-   * @param spaceToMoveTo - The space to move the pet to.
-   * @param  allSpaces - All the spaces in the game.
-   */
+   *  @param spaceToMoveTo - The space to move the pet to.
+   * @param  allSpaces - All the spaces in the game.*/
   void movePet(Space spaceToMoveTo, List<Space> allSpaces);
 
   /**
