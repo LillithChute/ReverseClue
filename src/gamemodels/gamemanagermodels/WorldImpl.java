@@ -10,6 +10,8 @@ import gameinterfaces.worldbuilderinterfaces.World;
 import gamemodels.petmodels.PetImpl;
 import instancecreationhelpers.InstanceBuilder;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -45,6 +47,8 @@ public class WorldImpl implements World {
   private final List<Item> items;
   private final InstanceBuilder instanceBuilder;
 
+  private final int scale;
+
   /**
    * This will take the filename of the file that has the information about creating the world of
    * the game.  Using that, it will build the world.
@@ -64,6 +68,7 @@ public class WorldImpl implements World {
     playerTurn = 0;
     totalPlayers = 0;
     turnTotal = 0;
+    this.scale = 30;
 
     generateGameBoard((BufferedReader) file);
 
@@ -90,14 +95,12 @@ public class WorldImpl implements World {
     int width = cols + 7; //7
     int height = rows + 1; //1
 
-    double scale = 15.0f;
-
     // Constructs a BufferedImage of one of the predefined image types.
-    BufferedImage bufferedImage = new BufferedImage((int) (width * scale), (int) (height * scale), BufferedImage.TYPE_INT_RGB);
+    BufferedImage bufferedImage = new BufferedImage((width * scale), (height * scale), BufferedImage.TYPE_INT_RGB);
 
     // Create a graphics which can be used to draw into the buffered image
     Graphics2D g2d = bufferedImage.createGraphics();
-    g2d.scale(scale, scale);
+    //g2d.scale(scale, scale);
     for (Space currentSpace :
             spaces) {
       int rectWidth = currentSpace
@@ -107,14 +110,35 @@ public class WorldImpl implements World {
       int x = currentSpace.getUpperLeftxCoordinate();
       int y = currentSpace.getUpperLeftyCoordinate();
 
-      g2d.draw(new Rectangle2D.Double(x, y, rectWidth, rectHeight));
+      g2d.draw(new Rectangle2D.Double((x - 1) * scale, (y - 1) * scale,
+              (rectWidth + 1) * scale, (rectHeight + 1) * scale));
+      g2d.drawString(currentSpace.getTheNameOfThisSpace(), x * scale,
+              (y - 0.1f + rectHeight) * scale);
     }
-
-
     //g2d.draw(new Rectangle2D.Double(x, y, rectWidth, rectHeight));
 
     g2d.dispose();
     return bufferedImage;
+  }
+
+  @Override
+  public Space hitDetection(double mx, double my) {
+    for (Space s: spaces)
+    {
+      int rectWidth = s
+              .getLowerRightxCoordinate() - s.getUpperLeftxCoordinate();
+      int rectHeight = s
+              .getLowerRightyCoordinate() - s.getUpperLeftyCoordinate();
+      int x = s.getUpperLeftxCoordinate();
+      int y = s.getUpperLeftyCoordinate();
+      Rectangle box = new Rectangle((x - 1) * scale, (y - 1) * scale,
+              (rectWidth + 1) * scale, (rectHeight + 1) * scale);
+      Point p = new Point((int) mx, (int) my);
+      if (box.contains(p)) {
+        return s;
+      }
+    }
+    return null;
   }
 
   @Override

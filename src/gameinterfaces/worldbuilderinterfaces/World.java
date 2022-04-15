@@ -24,6 +24,8 @@ public interface World {
 
   BufferedImage worldImage();
 
+  public Space hitDetection(double x, double y);
+
   /**
    * This method will call the {@link TargetImpl} class to move the target to the next space
    * in the index of the list of spaces.
