@@ -1,7 +1,9 @@
 package controller;
 
 import java.awt.image.BufferedImage;
+import java.util.Optional;
 
+import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
 import view.implementations.MainForm;
@@ -67,6 +69,14 @@ public class GraphicalController implements UiController, ControllerFeatures {
   @Override
   public void pickup(String itemName) {
 
+  }
+
+  @Override
+  public void hitDetection(double x, double y) {
+    Optional<SpaceViewModel> result = Optional.ofNullable(model.hitDetection(x, y));
+    //TODO: This is testing only, replace in actual submission.
+    String name = result.map(SpaceViewModel::getTheNameOfThisSpace).orElse("EMPTY");
+    System.out.println(name);
   }
 
   @Override

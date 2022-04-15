@@ -13,7 +13,7 @@ import java.util.List;
  * has neighboring rooms.  It has item(s) in it.  It can have a player or the target.  A room will
  * have attributes as well, like walls and a name.
  */
-public interface Space {
+public interface Space extends SpaceViewModel {
 
   /**
    * This method will collect all the items contained in this room.  Any room can have 0 to many

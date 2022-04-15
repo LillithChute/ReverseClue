@@ -3,6 +3,7 @@ package view.implementations;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -100,54 +101,6 @@ public class MainForm extends JFrame implements ImainForm {
     helpMenu.add(gameAbout);
     bar.add(helpMenu);
 
-    MainForm parent = this;
-    gameAbout.addMouseListener(new MouseListener() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        JOptionPane.showMessageDialog(null,
-                "CS 5010 Milestone 4- Lillith Chute and Donglin Xu\n");
-      }
-
-      /**
-       * Invoked when a mouse button has been pressed on a component.
-       *
-       * @param e the event to be processed
-       */
-      @Override
-      public void mousePressed(MouseEvent e) {
-
-      }
-
-      /**
-       * Invoked when a mouse button has been released on a component.
-       *
-       * @param e the event to be processed
-       */
-      @Override
-      public void mouseReleased(MouseEvent e) {
-
-      }
-
-      /**
-       * Invoked when the mouse enters a component.
-       *
-       * @param e the event to be processed
-       */
-      @Override
-      public void mouseEntered(MouseEvent e) {
-
-      }
-
-      /**
-       * Invoked when the mouse exits a component.
-       *
-       * @param e the event to be processed
-       */
-      @Override
-      public void mouseExited(MouseEvent e) {
-
-      }
-    });
 
     this.setJMenuBar(bar);
 
@@ -257,6 +210,14 @@ public class MainForm extends JFrame implements ImainForm {
     attackConstraints.weighty = 1;
     this.mainLayout.addLayoutComponent(attackButton, attackConstraints);
     this.add(attackButton);
+
+    //Image Label- Hit detection
+    imageLabel.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        features.hitDetection(e.getX(), e.getY());
+      }
+    });
 
     pack();
     setVisible(true);
