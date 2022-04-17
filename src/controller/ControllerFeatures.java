@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 public interface ControllerFeatures {
   public BufferedImage obtainImage();
@@ -15,4 +16,5 @@ public interface ControllerFeatures {
   public void movePet(String nameOfSpace);
   public void pickup(String itemName);
   public void hitDetection(double x, double y);
+  public void setModel(File file);
 }

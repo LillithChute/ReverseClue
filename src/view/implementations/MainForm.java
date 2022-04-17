@@ -5,14 +5,18 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -22,6 +26,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.FileFilter;
 
 import controller.ControllerFeatures;
 import gameinterfaces.iteminterfaces.ItemViewModel;
@@ -92,9 +97,20 @@ public class MainForm extends JFrame implements ImainForm {
     newGame = new JMenuItem("New Game With Another World...");
     exitGame = new JMenuItem("Exit");
 
-    fileMenu.add(restartGame);
     fileMenu.add(newGame);
+    fileMenu.add(restartGame);
     fileMenu.add(exitGame);
+
+    newGame.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        File selected = chooseFile();
+        if (selected == null) {
+          showMessageDialog(null, "File not selected!");
+        }
+        features.setModel(selected);
+      }
+    });
 
     gameMenu = new JMenu("Game");
     targetInfo = new JMenuItem("Target Character Info");
@@ -248,5 +264,30 @@ public class MainForm extends JFrame implements ImainForm {
   //TODO: remove this in actual code
   private String testTextHelper(String hint) {
     return String.valueOf(String.format("Lorem ipsum %s \n dolor sit amet\n", hint)).repeat(20);
+  }
+
+  private File chooseFile() {
+    File selected;
+    JFileChooser chooser = new JFileChooser();
+    chooser.setCurrentDirectory(new File("."));
+    chooser.setSelectedFile(new File(""));
+    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    chooser.addChoosableFileFilter(new FileFilter() {
+      @Override
+      public boolean accept(File f) {
+        return f.getName().toLowerCase().endsWith(".txt");
+      }
+
+      @Override
+      public String getDescription() {
+        return "World Description Text File (*.txt)";
+      }
+    });
+    if (chooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG) {
+      return chooser.getSelectedFile();
+
+    } else {
+      return null;
+    }
   }
 }
