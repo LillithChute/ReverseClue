@@ -3,6 +3,9 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.util.Optional;
 
+import gamecommands.AddPlayer;
+import gamecommands.LookAround;
+import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
@@ -33,7 +36,9 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void addPlayer(String playerName, String playerLocation, int itemLimit) {
-
+    // TODO: Hardcoding a player as a test
+    command = new AddPlayer("Test Player", "Forest", 3);
+    command.execute(model);
   }
 
   @Override
@@ -52,8 +57,10 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public void lookaround() {
+  public String lookaround() {
+    command = new LookAround();
 
+    return command.execute(model);
   }
 
   @Override

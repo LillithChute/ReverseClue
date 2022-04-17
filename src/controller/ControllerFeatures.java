@@ -10,7 +10,7 @@ public interface ControllerFeatures {
   public void attack();
   public void describePlayer();
   public void describeSpace(String spaceName);
-  public void lookaround();
+  public String lookaround();
   public void move(String nameOfSpace);
   public void movePet(String nameOfSpace);
   public void pickup(String itemName);

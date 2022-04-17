@@ -3,6 +3,9 @@ package view.implementations;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -132,6 +135,7 @@ public class MainForm extends JFrame implements ImainForm {
     this.mainLayout.addLayoutComponent(logInfoPane, locationInfoConstraints);
     this.add(logInfoPane);
 
+
     turnInfo = new JLabel("Turn information will be here:");
     GridBagConstraints turnInfoConstraints = new GridBagConstraints();
     turnInfoConstraints.gridx = 1;
@@ -197,6 +201,7 @@ public class MainForm extends JFrame implements ImainForm {
     lookaroundConstraints.gridheight = 1;
     lookaroundConstraints.weightx = 0.2;
     lookaroundConstraints.weighty = 1;
+    lookaroundButton.setMnemonic('L');
     this.mainLayout.addLayoutComponent(lookaroundButton, lookaroundConstraints);
     this.add(lookaroundButton);
 
@@ -219,6 +224,15 @@ public class MainForm extends JFrame implements ImainForm {
       }
     });
 
+    //Look around button click
+    lookaroundButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        String description = features.lookaround();
+        logInfo.setText(description);
+      }
+    });
+
     pack();
     setVisible(true);
   }
@@ -229,6 +243,9 @@ public class MainForm extends JFrame implements ImainForm {
     //TODO: move this to an appropriate location
     this.imageLabel.setIcon(new ImageIcon(features.obtainImage()));
     this.imageLabel.setText(null);
+
+    //TODO: Adding a test player
+    features.addPlayer("Test Player", "Forest", 3);
   }
 
   //TODO: remove this in actual code
