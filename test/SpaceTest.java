@@ -344,20 +344,4 @@ public class SpaceTest {
     Space newSpace = builder.spaceBuilder(2, "Jotunheim", 1, 1, 4, 4);
     assertEquals(expectedConstructorOutput, newSpace.toString());
   }
-
-  @Test
-  public void testEquals() {
-    Space diningHallTheSame = builder.spaceBuilder(3, "Dining Hall",
-            12, 11, 21, 20);
-    assertEquals(diningHallTheSame, diningHall);
-    assertNotEquals(diningHall, kitchen);
-  }
-
-  @Test
-  public void testHashCode() {
-    Space diningHallTheSame = builder.spaceBuilder(3, "Dining Hall",
-            12, 11, 21, 20);
-    assertEquals(diningHall.hashCode(), diningHallTheSame.hashCode());
-    assertNotEquals(diningHall.hashCode(), kitchen.hashCode());
-  }
 }

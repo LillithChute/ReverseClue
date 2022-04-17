@@ -268,35 +268,4 @@ public class SpaceImpl implements Space, SpaceViewModel {
 
     return buildString.toString();
   }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    SpaceImpl space = (SpaceImpl) o;
-    return indexOfThisSpace == space.indexOfThisSpace
-            && upperLeftxCoordinate == space.upperLeftxCoordinate
-            && upperLeftyCoordinate == space.upperLeftyCoordinate
-            && lowerRightxCoordinate == space.lowerRightxCoordinate
-            && lowerRightyCoordinate == space.lowerRightyCoordinate
-            && nameOfThisSpace.equals(space.nameOfThisSpace)
-            && itemsInThisSpace.equals(space.itemsInThisSpace)
-            && neighbors.equals(space.neighbors)
-            && players.equals(space.players)
-            && target.equals(space.target)
-            && pet.equals(space.pet);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(indexOfThisSpace, nameOfThisSpace, upperLeftxCoordinate,
-            upperLeftyCoordinate, lowerRightxCoordinate, lowerRightyCoordinate,
-            itemsInThisSpace, neighbors, players, target, pet);
-  }
 }
