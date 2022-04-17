@@ -1,7 +1,8 @@
 package gameinterfaces.petinterfaces;
 
 /**
- * THis interface tells us the behaviors that the Pet can have.
+ * The pet is a friend of the target and has the ability to make the contents of whatever room
+ * it is in invisible to players outside the room.  The pet is pretty magical in that way.
  */
 public interface Pet {
 
