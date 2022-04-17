@@ -9,6 +9,11 @@ import gameinterfaces.worldcontrollerinterfaces.GameCommand;
 public class LookAround implements GameCommand {
   @Override
   public String execute(World game) {
+    // Validation
+    if (game == null) {
+      throw new IllegalArgumentException("There is an issue with the game world!\n");
+    }
+
     String result = game.getCurrentPlayer().lookAround();
     game.moveTarget();
     game.nextTurn();
