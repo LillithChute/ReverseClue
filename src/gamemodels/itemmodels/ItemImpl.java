@@ -58,21 +58,6 @@ public class ItemImpl implements Item, ItemViewModel {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    ItemImpl item = (ItemImpl) o;
-
-    return damage == item.damage && spaceLocation == item.spaceLocation && name.equals(item.name);
-  }
-
-  @Override
   public boolean isItemWithPlayer() {
     return this.isWithPlayer;
   }
@@ -98,8 +83,20 @@ public class ItemImpl implements Item, ItemViewModel {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ItemImpl item = (ItemImpl) o;
+    return damage == item.damage
+            && spaceLocation == item.spaceLocation
+            && isWithPlayer == item.isWithPlayer
+            && isEvidence == item.isEvidence
+            && name.equals(item.name);
+  }
+
+  @Override
   public int hashCode() {
-    return Objects.hash(name, damage, spaceLocation);
+    return Objects.hash(name, damage, spaceLocation, isWithPlayer, isEvidence);
   }
 
   @Override
