@@ -1,5 +1,7 @@
 package view.implementations;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -62,6 +64,13 @@ public class MainForm extends JFrame implements ImainForm {
   private JButton attackButton;
 
   private ControllerFeatures features;
+
+  static String welcomeMsg;
+
+  static {
+    welcomeMsg = "Welcome to CS 5010 Milestone, The world!\n"
+            + "Authors: Lillith Chute & Donglin Xu";
+  }
 
 
   public MainForm(String caption) {
@@ -229,6 +238,11 @@ public class MainForm extends JFrame implements ImainForm {
     //TODO: move this to an appropriate location
     this.imageLabel.setIcon(new ImageIcon(features.obtainImage()));
     this.imageLabel.setText(null);
+  }
+
+  @Override
+  public void welcome() {
+    showMessageDialog(null, welcomeMsg);
   }
 
   //TODO: remove this in actual code

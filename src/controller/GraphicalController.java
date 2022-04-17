@@ -83,5 +83,6 @@ public class GraphicalController implements UiController, ControllerFeatures {
   public void setView(MainForm v) {
     this.view = v;
     v.setFeatures(this);
+    v.welcome();
   }
 }
