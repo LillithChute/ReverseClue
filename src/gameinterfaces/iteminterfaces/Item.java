@@ -5,7 +5,7 @@ package gameinterfaces.iteminterfaces;
  * target in this game.  This item has a description/name as well as a location that it currently
  * resides in.
  */
-public interface Item {
+public interface Item extends ItemViewModel {
 
   /**
    * Retrieves the name/description of the item.

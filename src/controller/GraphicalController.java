@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.List;
 import java.util.Optional;
 
+import gamecommands.AddComputerPlayer;
 import gamecommands.AddPlayer;
 import gamecommands.LookAround;
 import gamecommands.TurnInformation;
@@ -19,6 +20,7 @@ import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
 import gamemodels.gamemanagermodels.WorldImpl;
+import utilitles.Utility;
 import view.implementations.MainForm;
 import view.interfaces.ImainForm;
 
@@ -41,13 +43,16 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void addComputerPlayer(String playerName, String playerLocation, int itemLimit) {
-
+    Utility.checkNull(playerName, playerLocation);
+    command = new AddComputerPlayer(playerName, playerLocation, itemLimit);
+    view.logGameplay(command.execute(model));
   }
 
   @Override
   public void addPlayer(String playerName, String playerLocation, int itemLimit) {
+    Utility.checkNull(playerName, playerLocation);
     command = new AddPlayer(playerName, playerLocation, itemLimit);
-    command.execute(model);
+    view.logGameplay(command.execute(model));
   }
 
   @Override
@@ -129,6 +134,12 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void resetModel() {
+    this.view.setPreGameMenuVisibility(false);
     this.view.setFeatures(this);
+  }
+
+  @Override
+  public void advanceTurn() {
+
   }
 }
