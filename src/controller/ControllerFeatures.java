@@ -24,4 +24,5 @@ public interface ControllerFeatures {
   public void hitDetection(double x, double y);
   public void setModel(File file);
   public List<Item> getItemsOnTheGround();
+  public void advanceTurn();
 }

@@ -7,15 +7,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.AbstractAction;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -26,13 +26,15 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
 import controller.ControllerFeatures;
+import dtos.PlayerCreation;
 import gameinterfaces.iteminterfaces.Item;
-import gameinterfaces.iteminterfaces.ItemViewModel;
 import gamemodels.itemmodels.ItemImpl;
 import view.interfaces.ImainForm;
 
@@ -47,6 +49,8 @@ public class MainForm extends JFrame implements ImainForm {
   private JMenu gameMenu;
   private JMenuItem targetInfo;
   private JMenuItem gameInfo;
+  private JMenuItem addHuman;
+  private JMenuItem addCpu;
 
   private JMenu helpMenu;
   private JMenuItem gameHelp;
@@ -119,8 +123,32 @@ public class MainForm extends JFrame implements ImainForm {
     gameMenu = new JMenu("Game");
     targetInfo = new JMenuItem("Target Character Info");
     gameInfo = new JMenuItem("Game Info");
+    addHuman = new JMenuItem("Add Human Player");
+    addCpu = new JMenuItem("Add CPU Player");
+    gameMenu.add(addHuman);
+    gameMenu.add(addCpu);
     gameMenu.add(targetInfo);
     gameMenu.add(gameInfo);
+    addHuman.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        PlayerCreation result = getPlayerInput();
+        if (result != null) {
+          features.addPlayer(result.getName(), result.getLocation(), result.getLimit());
+        }
+      }
+    });
+    addCpu.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        PlayerCreation result = getPlayerInput();
+        if (result != null) {
+          features.addComputerPlayer(result.getName(), result.getLocation(), result.getLimit());
+        }
+      }
+    });
+
+
     bar.add(gameMenu);
 
     helpMenu = new JMenu("Help");
@@ -144,12 +172,11 @@ public class MainForm extends JFrame implements ImainForm {
     imagePaneConstraints.weighty = 1;
     imagePaneConstraints.fill = GridBagConstraints.BOTH;
     this.mainLayout.addLayoutComponent(imagePane, imagePaneConstraints);
+
     this.add(imagePane);
 
     logInfo = new JTextArea();
     logInfoPane = new JScrollPane(logInfo);
-    //TODO: remove lorem ipsum from here
-    logInfo.setText(testTextHelper("Location Information"));
     GridBagConstraints locationInfoConstraints = new GridBagConstraints();
     locationInfoConstraints.gridx = 0;
     locationInfoConstraints.gridy = 1;
@@ -283,6 +310,12 @@ public class MainForm extends JFrame implements ImainForm {
     showMessageDialog(null, welcomeMsg);
   }
 
+  @Override
+  public void setPreGameMenuVisibility(boolean enabled) {
+    this.addHuman.setEnabled(enabled);
+    this.addCpu.setEnabled(enabled);
+  }
+
   //TODO: remove this in actual code
   private String testTextHelper(String hint) {
     return String.valueOf(String.format("Lorem ipsum %s \n dolor sit amet\n", hint)).repeat(20);
@@ -311,5 +344,34 @@ public class MainForm extends JFrame implements ImainForm {
     } else {
       return null;
     }
+  }
+
+  private PlayerCreation getPlayerInput() {
+    JTextField name = new JTextField();
+    JTextField location = new JTextField();
+    JTextField limit = new JTextField();
+    JPanel panel = new JPanel();
+    panel.add(new JLabel("Player Name:"));
+    panel.add(name);
+    panel.add(new JLabel("Starting Location:"));
+    panel.add(location);
+    panel.add(new JLabel("Carry Limit:"));
+    panel.add(limit);
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+    int result = JOptionPane.showConfirmDialog(this, panel,
+            "Enter Player Info...", JOptionPane.OK_CANCEL_OPTION);
+    if (result == JOptionPane.OK_OPTION) {
+      return new PlayerCreation(name.getText(), location.getText(),
+              Integer.parseInt(limit.getText()));
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  public void logGameplay(String msg) {
+    Objects.requireNonNull(msg);
+    this.logInfo.append(msg);
   }
 }
