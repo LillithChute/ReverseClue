@@ -1,10 +1,14 @@
 package controller;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Optional;
 
 import gamecommands.AddPlayer;
 import gamecommands.LookAround;
+import gamecommands.TurnInformation;
+import gameinterfaces.iteminterfaces.Item;
+import gameinterfaces.iteminterfaces.ItemViewModel;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
@@ -36,8 +40,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void addPlayer(String playerName, String playerLocation, int itemLimit) {
-    // TODO: Hardcoding a player as a test
-    command = new AddPlayer("Test Player", "Forest", 3);
+    command = new AddPlayer(playerName, playerLocation, itemLimit);
     command.execute(model);
   }
 
@@ -64,6 +67,13 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
+  public String getTurnInformation() {
+    command = new TurnInformation();
+
+    return command.execute(model);
+  }
+
+  @Override
   public void move(String nameOfSpace) {
 
   }
@@ -84,6 +94,13 @@ public class GraphicalController implements UiController, ControllerFeatures {
     //TODO: This is testing only, replace in actual submission.
     String name = result.map(SpaceViewModel::getTheNameOfThisSpace).orElse("EMPTY");
     System.out.println(name);
+  }
+
+  @Override
+  public List<Item> getItemsOnTheGround() {
+    SpaceViewModel currentPlayersLocation = model.getSpaces().get(model.getCurrentPlayer().getLocation());
+
+    return currentPlayersLocation.getItems();
   }
 
   @Override

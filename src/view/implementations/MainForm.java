@@ -25,7 +25,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import controller.ControllerFeatures;
+import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.iteminterfaces.ItemViewModel;
+import gamemodels.itemmodels.ItemImpl;
 import view.interfaces.ImainForm;
 
 public class MainForm extends JFrame implements ImainForm {
@@ -52,10 +54,10 @@ public class MainForm extends JFrame implements ImainForm {
   private JTextArea logInfo;
   private JScrollPane logInfoPane;
 
-  private JList<ItemViewModel> itemOnGroundBox;
+  private JList<Item> itemOnGroundBox;
   private JScrollPane itemOnGroundPane;
 
-  private JList<ItemViewModel> backpack;
+  private JList<Item> backpack;
   private JScrollPane backpackPane;
 
   private JButton pickUpButton;
@@ -151,12 +153,9 @@ public class MainForm extends JFrame implements ImainForm {
     itemOnGroundBox = new JList<>();
     itemOnGroundPane = new JScrollPane(itemOnGroundBox);
     //TODO: remove testing code
-    List<ItemViewModel> groundItems = new ArrayList<>();
-    for(int i = 0; i < 20;i++)
-    {
-      groundItems.add(new TestingItem());
-    }
-    itemOnGroundBox.setListData(groundItems.toArray(new ItemViewModel[0]));
+    List<Item> groundItems = new ArrayList<>();
+    groundItems.add(new ItemImpl("Test Item", 1, 0));
+    itemOnGroundBox.setListData(groundItems.toArray(new Item[0]));
     GridBagConstraints itemOnGroundConstraints = new GridBagConstraints();
     itemOnGroundConstraints.gridx = 0;
     itemOnGroundConstraints.gridy = 3;
@@ -169,7 +168,7 @@ public class MainForm extends JFrame implements ImainForm {
     this.add(itemOnGroundPane);
 
     backpack = new JList<>();
-    backpack.setListData(groundItems.toArray(new ItemViewModel[0]));
+    backpack.setListData(groundItems.toArray(new Item[0]));
     backpackPane = new JScrollPane(backpack);
     GridBagConstraints backpackConstraints = new GridBagConstraints();
     backpackConstraints.gridx = 5;
@@ -245,7 +244,14 @@ public class MainForm extends JFrame implements ImainForm {
     this.imageLabel.setText(null);
 
     //TODO: Adding a test player
-    features.addPlayer("Test Player", "Forest", 3);
+    features.addPlayer("Test Player", "Jotunheim", 3);
+
+    // Set the turn information for the first player
+    this.turnInfo.setText(features.getTurnInformation());
+
+    // Get the items in the space for the player whose turn it is.
+    itemOnGroundBox.setListData(features.getItemsOnTheGround().toArray(new Item[0]));
+
   }
 
   //TODO: remove this in actual code
