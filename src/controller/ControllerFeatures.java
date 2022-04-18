@@ -25,4 +25,5 @@ public interface ControllerFeatures {
   public void setModel(File file);
   public List<Item> getItemsOnTheGround();
   public void advanceTurn();
+  public void updateGraphics();
 }

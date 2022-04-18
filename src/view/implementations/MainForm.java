@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -296,6 +297,9 @@ public class MainForm extends JFrame implements ImainForm {
 
     //TODO: Adding a test player
     features.addPlayer("Test Player", "Jotunheim", 3);
+    features.addPlayer("Alice", "Beach Head Two", 5);
+    features.addPlayer("Bob", "Beach Head Two", 5);
+    features.addPlayer("Charlie", "Beach Head Two", 5);
 
     // Set the turn information for the first player
     this.turnInfo.setText(features.getTurnInformation());
@@ -316,10 +320,6 @@ public class MainForm extends JFrame implements ImainForm {
     this.addCpu.setEnabled(enabled);
   }
 
-  //TODO: remove this in actual code
-  private String testTextHelper(String hint) {
-    return String.valueOf(String.format("Lorem ipsum %s \n dolor sit amet\n", hint)).repeat(20);
-  }
 
   private File chooseFile() {
     File selected;
@@ -373,5 +373,10 @@ public class MainForm extends JFrame implements ImainForm {
   public void logGameplay(String msg) {
     Objects.requireNonNull(msg);
     this.logInfo.append(msg);
+  }
+
+  @Override
+  public void fetchGraphics(BufferedImage img) {
+    this.imageLabel.setIcon(new ImageIcon(img));
   }
 }

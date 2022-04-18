@@ -46,6 +46,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
     Utility.checkNull(playerName, playerLocation);
     command = new AddComputerPlayer(playerName, playerLocation, itemLimit);
     view.logGameplay(command.execute(model));
+    updateGraphics();
   }
 
   @Override
@@ -53,6 +54,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
     Utility.checkNull(playerName, playerLocation);
     command = new AddPlayer(playerName, playerLocation, itemLimit);
     view.logGameplay(command.execute(model));
+    updateGraphics();
   }
 
   @Override
@@ -136,6 +138,11 @@ public class GraphicalController implements UiController, ControllerFeatures {
   public void resetModel() {
     this.view.setPreGameMenuVisibility(false);
     this.view.setFeatures(this);
+  }
+
+  @Override
+  public void updateGraphics() {
+    this.view.fetchGraphics(model.worldImage());
   }
 
   @Override
