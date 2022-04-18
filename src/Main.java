@@ -26,8 +26,12 @@ public class Main {
       try {
         file = new BufferedReader(new FileReader(args[0]));
         game = new WorldImpl(file);
-        new GameController(new InputStreamReader(System.in), System.out).start(game);
 
+        if(game == null) {
+          System.out.println("There was an issue processing the world building file!");
+        } else {
+          new GameController(new InputStreamReader(System.in), System.out).start(game);
+        }
       } catch (FileNotFoundException ex) {
         System.out.println("Unable to locate or open the file.");
       }

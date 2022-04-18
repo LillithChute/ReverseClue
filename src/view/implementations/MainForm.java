@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -29,7 +31,9 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
 
 import controller.ControllerFeatures;
+import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.iteminterfaces.ItemViewModel;
+import gamemodels.itemmodels.ItemImpl;
 import view.interfaces.ImainForm;
 
 public class MainForm extends JFrame implements ImainForm {
@@ -56,10 +60,10 @@ public class MainForm extends JFrame implements ImainForm {
   private JTextArea logInfo;
   private JScrollPane logInfoPane;
 
-  private JList<ItemViewModel> itemOnGroundBox;
+  private JList<Item> itemOnGroundBox;
   private JScrollPane itemOnGroundPane;
 
-  private JList<ItemViewModel> backpack;
+  private JList<Item> backpack;
   private JScrollPane backpackPane;
 
   private JButton pickUpButton;
@@ -157,6 +161,7 @@ public class MainForm extends JFrame implements ImainForm {
     this.mainLayout.addLayoutComponent(logInfoPane, locationInfoConstraints);
     this.add(logInfoPane);
 
+
     turnInfo = new JLabel("Turn information will be here:");
     GridBagConstraints turnInfoConstraints = new GridBagConstraints();
     turnInfoConstraints.gridx = 1;
@@ -172,12 +177,9 @@ public class MainForm extends JFrame implements ImainForm {
     itemOnGroundBox = new JList<>();
     itemOnGroundPane = new JScrollPane(itemOnGroundBox);
     //TODO: remove testing code
-    List<ItemViewModel> groundItems = new ArrayList<>();
-    for(int i = 0; i < 20;i++)
-    {
-      groundItems.add(new TestingItem());
-    }
-    itemOnGroundBox.setListData(groundItems.toArray(new ItemViewModel[0]));
+    List<Item> groundItems = new ArrayList<>();
+    groundItems.add(new ItemImpl("Test Item", 1, 0));
+    itemOnGroundBox.setListData(groundItems.toArray(new Item[0]));
     GridBagConstraints itemOnGroundConstraints = new GridBagConstraints();
     itemOnGroundConstraints.gridx = 0;
     itemOnGroundConstraints.gridy = 3;
@@ -190,7 +192,7 @@ public class MainForm extends JFrame implements ImainForm {
     this.add(itemOnGroundPane);
 
     backpack = new JList<>();
-    backpack.setListData(groundItems.toArray(new ItemViewModel[0]));
+    backpack.setListData(groundItems.toArray(new Item[0]));
     backpackPane = new JScrollPane(backpack);
     GridBagConstraints backpackConstraints = new GridBagConstraints();
     backpackConstraints.gridx = 5;
@@ -222,6 +224,7 @@ public class MainForm extends JFrame implements ImainForm {
     lookaroundConstraints.gridheight = 1;
     lookaroundConstraints.weightx = 0.2;
     lookaroundConstraints.weighty = 1;
+    lookaroundButton.setMnemonic('L');
     this.mainLayout.addLayoutComponent(lookaroundButton, lookaroundConstraints);
     this.add(lookaroundButton);
 
@@ -244,6 +247,15 @@ public class MainForm extends JFrame implements ImainForm {
       }
     });
 
+    //Look around button click
+    lookaroundButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        String description = features.lookaround();
+        logInfo.setText(description);
+      }
+    });
+
     pack();
     setVisible(true);
   }
@@ -254,6 +266,16 @@ public class MainForm extends JFrame implements ImainForm {
     //TODO: move this to an appropriate location
     this.imageLabel.setIcon(new ImageIcon(features.obtainImage()));
     this.imageLabel.setText(null);
+
+    //TODO: Adding a test player
+    features.addPlayer("Test Player", "Jotunheim", 3);
+
+    // Set the turn information for the first player
+    this.turnInfo.setText(features.getTurnInformation());
+
+    // Get the items in the space for the player whose turn it is.
+    itemOnGroundBox.setListData(features.getItemsOnTheGround().toArray(new Item[0]));
+
   }
 
   @Override

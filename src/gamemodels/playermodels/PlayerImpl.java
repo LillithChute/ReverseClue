@@ -161,7 +161,15 @@ public class PlayerImpl implements Player, PlayerViewModel {
 
   @Override
   public List<Item> getPlayerItems() {
-    return playerItems;
+    //Deep copy.
+    List<Item> copyOfItems = new ArrayList<>();
+
+    for (Item currentItem :
+            playerItems) {
+      copyOfItems.add(currentItem);
+    }
+
+    return copyOfItems;
   }
 
   @Override
@@ -500,23 +508,18 @@ public class PlayerImpl implements Player, PlayerViewModel {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    PlayerImpl that = (PlayerImpl) o;
-    return space.getIndexOfTheSpace() == that.space.getIndexOfTheSpace()
-            && itemLimit == that.itemLimit
-            && playerName.equals(that.playerName)
-            && Objects.equals(playerItems, that.playerItems);
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PlayerImpl player = (PlayerImpl) o;
+    return itemLimit == player.itemLimit
+            && isHuman == player.isHuman
+            && playerName.equals(player.playerName)
+            && playerItems.equals(player.playerItems)
+            && space.equals(player.space);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(playerName, playerItems, space.getIndexOfTheSpace(), itemLimit);
+    return Objects.hash(playerName, playerItems, space, itemLimit, isHuman);
   }
 }

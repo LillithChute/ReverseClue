@@ -6,8 +6,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Objects;
+import java.util.List;
 import java.util.Optional;
 
+import gamecommands.AddPlayer;
+import gamecommands.LookAround;
+import gamecommands.TurnInformation;
+import gameinterfaces.iteminterfaces.Item;
+import gameinterfaces.iteminterfaces.ItemViewModel;
+import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
@@ -39,7 +46,8 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void addPlayer(String playerName, String playerLocation, int itemLimit) {
-
+    command = new AddPlayer(playerName, playerLocation, itemLimit);
+    command.execute(model);
   }
 
   @Override
@@ -58,8 +66,17 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public void lookaround() {
+  public String lookaround() {
+    command = new LookAround();
 
+    return command.execute(model);
+  }
+
+  @Override
+  public String getTurnInformation() {
+    command = new TurnInformation();
+
+    return command.execute(model);
   }
 
   @Override
@@ -83,6 +100,13 @@ public class GraphicalController implements UiController, ControllerFeatures {
     //TODO: This is testing only, replace in actual submission.
     String name = result.map(SpaceViewModel::getTheNameOfThisSpace).orElse("EMPTY");
     System.out.println(name);
+  }
+
+  @Override
+  public List<Item> getItemsOnTheGround() {
+    SpaceViewModel currentPlayersLocation = model.getSpaces().get(model.getCurrentPlayer().getLocation());
+
+    return currentPlayersLocation.getItems();
   }
 
   @Override

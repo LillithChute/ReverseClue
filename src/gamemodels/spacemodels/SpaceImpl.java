@@ -151,7 +151,15 @@ public class SpaceImpl implements Space, SpaceViewModel {
 
   @Override
   public List<Player> getPlayersInThisSpace() {
-    return players;
+    // Deep copy the data
+    List<Player> copyOfPlayerList = new ArrayList<>();
+
+    for (Player currentPlayer :
+            players) {
+      copyOfPlayerList.add(currentPlayer);
+    }
+
+    return copyOfPlayerList;
   }
 
   @Override
@@ -172,7 +180,15 @@ public class SpaceImpl implements Space, SpaceViewModel {
 
   @Override
   public List<Item> getItems() {
-    return itemsInThisSpace;
+    // Deep copy the data
+    List<Item> copyOfItemsList = new ArrayList<>();
+
+    for (Item currentItem :
+            itemsInThisSpace) {
+      copyOfItemsList.add(currentItem);
+    }
+
+    return copyOfItemsList;
   }
 
   @Override
@@ -182,7 +198,15 @@ public class SpaceImpl implements Space, SpaceViewModel {
 
   @Override
   public List<Space> getNeighbors() {
-    return this.neighbors;
+    // Deep copy the data
+    List<Space> copyOfNeighborsList = new ArrayList<>();
+
+    for (Space currentNeighbor :
+            neighbors) {
+      copyOfNeighborsList.add(currentNeighbor);
+    }
+
+    return copyOfNeighborsList;
   }
 
   @Override
@@ -243,30 +267,5 @@ public class SpaceImpl implements Space, SpaceViewModel {
             .append(lowerRightyCoordinate);
 
     return buildString.toString();
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    SpaceImpl space = (SpaceImpl) o;
-    return indexOfThisSpace == space.indexOfThisSpace
-            && upperLeftxCoordinate == space.upperLeftxCoordinate
-            && upperLeftyCoordinate == space.upperLeftyCoordinate
-            && lowerRightxCoordinate == space.lowerRightxCoordinate
-            && lowerRightyCoordinate == space.lowerRightyCoordinate
-            && Objects.equals(nameOfThisSpace, space.nameOfThisSpace);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(indexOfThisSpace, nameOfThisSpace, upperLeftxCoordinate,
-            upperLeftyCoordinate, lowerRightxCoordinate, lowerRightyCoordinate);
   }
 }

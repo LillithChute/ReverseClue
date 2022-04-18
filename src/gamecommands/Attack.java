@@ -24,6 +24,11 @@ public class Attack implements GameCommand {
 
   @Override
   public String execute(World game) {
+    // Validation
+    if (game == null) {
+      throw new IllegalArgumentException("There is an issue with the game world!\n");
+    }
+
     String result = game.getCurrentPlayer().attack(itemName);
     game.moveTarget();
     game.nextTurn();

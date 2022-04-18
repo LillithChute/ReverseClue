@@ -4,9 +4,10 @@ import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
 
 /**
- * Provides the sequence of commands needed to describe the current player.
+ * This command figures out whose turn it is and provides some basic details about where they are
+ * and general game info that they should know.
  */
-public class DescribePlayer implements GameCommand {
+public class TurnInformation implements GameCommand {
   @Override
   public String execute(World game) {
     // Validation
@@ -14,10 +15,6 @@ public class DescribePlayer implements GameCommand {
       throw new IllegalArgumentException("There is an issue with the game world!\n");
     }
 
-    String result = game.getCurrentPlayer().describePlayer();
-    game.moveTarget();
-    game.nextTurn();
-
-    return result;
+    return game.getCurrentPlayerTurnInfo();
   }
 }
