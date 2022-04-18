@@ -12,10 +12,9 @@ import java.util.Optional;
 import gamecommands.AddComputerPlayer;
 import gamecommands.AddPlayer;
 import gamecommands.LookAround;
+import gamecommands.Move;
 import gamecommands.TurnInformation;
 import gameinterfaces.iteminterfaces.Item;
-import gameinterfaces.iteminterfaces.ItemViewModel;
-import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
@@ -46,7 +45,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
     Utility.checkNull(playerName, playerLocation);
     command = new AddComputerPlayer(playerName, playerLocation, itemLimit);
     view.logGameplay(command.execute(model));
-    updateGraphics();
+    updateViewInfo();
   }
 
   @Override
@@ -54,7 +53,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
     Utility.checkNull(playerName, playerLocation);
     command = new AddPlayer(playerName, playerLocation, itemLimit);
     view.logGameplay(command.execute(model));
-    updateGraphics();
+    updateViewInfo();
   }
 
   @Override
@@ -88,7 +87,13 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void move(String nameOfSpace) {
-
+    command = new Move(nameOfSpace);
+    try {
+      this.view.logGameplay(command.execute(model));
+    } catch (IllegalStateException ex) {
+      this.view.promptError(ex.getMessage());
+    }
+    this.updateViewInfo();
   }
 
   @Override
@@ -102,11 +107,9 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public void hitDetection(double x, double y) {
+  public SpaceViewModel hitDetection(double x, double y) {
     Optional<SpaceViewModel> result = Optional.ofNullable(model.hitDetection(x, y));
-    //TODO: This is testing only, replace in actual submission.
-    String name = result.map(SpaceViewModel::getTheNameOfThisSpace).orElse("EMPTY");
-    System.out.println(name);
+    return result.orElse(null);
   }
 
   @Override
@@ -141,8 +144,9 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public void updateGraphics() {
-    this.view.fetchGraphics(model.worldImage());
+  public void updateViewInfo() {
+    this.view.setGraphics(model.worldImage());
+    this.view.setTurnInfo(model.getCurrentPlayerTurnInfo());
   }
 
   @Override

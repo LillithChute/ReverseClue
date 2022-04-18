@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
 import gameinterfaces.iteminterfaces.Item;
-import gameinterfaces.iteminterfaces.ItemViewModel;
+import gameinterfaces.spaceinterfaces.SpaceViewModel;
 
 
 public interface ControllerFeatures {
@@ -21,9 +21,9 @@ public interface ControllerFeatures {
   public void move(String nameOfSpace);
   public void movePet(String nameOfSpace);
   public void pickup(String itemName);
-  public void hitDetection(double x, double y);
+  public SpaceViewModel hitDetection(double x, double y);
   public void setModel(File file);
   public List<Item> getItemsOnTheGround();
   public void advanceTurn();
-  public void updateGraphics();
+  public void updateViewInfo();
 }

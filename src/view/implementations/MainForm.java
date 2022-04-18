@@ -28,6 +28,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -36,7 +37,12 @@ import javax.swing.filechooser.FileFilter;
 import controller.ControllerFeatures;
 import dtos.PlayerCreation;
 import gameinterfaces.iteminterfaces.Item;
+import gameinterfaces.playerinterfaces.Player;
+import gameinterfaces.playerinterfaces.PlayerViewModel;
+import gameinterfaces.spaceinterfaces.SpaceViewModel;
+import gameinterfaces.targetinterfaces.TargetViewModel;
 import gamemodels.itemmodels.ItemImpl;
+import gamemodels.playermodels.PlayerImpl;
 import view.interfaces.ImainForm;
 
 public class MainForm extends JFrame implements ImainForm {
@@ -270,8 +276,17 @@ public class MainForm extends JFrame implements ImainForm {
     //Image Label- Hit detection
     imageLabel.addMouseListener(new MouseAdapter() {
       @Override
-      public void mouseClicked(MouseEvent e) {
-        features.hitDetection(e.getX(), e.getY());
+      public void mousePressed(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+          processPopup(e);
+        }
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+          processPopup(e);
+        }
       }
     });
 
@@ -297,9 +312,9 @@ public class MainForm extends JFrame implements ImainForm {
 
     //TODO: Adding a test player
     features.addPlayer("Test Player", "Jotunheim", 3);
-    features.addPlayer("Alice", "Beach Head Two", 5);
-    features.addPlayer("Bob", "Beach Head Two", 5);
-    features.addPlayer("Charlie", "Beach Head Two", 5);
+    features.addPlayer("Alice", "Beach Head One", 5);
+    features.addPlayer("Bob", "Beach Head One", 5);
+    features.addPlayer("Charlie", "Beach Head One", 5);
 
     // Set the turn information for the first player
     this.turnInfo.setText(features.getTurnInformation());
@@ -373,10 +388,63 @@ public class MainForm extends JFrame implements ImainForm {
   public void logGameplay(String msg) {
     Objects.requireNonNull(msg);
     this.logInfo.append(msg);
+    this.logInfo.append("\n");
   }
 
   @Override
-  public void fetchGraphics(BufferedImage img) {
+  public void setGraphics(BufferedImage img) {
     this.imageLabel.setIcon(new ImageIcon(img));
+  }
+
+  @Override
+  public void setTurnInfo(String msg) {
+    this.turnInfo.setText(features.getTurnInformation());
+  }
+
+  private void processPopup(MouseEvent e) {
+    JPopupMenu popup = new JPopupMenu();
+    SpaceViewModel hit = features.hitDetection(e.getX(), e.getY());
+    if (hit == null) {
+      return;
+    }
+    JMenuItem move = new JMenuItem("Move player here..");
+    move.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        features.move(hit.getTheNameOfThisSpace());
+      }
+    });
+    popup.add(move);
+
+    for (PlayerViewModel p : hit.getPlayersInThisSpace()) {
+      JMenuItem playerinfo = new JMenuItem(String.format("%s Info", p.getPlayerName()));
+      playerinfo.addActionListener(new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          logGameplay(p.describePlayer());
+        }
+      });
+      popup.add(playerinfo);
+    }
+    if (hit.isTargetInThisSpace()) {
+      TargetViewModel target = hit.getTargetFromThisSpace();
+      JMenuItem targetinfo = new JMenuItem("Target Character Info");
+      targetinfo.addActionListener(new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          logGameplay(String.format("Target %s, Health %d", target.getTargetName(),
+                  target.getCurrentHealth()));
+        }
+      });
+      popup.add(targetinfo);
+    }
+
+    popup.show(this, imagePane.getMousePosition().x + imagePane.getX(),
+            imagePane.getMousePosition().y + imagePane.getY());
+  }
+
+  @Override
+  public void promptError(String msg) {
+    JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
   }
 }

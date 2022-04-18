@@ -122,22 +122,22 @@ public class WorldImpl implements World {
         Player p = currentSpace.getPlayersInThisSpace().get(i);
         g2d.draw(new Rectangle2D.Double(
                 ((x - 1) * scale + 0.1f * scale),
-                ((y - 1 + 0.2f) * (i + 1) * scale),
+                (((y - 1 + 0.2f) + i) * scale),
                 ((rectWidth + 0.8f) * scale),
                 0.8f * scale ));
         g2d.drawString(p.getPlayerName(),
                 v,
-                ((y - 1 + 0.2f) * (i + 1) * scale + 0.5f * scale));
+                (((y - 1 + 0.8f) + i) * scale));
       }
       if (currentSpace.isTargetInThisSpace()) {
         g2d.draw(new Rectangle2D.Double(
                 ((x - 1) * scale + 0.1f * scale),
-                ((y - 1 + 0.2f) * (i + 1) * scale),
+                (((y - 1 + 0.2f) + i) * scale),
                 ((rectWidth + 0.8f) * scale),
                 0.8f * scale ));
         g2d.drawString(target.getTargetName(),
                 v,
-                ((y - 1 + 0.2f) * (i + 1) * scale + 0.5f * scale));
+                (((y - 1 + 0.8f) + i) * scale));
       }
     }
     //g2d.draw(new Rectangle2D.Double(x, y, rectWidth, rectHeight));

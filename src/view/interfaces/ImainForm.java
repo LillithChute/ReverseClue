@@ -9,5 +9,7 @@ public interface ImainForm {
   public void welcome();
   public void setPreGameMenuVisibility(boolean enabled);
   public void logGameplay(String msg);
-  public void fetchGraphics(BufferedImage img);
+  public void setGraphics(BufferedImage img);
+  public void setTurnInfo(String msg);
+  public void promptError(String msg);
 }
