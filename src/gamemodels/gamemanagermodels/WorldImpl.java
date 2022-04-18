@@ -116,7 +116,9 @@ public class WorldImpl implements World {
       g2d.drawString(currentSpace.getTheNameOfThisSpace(), (x - 1 + 0.1f) * scale,
               (y - 0.1f + rectHeight) * scale);
       //draw players
-      for (int i = 0; i < currentSpace.getPlayersInThisSpace().size(); i++) {
+      int i = 0;
+      float v = (x - 1) * scale + 0.2f * scale;
+      for (; i < currentSpace.getPlayersInThisSpace().size(); i++) {
         Player p = currentSpace.getPlayersInThisSpace().get(i);
         g2d.draw(new Rectangle2D.Double(
                 ((x - 1) * scale + 0.1f * scale),
@@ -124,7 +126,17 @@ public class WorldImpl implements World {
                 ((rectWidth + 0.8f) * scale),
                 0.8f * scale ));
         g2d.drawString(p.getPlayerName(),
-                ((x - 1) * scale + 0.1f * scale + rectWidth * scale / 2.0f),
+                v,
+                ((y - 1 + 0.2f) * (i + 1) * scale + 0.5f * scale));
+      }
+      if (currentSpace.isTargetInThisSpace()) {
+        g2d.draw(new Rectangle2D.Double(
+                ((x - 1) * scale + 0.1f * scale),
+                ((y - 1 + 0.2f) * (i + 1) * scale),
+                ((rectWidth + 0.8f) * scale),
+                0.8f * scale ));
+        g2d.drawString(target.getTargetName(),
+                v,
                 ((y - 1 + 0.2f) * (i + 1) * scale + 0.5f * scale));
       }
     }
