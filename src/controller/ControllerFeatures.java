@@ -1,10 +1,12 @@
 package controller;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
+import java.io.File;
+import java.util.List;
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.iteminterfaces.ItemViewModel;
+
 
 public interface ControllerFeatures {
   public BufferedImage obtainImage();
@@ -20,5 +22,6 @@ public interface ControllerFeatures {
   public void movePet(String nameOfSpace);
   public void pickup(String itemName);
   public void hitDetection(double x, double y);
+  public void setModel(File file);
   public List<Item> getItemsOnTheGround();
 }
