@@ -109,11 +109,24 @@ public class WorldImpl implements World {
               .getLowerRightyCoordinate() - currentSpace.getUpperLeftyCoordinate();
       int x = currentSpace.getUpperLeftxCoordinate();
       int y = currentSpace.getUpperLeftyCoordinate();
-
+      //draw the room itself
       g2d.draw(new Rectangle2D.Double((x - 1) * scale, (y - 1) * scale,
               (rectWidth + 1) * scale, (rectHeight + 1) * scale));
+      //draw the name of the room
       g2d.drawString(currentSpace.getTheNameOfThisSpace(), x * scale,
               (y - 0.1f + rectHeight) * scale);
+      //draw players
+      for (int i = 0; i < currentSpace.getPlayersInThisSpace().size(); i++) {
+        Player p = currentSpace.getPlayersInThisSpace().get(i);
+        g2d.draw(new Rectangle2D.Double(
+                ((x - 1) * scale + 0.1f * scale),
+                (y - 1 + 0.1f * (i + 1) * scale),
+                ((rectWidth + 0.8f) * scale),
+                0.1f * scale ));
+        g2d.drawString(p.getPlayerName(),
+                ((x - 1) * scale + 0.11f * scale),
+                ((y - 1 + 0.09f * (i + 1) * scale)));
+      }
     }
     //g2d.draw(new Rectangle2D.Double(x, y, rectWidth, rectHeight));
 
