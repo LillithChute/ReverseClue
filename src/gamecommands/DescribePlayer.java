@@ -15,8 +15,6 @@ public class DescribePlayer implements GameCommand {
     }
 
     String result = game.getCurrentPlayer().describePlayer();
-    game.moveTarget();
-    game.nextTurn();
 
     return result;
   }

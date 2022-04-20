@@ -417,6 +417,9 @@ public class MainForm extends JFrame implements ImainForm {
     popup.add(move);
 
     for (PlayerViewModel p : hit.getPlayersInThisSpace()) {
+      if (p != features.getCurrentPlayer()) {
+        continue;
+      }
       JMenuItem playerinfo = new JMenuItem(String.format("%s Info", p.getPlayerName()));
       playerinfo.addActionListener(new AbstractAction() {
         @Override

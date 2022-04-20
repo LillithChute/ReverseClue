@@ -15,6 +15,7 @@ import gamecommands.LookAround;
 import gamecommands.Move;
 import gamecommands.TurnInformation;
 import gameinterfaces.iteminterfaces.Item;
+import gameinterfaces.playerinterfaces.PlayerViewModel;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
@@ -74,8 +75,9 @@ public class GraphicalController implements UiController, ControllerFeatures {
   @Override
   public String lookaround() {
     command = new LookAround();
-
-    return command.execute(model);
+    String res = command.execute(model);
+    this.advanceTurn();
+    return res;
   }
 
   @Override
@@ -90,6 +92,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
     command = new Move(nameOfSpace);
     try {
       this.view.logGameplay(command.execute(model));
+      this.advanceTurn();
     } catch (IllegalStateException ex) {
       this.view.promptError(ex.getMessage());
     }
@@ -151,6 +154,12 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void advanceTurn() {
+    this.model.moveTarget();
+    this.model.nextTurn();
+  }
 
+  @Override
+  public PlayerViewModel getCurrentPlayer() {
+    return model.getCurrentPlayer();
   }
 }

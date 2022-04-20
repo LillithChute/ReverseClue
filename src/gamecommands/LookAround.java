@@ -15,8 +15,6 @@ public class LookAround implements GameCommand {
     }
 
     String result = game.getCurrentPlayer().lookAround();
-    game.moveTarget();
-    game.nextTurn();
 
     return result;
   }

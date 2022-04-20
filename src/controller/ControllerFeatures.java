@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
 import gameinterfaces.iteminterfaces.Item;
+import gameinterfaces.playerinterfaces.PlayerViewModel;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
 
 
@@ -26,4 +27,5 @@ public interface ControllerFeatures {
   public List<Item> getItemsOnTheGround();
   public void advanceTurn();
   public void updateViewInfo();
+  public PlayerViewModel getCurrentPlayer();
 }
