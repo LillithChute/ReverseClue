@@ -62,11 +62,9 @@ public class InstanceBuilder {
    * @param playerName - Name of the player.
    * @param playerLocation - The player's location.
    * @param itemLimit - List of items the player is carrying.
-   * @param isHuman - True if the player is human, false otherwise.
    * @return An instance of a {@link Player}.
    */
-  public Player playerBuilder(String playerName, Space playerLocation, int itemLimit,
-                              boolean isHuman) {
-    return new PlayerImpl(playerName, playerLocation, itemLimit, isHuman);
+  public Player playerBuilder(String playerName, Space playerLocation, int itemLimit) {
+    return new PlayerImpl(playerName, playerLocation, itemLimit);
   }
 }

@@ -48,7 +48,7 @@ public class AddPlayer implements GameCommand {
 
     Space location = game.getTheSpaceByName(playerLocation);
 
-    game.addPlayer(playerName, location, itemLimit, true);
+    game.addPlayer(playerName, location, itemLimit);
 
     StringBuilder result = new StringBuilder();
     result.append("Added player: ")

@@ -66,9 +66,17 @@ public interface World {
    * @param playerName - The name of the player.
    * @param playerLocation - The starting space of the player.
    * @param itemLimit - The maximum number of items the player can carry.
-   * @param isHuman - True if a human player false otherwise.
    */
-  void addPlayer(String playerName, Space playerLocation, int itemLimit, boolean isHuman);
+  void addPlayer(String playerName, Space playerLocation, int itemLimit);
+
+  /**
+   * This method adds a {@link Player} to the game.
+   *
+   * @param playerName - The name of the player.
+   * @param playerLocation - The starting space of the player.
+   * @param itemLimit - The maximum number of items the player can carry.
+   */
+  void addComputerPlayer(String playerName, Space playerLocation, int itemLimit);
 
   /**
    * This will set the maximum turns to be played in the game.
@@ -106,13 +114,6 @@ public interface World {
    * @return The player whose turn it is.
    */
   Player getCurrentPlayer();
-
-  /**
-   * Figure out what the computer player is going to do on its turn.
-   *
-   * @return The computer's move.
-   */
-  String getComputerChoice();
 
   /**
    * Gets the number of turns that have been taken so far.

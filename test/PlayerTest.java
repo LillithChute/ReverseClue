@@ -8,6 +8,8 @@ import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gamemodels.gamemanagermodels.WorldImpl;
+import gamemodels.playermodels.ComputerPlayerImpl;
+import gamemodels.playermodels.PlayerImpl;
 import instancecreationhelpers.InstanceBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,50 +75,50 @@ public class PlayerTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidConstructorNullPlayerName() {
-    getInstance.playerBuilder(null, beachHeadTwo, 4, true);
+    getInstance.playerBuilder(null, beachHeadTwo, 4);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidConstructorBlankPlayerName() {
-    getInstance.playerBuilder("  ", beachHeadTwo, 4, true);
+    getInstance.playerBuilder("  ", beachHeadTwo, 4);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidConstructorEmptyPlayerName() {
-    getInstance.playerBuilder("", beachHeadTwo, 4, true);
+    getInstance.playerBuilder("", beachHeadTwo, 4);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidConstructorPlayerLocationNull() {
-    getInstance.playerBuilder("Harley Quinn", null, 4, true);
+    getInstance.playerBuilder("Harley Quinn", null, 4);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidConstructorPlayerItemLimitNegative() {
-    getInstance.playerBuilder("Harley Quinn", beachHeadTwo, -4, true);
+    getInstance.playerBuilder("Harley Quinn", beachHeadTwo, -4);
   }
 
   @Test
   public void testValidConstructor() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals("Harley Quinn;1;4", newPlayer.toString());
   }
 
   @Test
   public void testToStringRightAfterConstructor() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals("Harley Quinn;1;4", newPlayer.toString());
   }
 
   @Test
   public void testGetPlayerName() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals("Harley Quinn", newPlayer.getPlayerName());
   }
 
   @Test
   public void testTakeItem() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals("Harley Quinn;1;4", newPlayer.toString());
 
     // Add an item
@@ -126,7 +128,7 @@ public class PlayerTest {
 
   @Test
   public void testTakeMultipleItems() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals("Harley Quinn;1;4", newPlayer.toString());
 
     // Add items
@@ -137,7 +139,7 @@ public class PlayerTest {
 
   @Test
   public void testGetPlayerItems() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals("Harley Quinn;1;4", newPlayer.toString());
 
     // Add items
@@ -150,7 +152,7 @@ public class PlayerTest {
 
   @Test(expected = IllegalStateException.class)
   public void testExceedMaxNumberOfPlayerItems() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 2, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 2);
 
     // Add items
     newPlayer.takeItem("Gun");
@@ -160,19 +162,19 @@ public class PlayerTest {
 
   @Test
   public void testGetLocation() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals(1, newPlayer.getLocation());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidMoveNull() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     newPlayer.move(null);
   }
 
   @Test
   public void testMove() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals(1, newPlayer.getLocation());
     newPlayer.move("Jotunheim");
     assertEquals(8, newPlayer.getLocation());
@@ -180,33 +182,33 @@ public class PlayerTest {
 
   @Test(expected = IllegalStateException.class)
   public void testMoveNotNeighbor() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals(1, newPlayer.getLocation());
     newPlayer.move("Insurgent Camp");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testMoveEmptyString() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals(1, newPlayer.getLocation());
     newPlayer.move("");
   }
 
   @Test
   public void testIsHuman() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, true);
-    assertTrue(newPlayer.isHuman());
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
+    assertTrue(newPlayer instanceof PlayerImpl);
   }
 
   @Test
   public void testIsComputer() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, false);
-    assertFalse(newPlayer.isHuman());
+    Player newPlayer = new ComputerPlayerImpl("Harley Quinn", beachHeadTwo, 4);
+    assertTrue(newPlayer instanceof ComputerPlayerImpl);
   }
 
   @Test
   public void testDescribePlayerNoItems() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, false);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     newPlayer.move("Forest");
     assertEquals("Player Description:\n"
             + "\tName: Harley Quinn\n"
@@ -217,7 +219,7 @@ public class PlayerTest {
 
   @Test
   public void testDescribePlayerWithItems() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, false);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     newPlayer.move("Forest");
     newPlayer.takeItem("Javelin");
 
@@ -231,29 +233,29 @@ public class PlayerTest {
 
   @Test
   public void testCanPlayerBeSeenWhenItIsOnlyThemInSpaceNoNeighbors() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, false);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     assertEquals(false, newPlayer.canPlayerBeSeen());
   }
 
   @Test
   public void testCanPlayerBeSeenWhenAnotherPlayerInTheSpace() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, false);
-    Player secondPlayer = getInstance.playerBuilder("Rat Catcher", beachHeadTwo, 4, false);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
+    Player secondPlayer = getInstance.playerBuilder("Rat Catcher", beachHeadTwo, 4);
     assertEquals(true, newPlayer.canPlayerBeSeen());
   }
 
   @Test
   public void testCanPlayerBeSeenWhenPlayersAreInNeighbors() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, false);
-    Player secondPlayer = getInstance.playerBuilder("Rat Catcher", forest, 4, true);
-    Player thirdPlayer = getInstance.playerBuilder("Peacemaker", jotunheim, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
+    Player secondPlayer = getInstance.playerBuilder("Rat Catcher", forest, 4);
+    Player thirdPlayer = getInstance.playerBuilder("Peacemaker", jotunheim, 4);
     assertEquals(true, newPlayer.canPlayerBeSeen());
   }
 
   @Test
   public void testPlayerCanBeSeenThenMovesAndCannotBeSeen() {
-    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4, false);
-    Player secondPlayer = getInstance.playerBuilder("Rat Catcher", forest, 4, true);
+    Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
+    Player secondPlayer = getInstance.playerBuilder("Rat Catcher", forest, 4);
     assertEquals(true, newPlayer.canPlayerBeSeen());
     newPlayer.move("Beach Head One");
     assertEquals(false, newPlayer.canPlayerBeSeen());
@@ -263,7 +265,7 @@ public class PlayerTest {
   public void testMovePet() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach Head Two"),
-            3, true);
+            3);
     Player newPlayer = game.getCurrentPlayer();
 
     // Pet will be in space 0
@@ -282,7 +284,7 @@ public class PlayerTest {
   public void testMovePetNoNonExistingSpace() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach Head Two"),
-            3, true);
+            3);
     Player newPlayer = game.getCurrentPlayer();
 
     // Pet will be in space 0
@@ -296,7 +298,7 @@ public class PlayerTest {
   public void testLookAroundWithPetInNeighboringSpaceThenMovePet() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach Head Two"),
-            3, true);
+            3);
     Player newPlayer = game.getCurrentPlayer();
 
     // Beach head two has a neighbor, beach head one.  We should not see anything for beach head
@@ -360,7 +362,7 @@ public class PlayerTest {
   public void testLookAroundWithPetInPlayersSpace() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Forest"),
-            3, true);
+            3);
     Player newPlayer = game.getCurrentPlayer();
 
     // Move the pet to the Forest
@@ -413,7 +415,7 @@ public class PlayerTest {
   public void testLookAroundWithPetInPlayersSpaceThenMoveFromSpace() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Forest"),
-            3, true);
+            3);
     Player newPlayer = game.getCurrentPlayer();
 
     // Move the pet to the Forest
@@ -490,9 +492,9 @@ public class PlayerTest {
   public void testAttackWithAnotherPlayerInTheRoom() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     game.addPlayer("Peacemaker", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("helicopter");
     harley.takeItem("boomerang");
@@ -554,9 +556,9 @@ public class PlayerTest {
   public void testAttackWithAnotherPlayerInNeighboringRoom() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     game.addPlayer("Peacemaker", game.getTheSpaceByName("Beach head two"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("helicopter");
     harley.takeItem("boomerang");
@@ -623,9 +625,9 @@ public class PlayerTest {
   public void testAttackWithAnotherPlayerInNeighboringRoomWithPet() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head Two"),
-            3, true);
+            3);
     game.addPlayer("Peacemaker", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("Pistol");
     harley.takeItem("Conch Shell");
@@ -672,9 +674,9 @@ public class PlayerTest {
   public void testAttackWithAnotherPlayerInNeighboringRoomWithPetTargetNotHere() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head Two"),
-            3, true);
+            3);
     game.addPlayer("Peacemaker", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("Pistol");
     harley.takeItem("Conch Shell");
@@ -711,7 +713,7 @@ public class PlayerTest {
   public void testAttackWithPokeInTheEye() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
 
     // Make sure Harley has items
@@ -772,9 +774,9 @@ public class PlayerTest {
   public void testAttackWithItemAndPetInRoomPlayersInNeighboringSpace() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     game.addPlayer("Peacemaker", game.getTheSpaceByName("Forest"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("helicopter");
     harley.takeItem("boomerang");
@@ -839,7 +841,7 @@ public class PlayerTest {
   public void testAttackWithItem() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("helicopter");
     harley.takeItem("boomerang");
@@ -904,7 +906,7 @@ public class PlayerTest {
   public void testAttackWithItemAndItemIsNotInInventoryNow() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("helicopter");
     harley.takeItem("boomerang");
@@ -969,7 +971,7 @@ public class PlayerTest {
   public void testAttackWithItemAndKillTarget() {
     World game = new WorldImpl(testData.getCortoMalteseDataWeakTarget());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("helicopter");
     harley.takeItem("boomerang");
@@ -1036,7 +1038,7 @@ public class PlayerTest {
   public void testAttackWithItemWeDoNotHave() {
     World game = new WorldImpl(testData.getCortoMalteseDataWeakTarget());
     game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
 
     // Make sure target is in her space.
@@ -1087,26 +1089,8 @@ public class PlayerTest {
   //endregion
   @Test
   public void testToString() {
-    Player newPlayer = getInstance.playerBuilder("The Joker", forest, 5, true);
+    Player newPlayer = getInstance.playerBuilder("The Joker", forest, 5);
     assertEquals("The Joker;3;5", newPlayer.toString());
-  }
-
-  @Test
-  public void testEquals() {
-    Player newPlayer = getInstance.playerBuilder("The Joker", forest, 5, true);
-    Player newPlayerSame = getInstance.playerBuilder("The Joker", forest, 5, true);
-    Player newPlayerDifferent = getInstance.playerBuilder("Harley Quinn", forest, 5, true);
-    assertEquals(newPlayer, newPlayerSame);
-    assertNotEquals(newPlayer, newPlayerDifferent);
-  }
-
-  @Test
-  public void testHashCode() {
-    Player newPlayer = getInstance.playerBuilder("The Joker", forest, 5, true);
-    Player newPlayerSame = getInstance.playerBuilder("The Joker", forest, 5, true);
-    Player newPlayerDifferent = getInstance.playerBuilder("Harley Quinn", forest, 5, true);
-    assertEquals(newPlayer.hashCode(), newPlayerSame.hashCode());
-    assertNotEquals(newPlayer.hashCode(), newPlayerDifferent.hashCode());
   }
 }
 

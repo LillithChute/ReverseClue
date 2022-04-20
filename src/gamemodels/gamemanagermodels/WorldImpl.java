@@ -8,6 +8,8 @@ import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.targetinterfaces.Target;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gamemodels.petmodels.PetImpl;
+import gamemodels.playermodels.ComputerPlayerImpl;
+import gamemodels.playermodels.PlayerImpl;
 import instancecreationhelpers.InstanceBuilder;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -238,9 +240,15 @@ public class WorldImpl implements World {
   }
 
   @Override
-  public void addPlayer(String playerName, Space playerLocation, int itemLimit, boolean isHuman) {
-    Player newPlayer = instanceBuilder.playerBuilder(playerName, playerLocation, itemLimit,
-            isHuman);
+  public void addPlayer(String playerName, Space playerLocation, int itemLimit) {
+    Player newPlayer = new PlayerImpl(playerName, playerLocation, itemLimit);
+    players.add(newPlayer);
+    totalPlayers = players.size();
+  }
+
+  @Override
+  public void addComputerPlayer(String playerName, Space playerLocation, int itemLimit) {
+    Player newPlayer = new ComputerPlayerImpl(playerName, playerLocation, itemLimit);
     players.add(newPlayer);
     totalPlayers = players.size();
   }
@@ -280,33 +288,31 @@ public class WorldImpl implements World {
     StringBuilder turnInformation = new StringBuilder();
 
     // Get player name
-//    turnInformation.append("******************************************************************\n");
-//    turnInformation.append("* It is ").append(getCurrentPlayer().getPlayerName()).append("'s turn"
-//            + ".\n");
-
+    turnInformation.append("******************************************************************\n");
     turnInformation.append("* It is ").append(getCurrentPlayer().getPlayerName()).append("'s turn"
-            + ".");
-//    turnInformation.append("* You have the following information available:\n*\n");
+            + ".\n");
+
+    turnInformation.append("* You have the following information available:\n*\n");
 
     // Get basic surrounding information
-//    turnInformation.append(spaces.get(
-//            getCurrentPlayer().getLocation()).getTheFullSpaceDescription()
-//    );
+    turnInformation.append(spaces.get(
+            getCurrentPlayer().getLocation()).getTheFullSpaceDescription()
+    );
 
     // Get the location of the Target
-//    turnInformation.append(getTargetNameAndLocation());
+    turnInformation.append(getTargetNameAndLocation());
 
     // If the pet is here
-//    turnInformation.append("\n* Pet:\n");
-//    if (spaces.get(getCurrentPlayer().getLocation()).hasPet()) {
-//      turnInformation.append("* ")
-//              .append(spaces.get(getCurrentPlayer().getLocation()).getPet().getName())
-//             .append(" is here.\n");
-//    } else {
-//      turnInformation.append("* The pet is not here.\n");
-//    }
-//
-//    turnInformation.append("******************************************************************\n");
+    turnInformation.append("\n* Pet:\n");
+    if (spaces.get(getCurrentPlayer().getLocation()).hasPet()) {
+      turnInformation.append("* ")
+              .append(spaces.get(getCurrentPlayer().getLocation()).getPet().getName())
+             .append(" is here.\n");
+    } else {
+      turnInformation.append("* The pet is not here.\n");
+    }
+
+    turnInformation.append("******************************************************************\n");
 
     return turnInformation.toString();
   }
@@ -340,174 +346,6 @@ public class WorldImpl implements World {
   @Override
   public boolean isGameOver() {
     return getTurnTotal() >= getMaxNumberOfTurns() || target.getCurrentHealth() <= 0;
-  }
-
-  @Override
-  public String getComputerChoice() {
-    Random random = new Random();
-
-    if (players.get(playerTurn).isHuman()) {
-      throw new IllegalStateException("Player is human and can't have the computer choose an "
-              + "action.");
-    }
-
-    // We know this is a computer player
-    Player computerPlayer = getCurrentPlayer();
-
-    // If the computer is in the same room as the target and can't be seen the computer WILL
-    // choose to attack.
-    if (getSpaces().get(computerPlayer.getLocation()).isTargetInThisSpace()
-            && !computerPlayer.canPlayerBeSeen()) {
-      // Computer will attack if it can't be seen
-      if (computerPlayer.getPlayerItems().size() == 0) {
-        // Computer has no items so it pokes target
-        String result = computerPlayer.attack("Poke in the Eye");
-
-        // Set turn to the next player
-        nextTurn();
-
-        // Move the target
-        moveTarget();
-
-        return result;
-      } else {
-        // We have at least one item
-        Item highestDamage = getHighestDamageItem(computerPlayer.getPlayerItems());
-
-        // We have the most damaging weapon.  Use it
-        String result =  computerPlayer.attack(highestDamage.getNameOfItem());
-
-        // Set turn to the next player
-        nextTurn();
-
-        // Move the target
-        moveTarget();
-
-        return result;
-      }
-    } else {
-      int randomChoice = random.nextInt(4);
-
-      return calculateComputerChoice(randomChoice);
-    }
-  }
-
-  private Item getHighestDamageItem(List<Item> playerItems) {
-    Item theMostDamage = null;
-
-    for (Item currentItem :
-            playerItems) {
-      if (theMostDamage == null) {
-        theMostDamage = currentItem;
-      } else if (currentItem.getItemDamage() > theMostDamage.getItemDamage()) {
-        theMostDamage = currentItem;
-      }
-    }
-
-    return theMostDamage;
-  }
-
-  private String calculateComputerChoice(int randomChoice) {
-    String playerName;
-    String result = null;
-    Random random = new Random();
-
-    switch (randomChoice) {
-      case 0:
-        // look around
-        result = getCurrentPlayer().lookAround();
-        nextTurn();
-        break;
-      case 1:
-        // describe player
-        result = getCurrentPlayer().describePlayer();
-        nextTurn();
-        break;
-      case 2:
-        // pick up an item
-        String itemName = getItemToPickUp();
-        playerName = getCurrentPlayer().getPlayerName();
-
-        if (itemName == null) {
-          result =  "There was nothing for " + playerName + " to pick up.";
-        } else {
-          getCurrentPlayer().takeItem(itemName);
-          result =  playerName + " picked up item: " + itemName;
-        }
-        nextTurn();
-        break;
-      case 3:
-        // move
-        String location = getNameOfSpaceToMoveTo();
-        playerName = getCurrentPlayer().getPlayerName();
-        getCurrentPlayer().move(location);
-        result = playerName + " Moved to location:  " + location;
-        nextTurn();
-        break;
-      case 4:
-        // move Pet
-        boolean successfulMove = false;
-        Space movingPetTo = null;
-
-        while (!successfulMove) {
-          // Get the total number of spaces
-          int randomPetRoom = random.nextInt(totalSpaces);
-
-          // Get the Space at the random index
-          movingPetTo = getSpaces().get(randomPetRoom);
-
-          // See if the pet is already there
-          if (!movingPetTo.hasPet()) {
-            successfulMove = true;
-          }
-        }
-
-        // We have a space to move to now
-        getCurrentPlayer().movePet(movingPetTo, spaces);
-        nextTurn();
-        break;
-      default:
-        break;
-    }
-
-    moveTarget();
-
-    return result;
-  }
-
-  private String getNameOfSpaceToMoveTo() {
-    // What space are we in?
-    int spaceIndex = players.get(playerTurn).getLocation();
-
-    // How many neighbors?
-    List<Space> neighbors = getNeighborsOfaSpace(spaceIndex);
-
-    if (neighbors.size() > 0) {
-      // Pick one at random
-      Random randomLocation = new Random();
-      return neighbors.get(randomLocation.nextInt(neighbors.size())).getTheNameOfThisSpace();
-    }
-
-    return null;
-  }
-
-  private String getItemToPickUp() {
-    // What space are we in?
-    int spaceIndex = players.get(playerTurn).getLocation();
-
-    // How many items?
-    int itemCount = spaces.get(spaceIndex).getItems().size();
-
-    if (itemCount > 0) {
-      // Items might be picked up so loop until we get one or there are none
-      for (int i = 0; i < itemCount; i++) {
-        if (!spaces.get(spaceIndex).getItems().get(i).isItemWithPlayer()) {
-          return spaces.get(spaceIndex).getItems().get(i).getNameOfItem();
-        }
-      }
-    }
-
-    return null;
   }
 
   @Override

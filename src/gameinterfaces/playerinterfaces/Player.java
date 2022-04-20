@@ -2,6 +2,7 @@ package gameinterfaces.playerinterfaces;
 
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.spaceinterfaces.Space;
+import gameinterfaces.worldbuilderinterfaces.World;
 
 import java.util.List;
 
@@ -54,13 +55,6 @@ public interface Player {
   void takeItem(String item);
 
   /**
-   * Need a way to be able to tell if a player is computer controlled or human.
-   *
-   * @return True if player is human, false otherwise.
-   */
-  boolean isHuman();
-
-  /**
    * This will return a description of the player.  That is, the space the player is in, the
    * items the player is carrying.
    *
@@ -102,4 +96,15 @@ public interface Player {
    * @return The results of the attack.
    */
   String attack(String itemName);
+
+  /**
+   * This abstract method is designed primarily for the computer player and will randomly select
+   * an action that the computer player will make.  It needs to know about the space in the world
+   * because the pet can be anywhere and be moved anywhere and the computer player needs to know
+   * where the pet is and where it could be moved.
+   *
+   * @param world The game world that is being used for the players
+   * @return The result of the action taken.
+   */
+  String TakeRandomAction(World world);
 }
