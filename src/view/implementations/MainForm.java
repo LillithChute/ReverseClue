@@ -9,12 +9,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.swing.AbstractAction;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,6 +30,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -35,7 +39,13 @@ import javax.swing.filechooser.FileFilter;
 import controller.ControllerFeatures;
 import dtos.PlayerCreation;
 import gameinterfaces.iteminterfaces.Item;
+import gameinterfaces.iteminterfaces.ItemViewModel;
+import gameinterfaces.playerinterfaces.Player;
+import gameinterfaces.playerinterfaces.PlayerViewModel;
+import gameinterfaces.spaceinterfaces.SpaceViewModel;
+import gameinterfaces.targetinterfaces.TargetViewModel;
 import gamemodels.itemmodels.ItemImpl;
+import gamemodels.playermodels.PlayerImpl;
 import view.interfaces.ImainForm;
 
 public class MainForm extends JFrame implements ImainForm {
@@ -64,10 +74,12 @@ public class MainForm extends JFrame implements ImainForm {
   private JTextArea logInfo;
   private JScrollPane logInfoPane;
 
-  private JList<Item> itemOnGroundBox;
+  private JLabel itemGroundLabel;
+  private JList<ItemViewModel> itemOnGroundBox;
   private JScrollPane itemOnGroundPane;
 
-  private JList<Item> backpack;
+  private JLabel backpackLabel;
+  private JList<ItemViewModel> backpack;
   private JScrollPane backpackPane;
 
   private JButton pickUpButton;
@@ -179,10 +191,10 @@ public class MainForm extends JFrame implements ImainForm {
     logInfoPane = new JScrollPane(logInfo);
     GridBagConstraints locationInfoConstraints = new GridBagConstraints();
     locationInfoConstraints.gridx = 0;
-    locationInfoConstraints.gridy = 1;
-    locationInfoConstraints.gridwidth = 1;
-    locationInfoConstraints.gridheight = 2;
-    locationInfoConstraints.weightx = 0.2;
+    locationInfoConstraints.gridy = 5;
+    locationInfoConstraints.gridwidth = 6;
+    locationInfoConstraints.gridheight = 1;
+    locationInfoConstraints.weightx = 1;
     locationInfoConstraints.weighty = 1;
     locationInfoConstraints.fill = GridBagConstraints.BOTH;
     this.mainLayout.addLayoutComponent(logInfoPane, locationInfoConstraints);
@@ -200,32 +212,37 @@ public class MainForm extends JFrame implements ImainForm {
     this.mainLayout.addLayoutComponent(turnInfo, turnInfoConstraints);
     this.add(turnInfo);
 
-
+    itemGroundLabel = new JLabel("Items on the ground:");
     itemOnGroundBox = new JList<>();
-    itemOnGroundPane = new JScrollPane(itemOnGroundBox);
-    //TODO: remove testing code
-    List<Item> groundItems = new ArrayList<>();
-    groundItems.add(new ItemImpl("Test Item", 1, 0));
-    itemOnGroundBox.setListData(groundItems.toArray(new Item[0]));
+    JPanel groundStackPanel = new JPanel();
+    groundStackPanel.setLayout(new BoxLayout(groundStackPanel, BoxLayout.Y_AXIS));
+    groundStackPanel.add(itemGroundLabel);
+    groundStackPanel.add(itemOnGroundBox);
+    itemOnGroundPane = new JScrollPane(groundStackPanel);
     GridBagConstraints itemOnGroundConstraints = new GridBagConstraints();
-    itemOnGroundConstraints.gridx = 0;
-    itemOnGroundConstraints.gridy = 3;
+    itemOnGroundConstraints.gridx = 5;
+    itemOnGroundConstraints.gridy = 1;
     itemOnGroundConstraints.gridwidth = 1;
     itemOnGroundConstraints.gridheight = 2;
     itemOnGroundConstraints.weightx = 0.2;
     itemOnGroundConstraints.weighty = 1;
     itemOnGroundConstraints.fill = GridBagConstraints.BOTH;
+    itemOnGroundBox.setSize(itemGroundLabel.getSize());
     this.mainLayout.addLayoutComponent(itemOnGroundPane, itemOnGroundConstraints);
     this.add(itemOnGroundPane);
 
+    backpackLabel = new JLabel("Items of PLAYER:");
     backpack = new JList<>();
-    backpack.setListData(groundItems.toArray(new Item[0]));
-    backpackPane = new JScrollPane(backpack);
+    JPanel backpackStackPanel = new JPanel();
+    backpackStackPanel.setLayout(new BoxLayout(backpackStackPanel, BoxLayout.Y_AXIS));
+    backpackStackPanel.add(backpackLabel);
+    backpackStackPanel.add(backpack);
+    backpackPane = new JScrollPane(backpackStackPanel);
     GridBagConstraints backpackConstraints = new GridBagConstraints();
     backpackConstraints.gridx = 5;
-    backpackConstraints.gridy = 1;
+    backpackConstraints.gridy = 3;
     backpackConstraints.gridwidth = 1;
-    backpackConstraints.gridheight = 4;
+    backpackConstraints.gridheight = 2;
     backpackConstraints.weightx = 0.2;
     backpackConstraints.weighty = 1;
     backpackConstraints.fill = GridBagConstraints.BOTH;
@@ -234,19 +251,20 @@ public class MainForm extends JFrame implements ImainForm {
 
     pickUpButton = new JButton("Pickup Item");
     GridBagConstraints pickupButtonConstraints = new GridBagConstraints();
-    pickupButtonConstraints.gridx = 1;
-    pickupButtonConstraints.gridy = 5;
+    pickupButtonConstraints.gridx = 0;
+    pickupButtonConstraints.gridy = 1;
     pickupButtonConstraints.gridwidth = 1;
     pickupButtonConstraints.gridheight = 1;
     pickupButtonConstraints.weightx = 0.2;
     pickupButtonConstraints.weighty = 1;
+    pickUpButton.setMnemonic('P');
     this.mainLayout.addLayoutComponent(pickUpButton, pickupButtonConstraints);
     this.add(pickUpButton);
 
     lookaroundButton = new JButton("Look Around");
     GridBagConstraints lookaroundConstraints = new GridBagConstraints();
-    lookaroundConstraints.gridx = 2;
-    lookaroundConstraints.gridy = 5;
+    lookaroundConstraints.gridx = 0;
+    lookaroundConstraints.gridy = 2;
     lookaroundConstraints.gridwidth = 1;
     lookaroundConstraints.gridheight = 1;
     lookaroundConstraints.weightx = 0.2;
@@ -257,20 +275,30 @@ public class MainForm extends JFrame implements ImainForm {
 
     attackButton = new JButton("Attack!");
     GridBagConstraints attackConstraints = new GridBagConstraints();
-    attackConstraints.gridx = 3;
-    attackConstraints.gridy = 5;
+    attackConstraints.gridx = 0;
+    attackConstraints.gridy = 3;
     attackConstraints.gridwidth = 1;
     attackConstraints.gridheight = 1;
     attackConstraints.weightx = 0.2;
     attackConstraints.weighty = 1;
+    attackButton.setMnemonic('A');
     this.mainLayout.addLayoutComponent(attackButton, attackConstraints);
     this.add(attackButton);
 
     //Image Label- Hit detection
     imageLabel.addMouseListener(new MouseAdapter() {
       @Override
-      public void mouseClicked(MouseEvent e) {
-        features.hitDetection(e.getX(), e.getY());
+      public void mousePressed(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+          processPopup(e);
+        }
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+          processPopup(e);
+        }
       }
     });
 
@@ -278,8 +306,31 @@ public class MainForm extends JFrame implements ImainForm {
     lookaroundButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        String description = features.lookaround();
-        logInfo.setText(description);
+        features.lookaround();
+      }
+    });
+
+    pickUpButton.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        ItemViewModel selected = itemOnGroundBox.getSelectedValue();
+        if (selected == null) {
+          promptError("No Item is selected for pickup!");
+          return;
+        }
+        features.pickup(selected.getNameOfItem());
+      }
+    });
+
+    attackButton.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        ItemViewModel selected = backpack.getSelectedValue();
+        if (selected == null) {
+          features.attack(null);
+        } else {
+          features.attack(selected.getNameOfItem());
+        }
       }
     });
 
@@ -296,6 +347,9 @@ public class MainForm extends JFrame implements ImainForm {
 
     //TODO: Adding a test player
     features.addPlayer("Test Player", "Jotunheim", 3);
+    features.addPlayer("Alice", "Beach Head Two", 5);
+    features.addPlayer("Bob", "Beach Head One", 5);
+    features.addPlayer("Charlie", "Beach Head One", 5);
 
     // Set the turn information for the first player
     this.turnInfo.setText(features.getTurnInformation());
@@ -316,10 +370,6 @@ public class MainForm extends JFrame implements ImainForm {
     this.addCpu.setEnabled(enabled);
   }
 
-  //TODO: remove this in actual code
-  private String testTextHelper(String hint) {
-    return String.valueOf(String.format("Lorem ipsum %s \n dolor sit amet\n", hint)).repeat(20);
-  }
 
   private File chooseFile() {
     File selected;
@@ -373,5 +423,81 @@ public class MainForm extends JFrame implements ImainForm {
   public void logGameplay(String msg) {
     Objects.requireNonNull(msg);
     this.logInfo.append(msg);
+    this.logInfo.append("\n");
+  }
+
+  @Override
+  public void setGraphics(BufferedImage img) {
+    this.imageLabel.setIcon(new ImageIcon(img));
+  }
+
+  @Override
+  public void setTurnInfo(String msg) {
+    this.turnInfo.setText(features.getTurnInformation());
+  }
+
+  private void processPopup(MouseEvent e) {
+    JPopupMenu popup = new JPopupMenu();
+    SpaceViewModel hit = features.hitDetection(e.getX(), e.getY());
+    if (hit == null) {
+      return;
+    }
+    JMenuItem move = new JMenuItem("Move player here..");
+    move.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        features.move(hit.getTheNameOfThisSpace());
+      }
+    });
+    popup.add(move);
+
+    for (PlayerViewModel p : hit.getPlayersInThisSpace()) {
+      if (p != features.getCurrentPlayer()) {
+        continue;
+      }
+      JMenuItem playerinfo = new JMenuItem(String.format("%s Info", p.getPlayerName()));
+      playerinfo.addActionListener(new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          logGameplay(p.describePlayer());
+        }
+      });
+      popup.add(playerinfo);
+    }
+    if (hit.isTargetInThisSpace()) {
+      TargetViewModel target = hit.getTargetFromThisSpace();
+      JMenuItem targetinfo = new JMenuItem("Target Character Info");
+      targetinfo.addActionListener(new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          logGameplay(String.format("Target %s, Health %d", target.getTargetName(),
+                  target.getCurrentHealth()));
+        }
+      });
+      popup.add(targetinfo);
+    }
+
+    popup.show(this, imagePane.getMousePosition().x + imagePane.getX(),
+            imagePane.getMousePosition().y + imagePane.getY());
+  }
+
+  @Override
+  public void setGroundItems(List<ItemViewModel> items) {
+    this.itemOnGroundBox.setListData(items.toArray(new ItemViewModel[0]));
+  }
+
+  @Override
+  public void setBackpackItems(List<ItemViewModel> items) {
+    this.backpack.setListData(items.toArray(new ItemViewModel[0]));
+  }
+
+  @Override
+  public void setPlayerName(PlayerViewModel player) {
+    this.backpackLabel.setText(String.format("Items of %s:", player.getPlayerName()));
+  }
+
+  @Override
+  public void promptError(String msg) {
+    JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
   }
 }

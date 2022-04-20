@@ -5,16 +5,23 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import gamecommands.AddComputerPlayer;
 import gamecommands.AddPlayer;
+import gamecommands.Attack;
 import gamecommands.LookAround;
+import gamecommands.Move;
+import gamecommands.PickUpItem;
 import gamecommands.TurnInformation;
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.iteminterfaces.ItemViewModel;
+import gameinterfaces.playerinterfaces.Player;
+import gameinterfaces.playerinterfaces.PlayerViewModel;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
@@ -46,6 +53,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
     Utility.checkNull(playerName, playerLocation);
     command = new AddComputerPlayer(playerName, playerLocation, itemLimit);
     view.logGameplay(command.execute(model));
+    updateViewInfo();
   }
 
   @Override
@@ -53,11 +61,18 @@ public class GraphicalController implements UiController, ControllerFeatures {
     Utility.checkNull(playerName, playerLocation);
     command = new AddPlayer(playerName, playerLocation, itemLimit);
     view.logGameplay(command.execute(model));
+    updateViewInfo();
   }
 
   @Override
-  public void attack() {
-
+  public void attack(String itemName) {
+    final String poke = "Poke in the Eye";
+    if (itemName == null) {
+      itemName = poke;
+    }
+    command = new Attack(itemName);
+    view.logGameplay(command.execute(model));
+    updateViewInfo();
   }
 
   @Override
@@ -71,10 +86,11 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public String lookaround() {
+  public void lookaround() {
     command = new LookAround();
-
-    return command.execute(model);
+    String res = command.execute(model);
+    this.view.logGameplay(res);
+    this.advanceTurn();
   }
 
   @Override
@@ -86,7 +102,14 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void move(String nameOfSpace) {
-
+    command = new Move(nameOfSpace);
+    try {
+      this.view.logGameplay(command.execute(model));
+      this.advanceTurn();
+    } catch (IllegalStateException ex) {
+      this.view.promptError(ex.getMessage());
+    }
+    this.updateViewInfo();
   }
 
   @Override
@@ -96,15 +119,15 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void pickup(String itemName) {
-
+    command = new PickUpItem(itemName);
+    this.view.logGameplay(command.execute(model));
+    this.advanceTurn();
   }
 
   @Override
-  public void hitDetection(double x, double y) {
+  public SpaceViewModel hitDetection(double x, double y) {
     Optional<SpaceViewModel> result = Optional.ofNullable(model.hitDetection(x, y));
-    //TODO: This is testing only, replace in actual submission.
-    String name = result.map(SpaceViewModel::getTheNameOfThisSpace).orElse("EMPTY");
-    System.out.println(name);
+    return result.orElse(null);
   }
 
   @Override
@@ -139,7 +162,34 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public void advanceTurn() {
+  public void updateViewInfo() {
+    this.view.setGraphics(model.worldImage());
+    this.view.setTurnInfo(model.getCurrentPlayerTurnInfo());
+    Player current = model.getCurrentPlayer();
+    Space currentSpace = model.getSpaces()
+            .stream()
+            .filter(r -> r.getPlayersInThisSpace().contains(current))
+            .findFirst().orElse(null);
+    List<ItemViewModel> backpack = new ArrayList<>(current.getPlayerItems());
+    List<ItemViewModel> ground = currentSpace.getItems().stream()
+            .filter(i -> !i.isItemWithPlayer()).collect(Collectors.toList());
+    this.view.setPlayerName(model.getCurrentPlayer());
+    this.view.setGroundItems(ground);
+    this.view.setBackpackItems(backpack);
+  }
 
+  @Override
+  public void advanceTurn() {
+    if (model.isGameOver()) {
+      //TODO: END THE DAMN GAME
+    }
+    this.model.moveTarget();
+    this.model.nextTurn();
+    this.updateViewInfo();
+  }
+
+  @Override
+  public PlayerViewModel getCurrentPlayer() {
+    return model.getCurrentPlayer();
   }
 }

@@ -3,7 +3,7 @@ package gameinterfaces.targetinterfaces;
 /**
  * This interface will represent the actions that a target in the game may take.
  */
-public interface Target {
+public interface Target extends TargetViewModel {
 
   /**
    * This returns the name of the target.

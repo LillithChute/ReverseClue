@@ -32,8 +32,6 @@ public class Move implements GameCommand {
     // Add this space to the Player object
     game.getCurrentPlayer().move(nameOfSpace.trim());
     // Add the Player to the Space object
-    game.moveTarget();
-    game.nextTurn();
 
     return "Moved to location: " + nameOfSpace.trim();
   }

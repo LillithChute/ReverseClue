@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * This interface wil represent the actions that a player in the game may take.
  */
-public interface Player {
+public interface Player extends PlayerViewModel {
 
   /**
    * This will move a player to a valid space.  By valid, the player may only move

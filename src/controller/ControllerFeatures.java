@@ -5,7 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
 import gameinterfaces.iteminterfaces.Item;
-import gameinterfaces.iteminterfaces.ItemViewModel;
+import gameinterfaces.playerinterfaces.PlayerViewModel;
+import gameinterfaces.spaceinterfaces.SpaceViewModel;
 
 
 public interface ControllerFeatures {
@@ -13,16 +14,18 @@ public interface ControllerFeatures {
 
   public void addComputerPlayer(String playerName, String playerLocation, int itemLimit);
   public void addPlayer(String playerName, String playerLocation, int itemLimit);
-  public void attack();
+  public void attack(String itemName);
   public void describePlayer();
   public void describeSpace(String spaceName);
-  public String lookaround();
+  public void lookaround();
   public String getTurnInformation();
   public void move(String nameOfSpace);
   public void movePet(String nameOfSpace);
   public void pickup(String itemName);
-  public void hitDetection(double x, double y);
+  public SpaceViewModel hitDetection(double x, double y);
   public void setModel(File file);
   public List<Item> getItemsOnTheGround();
   public void advanceTurn();
+  public void updateViewInfo();
+  public PlayerViewModel getCurrentPlayer();
 }
