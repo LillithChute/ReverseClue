@@ -18,4 +18,6 @@ public interface ImainForm {
   public void setGroundItems(List<ItemViewModel> items);
   public void setBackpackItems(List<ItemViewModel> items);
   public void setPlayerName(PlayerViewModel player);
+  public void setStartedState(boolean started);
+  public void showEndingPrompt(String winner);
 }

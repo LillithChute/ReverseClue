@@ -2,6 +2,7 @@ package view.implementations;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,10 +15,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.swing.AbstractAction;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,12 +39,9 @@ import controller.ControllerFeatures;
 import dtos.PlayerCreation;
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.iteminterfaces.ItemViewModel;
-import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.playerinterfaces.PlayerViewModel;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.targetinterfaces.TargetViewModel;
-import gamemodels.itemmodels.ItemImpl;
-import gamemodels.playermodels.PlayerImpl;
 import view.interfaces.ImainForm;
 
 public class MainForm extends JFrame implements ImainForm {
@@ -57,14 +53,13 @@ public class MainForm extends JFrame implements ImainForm {
   private JMenuItem exitGame;
 
   private JMenu gameMenu;
-  private JMenuItem targetInfo;
-  private JMenuItem gameInfo;
   private JMenuItem addHuman;
   private JMenuItem addCpu;
 
   private JMenu helpMenu;
   private JMenuItem gameHelp;
   private JMenuItem gameAbout;
+  private JMenuItem startGame;
 
   private JLabel imageLabel;
   private JScrollPane imagePane;
@@ -90,6 +85,9 @@ public class MainForm extends JFrame implements ImainForm {
 
   private ControllerFeatures features;
 
+  private List<Component> preGameComponents;
+  private List<Component> inGameComponents;
+
   static String welcomeMsg;
 
   static {
@@ -100,6 +98,8 @@ public class MainForm extends JFrame implements ImainForm {
 
   public MainForm(String caption) {
     super(caption);
+    this.preGameComponents = new ArrayList<>();
+    this.inGameComponents = new ArrayList<>();
 
     setSize(800, 600);
     setPreferredSize(new Dimension(1350, 950));
@@ -133,14 +133,12 @@ public class MainForm extends JFrame implements ImainForm {
     });
 
     gameMenu = new JMenu("Game");
-    targetInfo = new JMenuItem("Target Character Info");
-    gameInfo = new JMenuItem("Game Info");
     addHuman = new JMenuItem("Add Human Player");
     addCpu = new JMenuItem("Add CPU Player");
+    startGame = new JMenuItem("Start Game");
     gameMenu.add(addHuman);
     gameMenu.add(addCpu);
-    gameMenu.add(targetInfo);
-    gameMenu.add(gameInfo);
+    gameMenu.add(startGame);
     addHuman.addActionListener(new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -159,6 +157,12 @@ public class MainForm extends JFrame implements ImainForm {
         }
       }
     });
+    startGame.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        processGameStart();
+      }
+    });
 
 
     bar.add(gameMenu);
@@ -166,6 +170,19 @@ public class MainForm extends JFrame implements ImainForm {
     helpMenu = new JMenu("Help");
     gameHelp = new JMenuItem("Game Help");
     gameAbout = new JMenuItem("About...");
+    startGame = new JMenuItem("Start Game!");
+    gameAbout.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        welcome();
+      }
+    });
+    startGame.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        processGameStart();
+      }
+    });
     helpMenu.add(gameHelp);
     helpMenu.add(gameAbout);
     bar.add(helpMenu);
@@ -326,13 +343,29 @@ public class MainForm extends JFrame implements ImainForm {
       @Override
       public void actionPerformed(ActionEvent e) {
         ItemViewModel selected = backpack.getSelectedValue();
-        if (selected == null) {
-          features.attack(null);
-        } else {
-          features.attack(selected.getNameOfItem());
+        try {
+          if (selected == null) {
+            features.attack(null);
+          } else {
+            features.attack(selected.getNameOfItem());
+          }
+        } catch (IllegalStateException ex) {
+          promptError(ex.getMessage());
         }
       }
     });
+
+    this.preGameComponents.add(addHuman);
+    this.preGameComponents.add(addCpu);
+    this.preGameComponents.add(startGame);
+
+    this.inGameComponents.add(pickUpButton);
+    this.inGameComponents.add(lookaroundButton);
+    this.inGameComponents.add(attackButton);
+    this.inGameComponents.add(imagePane);
+    this.inGameComponents.add(itemOnGroundPane);
+    this.inGameComponents.add(backpackPane);
+    this.inGameComponents.add(logInfoPane);
 
     pack();
     setVisible(true);
@@ -419,6 +452,25 @@ public class MainForm extends JFrame implements ImainForm {
     }
   }
 
+  private void processGameStart() {
+    JLabel prompt = new JLabel("Maximum Turns:");
+    JTextField input = new JTextField();
+    JPanel panel = new JPanel();
+    panel.add(prompt);
+    panel.add(input);
+    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+    int result = JOptionPane.showConfirmDialog(this, panel, "Enter Max Turns:",
+            JOptionPane.OK_CANCEL_OPTION);
+    if (result == JOptionPane.OK_OPTION) {
+      try {
+        int turnCount = Integer.parseInt(input.getText());
+        features.startGame(turnCount);
+      } catch (NumberFormatException ex) {
+        promptError("Illegal Turn Number!");
+      }
+    }
+  }
+
   @Override
   public void logGameplay(String msg) {
     Objects.requireNonNull(msg);
@@ -479,6 +531,31 @@ public class MainForm extends JFrame implements ImainForm {
 
     popup.show(this, imagePane.getMousePosition().x + imagePane.getX(),
             imagePane.getMousePosition().y + imagePane.getY());
+  }
+
+  @Override
+  public void setStartedState(boolean started) {
+    if (started) {
+      for (Component c : this.preGameComponents) {
+        c.setEnabled(false);
+      }
+      for (Component c: this.inGameComponents) {
+        c.setEnabled(true);
+      }
+    } else {
+      for (Component c : this.preGameComponents) {
+        c.setEnabled(true);
+      }
+      for (Component c: this.inGameComponents) {
+        c.setEnabled(false);
+      }
+    }
+  }
+
+  @Override
+  public void showEndingPrompt(String winner) {
+    JOptionPane.showMessageDialog(this,
+            String.format("Game Ended! Winner is: %s", winner));
   }
 
   @Override
