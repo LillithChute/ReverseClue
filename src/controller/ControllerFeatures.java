@@ -14,10 +14,10 @@ public interface ControllerFeatures {
 
   public void addComputerPlayer(String playerName, String playerLocation, int itemLimit);
   public void addPlayer(String playerName, String playerLocation, int itemLimit);
-  public void attack();
+  public void attack(String itemName);
   public void describePlayer();
   public void describeSpace(String spaceName);
-  public String lookaround();
+  public void lookaround();
   public String getTurnInformation();
   public void move(String nameOfSpace);
   public void movePet(String nameOfSpace);

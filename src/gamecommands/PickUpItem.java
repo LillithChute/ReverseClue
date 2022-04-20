@@ -31,8 +31,6 @@ public class PickUpItem implements GameCommand {
     }
 
     game.getCurrentPlayer().takeItem(itemName);
-    game.moveTarget();
-    game.nextTurn();
 
     return "Player picked up item: " + itemName;
   }

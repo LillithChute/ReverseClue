@@ -5,6 +5,7 @@ import java.util.List;
 
 import controller.ControllerFeatures;
 import gameinterfaces.iteminterfaces.ItemViewModel;
+import gameinterfaces.playerinterfaces.PlayerViewModel;
 
 public interface ImainForm {
   public void setFeatures(ControllerFeatures f);
@@ -16,4 +17,5 @@ public interface ImainForm {
   public void promptError(String msg);
   public void setGroundItems(List<ItemViewModel> items);
   public void setBackpackItems(List<ItemViewModel> items);
+  public void setPlayerName(PlayerViewModel player);
 }
