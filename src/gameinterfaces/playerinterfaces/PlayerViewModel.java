@@ -36,13 +36,6 @@ public interface PlayerViewModel {
   List<Item> getPlayerItems();
 
   /**
-   * Need a way to be able to tell if a player is computer controlled or human.
-   *
-   * @return True if player is human, false otherwise.
-   */
-  boolean isHuman();
-
-  /**
    * This will return a description of the player.  That is, the space the player is in, the
    * items the player is carrying.
    *

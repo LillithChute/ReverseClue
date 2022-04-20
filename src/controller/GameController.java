@@ -13,6 +13,8 @@ import gamecommands.SaveWorldImage;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.Controller;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
+import gamemodels.playermodels.PlayerImpl;
+
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -165,9 +167,9 @@ public class GameController implements Controller {
 
         System.out.println(game.getCurrentPlayerTurnInfo());
 
-        if (!game.getCurrentPlayer().isHuman()) {
+        if (!(game.getCurrentPlayer() instanceof PlayerImpl)) {
           try {
-            String result = game.getComputerChoice();
+            String result = game.getCurrentPlayer().TakeRandomAction(game);
             this.out.append(result).append("\n");
           } catch (IllegalStateException | IllegalArgumentException ex) {
             try {

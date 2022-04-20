@@ -46,7 +46,7 @@ public class AddComputerPlayer implements GameCommand {
 
     Space location = game.getTheSpaceByName(playerLocation);
 
-    game.addPlayer(playerName, location, itemLimit, false);
+    game.addComputerPlayer(playerName, location, itemLimit);
 
     StringBuilder result = new StringBuilder();
     result.append("Added computer player: ")

@@ -81,7 +81,7 @@ public class WorldTest {
   public void testMoveTarget() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Beach Head One");
-    game.addPlayer("Harley Quinn", playerLocation, 4, true);
+    game.addPlayer("Harley Quinn", playerLocation, 4);
 
     // Target starts at index 0
     assertEquals("******************************************************************\n"
@@ -142,7 +142,7 @@ public class WorldTest {
   public void testMoveTargetWrapAround() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Beach Head One");
-    game.addPlayer("Harley Quinn", playerLocation, 4, true);
+    game.addPlayer("Harley Quinn", playerLocation, 4);
 
     // Target starts at index 0
     assertEquals("******************************************************************\n"
@@ -238,7 +238,7 @@ public class WorldTest {
   public void testAddPlayer() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Beach Head Two");
-    game.addPlayer("Harley Quinn", playerLocation, 4, true);
+    game.addPlayer("Harley Quinn", playerLocation, 4);
 
     assertEquals("Player Description:\n"
             + "\tName: Harley Quinn\n"
@@ -251,7 +251,7 @@ public class WorldTest {
   public void testAddComputerPlayer() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Beach Head Two");
-    game.addPlayer("Computer Harley Quinn", playerLocation, 4, false);
+    game.addComputerPlayer("Computer Harley Quinn", playerLocation, 4);
 
     assertEquals("Player Description:\n"
             + "\tName: Computer Harley Quinn\n"
@@ -264,7 +264,7 @@ public class WorldTest {
   public void testPickUpItem() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
-    game.addPlayer("Harley Quinn", playerLocation, 4, true);
+    game.addPlayer("Harley Quinn", playerLocation, 4);
 
     assertEquals("Player Description:\n"
             + "\tName: Harley Quinn\n"
@@ -286,7 +286,7 @@ public class WorldTest {
   public void testPickUpMultipleItems() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
-    game.addPlayer("Harley Quinn", playerLocation, 4, true);
+    game.addPlayer("Harley Quinn", playerLocation, 4);
 
     assertEquals("Player Description:\n"
             + "\tName: Harley Quinn\n"
@@ -318,7 +318,7 @@ public class WorldTest {
   public void testPickUpItemInAnotherSpace() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
-    game.addPlayer("Harley Quinn", playerLocation, 4, true);
+    game.addPlayer("Harley Quinn", playerLocation, 4);
 
     assertEquals("Player Description:\n"
             + "\tName: Harley Quinn\n"
@@ -333,7 +333,7 @@ public class WorldTest {
   public void testPickUpNonExistingItem() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
-    game.addPlayer("Harley Quinn", playerLocation, 4, true);
+    game.addPlayer("Harley Quinn", playerLocation, 4);
 
     assertEquals("Player Description:\n"
             + "\tName: Harley Quinn\n"
@@ -348,7 +348,7 @@ public class WorldTest {
   public void testItemWasAlreadyPickedUp() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
-    game.addPlayer("Harley Quinn", playerLocation, 4, true);
+    game.addPlayer("Harley Quinn", playerLocation, 4);
 
     assertEquals("Player Description:\n"
             + "\tName: Harley Quinn\n"
@@ -364,7 +364,7 @@ public class WorldTest {
   public void testTooManyItems() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
-    game.addPlayer("Harley Quinn", playerLocation, 1, true);
+    game.addPlayer("Harley Quinn", playerLocation, 1);
 
     assertEquals("Player Description:\n"
             + "\tName: Harley Quinn\n"
@@ -382,7 +382,7 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
 
     // Set the player to Insurgents camp
-    game.addPlayer("Harley Quinn", playerLocation, 1, true);
+    game.addPlayer("Harley Quinn", playerLocation, 1);
 
     // Town is not a neighbor
     game.getCurrentPlayer().move("Town");
@@ -394,7 +394,7 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
 
     // Set the player to Insurgents camp
-    game.addPlayer("Harley Quinn", playerLocation, 1, true);
+    game.addPlayer("Harley Quinn", playerLocation, 1);
 
     // Forest is a neighbor
     game.getCurrentPlayer().move("Forest");
@@ -406,7 +406,7 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
 
     // Set the player to Insurgents camp
-    game.addPlayer("Harley Quinn", playerLocation, 1, true);
+    game.addPlayer("Harley Quinn", playerLocation, 1);
 
     game.getCurrentPlayer().move("Forest");
     game.getCurrentPlayer().move("Beach Head One");
@@ -419,7 +419,7 @@ public class WorldTest {
     String description;
 
     // Set the player to Insurgents camp
-    game.addPlayer("Harley Quinn", playerLocation, 1, true);
+    game.addPlayer("Harley Quinn", playerLocation, 1);
     description = game.getCurrentPlayer().lookAround();
 
     assertEquals("Harley Quinn is in here in Insurgent Camp.\n"
@@ -457,7 +457,7 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
 
     // Set the player to Insurgents camp
-    game.addPlayer("Harley Quinn", playerLocation, 1, true);
+    game.addPlayer("Harley Quinn", playerLocation, 1);
 
     // move the target artificially
     game.moveTarget();
@@ -503,9 +503,9 @@ public class WorldTest {
     Space neighborLocation = game.getTheSpaceByName("Forest");
 
     // Set the player to Insurgents camp
-    game.addPlayer("Harley Quinn", playerLocation, 1, true);
-    game.addPlayer("Peacemaker", playerLocation, 3, true);
-    game.addPlayer("Rat Catcher", neighborLocation, 10, true);
+    game.addPlayer("Harley Quinn", playerLocation, 1);
+    game.addPlayer("Peacemaker", playerLocation, 3);
+    game.addPlayer("Rat Catcher", neighborLocation, 10);
 
     // move the target artificially
     game.moveTarget();
@@ -551,9 +551,9 @@ public class WorldTest {
     Space neighborLocation = game.getTheSpaceByName("Forest");
 
     // Set the player to Insurgents camp
-    game.addPlayer("Harley Quinn", playerLocation, 1, true);
-    game.addPlayer("Peacemaker", playerLocation, 3, true);
-    game.addPlayer("Rat Catcher", neighborLocation, 10, true);
+    game.addPlayer("Harley Quinn", playerLocation, 1);
+    game.addPlayer("Peacemaker", playerLocation, 3);
+    game.addPlayer("Rat Catcher", neighborLocation, 10);
 
     // move the target artificially
     game.moveTarget();
@@ -637,10 +637,10 @@ public class WorldTest {
   @Test
   public void testComputerAttackWhenNoPlayersAround() {
     World game = new WorldImpl(testData.getCortoMalteseData());
-    game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, false);
+    game.addComputerPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
+            3);
     game.addPlayer("Peacemaker", game.getTheSpaceByName("Town"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("helicopter");
     harley.takeItem("boomerang");
@@ -690,7 +690,7 @@ public class WorldTest {
             + "\tNone.", harley.lookAround());
 
     // Computer should attack the target
-    String result = game.getComputerChoice();
+    String result = harley.TakeRandomAction(game);
 
     assertEquals("You attacked with Helicopter and did 5 points of damage to Starro "
             + "The Conqueror.  Helicopter is now evidence.  Starro The Conqueror now has 70 "
@@ -704,10 +704,10 @@ public class WorldTest {
   @Test
   public void testComputerAttackWithPetAndPlayerNeighbors() {
     World game = new WorldImpl(testData.getCortoMalteseData());
-    game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, false);
+    game.addComputerPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
+            3);
     game.addPlayer("Peacemaker", game.getTheSpaceByName("Forest"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("Detachable Arms");
     harley.takeItem("boomerang");
@@ -757,7 +757,7 @@ public class WorldTest {
             + "Peacemaker is in Forest", harley.lookAround());
 
     // Computer should attack the target
-    String result = game.getComputerChoice();
+    String result = harley.TakeRandomAction(game);
 
     assertEquals("You attacked with Boomerang and did 2 points of damage to Starro The "
             + "Conqueror.  Boomerang is now evidence.  Starro The Conqueror now has 73 health "
@@ -771,10 +771,10 @@ public class WorldTest {
   @Test
   public void testComputerDoesNotAttackWhenPlayersAround() {
     World game = new WorldImpl(testData.getCortoMalteseData());
-    game.addPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
-            3, false);
+    game.addComputerPlayer("Harley Quinn", game.getTheSpaceByName("Beach head One"),
+            3);
     game.addPlayer("Peacemaker", game.getTheSpaceByName("Beach Head One"),
-            3, true);
+            3);
     Player harley = game.getCurrentPlayer();
     harley.takeItem("helicopter");
     harley.takeItem("boomerang");
@@ -824,7 +824,7 @@ public class WorldTest {
             + "\tNone.", harley.lookAround());
 
     // Computer should attack the target
-    String result = game.getComputerChoice();
+    String result = harley.TakeRandomAction(game);
 
     // If harley attacked it would be the string below.
     assertNotEquals("You attacked with Helicopter and did 5 points of damage to Starro "
