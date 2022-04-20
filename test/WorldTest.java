@@ -84,28 +84,7 @@ public class WorldTest {
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
     // Target starts at index 0
-    assertEquals("******************************************************************\n"
-            + "* It is Harley Quinn's turn.\n"
-            + "* You have the following information available:\n"
-            + "*\n"
-            + "* NAME: Beach Head One\n"
-            + "* \n"
-            + "* ITEMS:\n"
-            + "* \tHelicopter\n"
-            + "* \tMongal\n"
-            + "* \tDetachable Arms\n"
-            + "* \tBoomerang\n"
-            + "* \n"
-            + "* NEIGHBORING SPACES:\n"
-            + "* \tBeach Head Two\n"
-            + "* \tForest\n"
-            + "*\n"
-            + "* TARGET:\n"
-            + "* Starro The Conqueror is located at Beach Head One\n"
-            + "*\n"
-            + "* Pet:\n"
-            + "* Baby Starro is here.\n"
-            + "******************************************************************\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
             .getCurrentPlayerTurnInfo());
 
     // Move target twice.
@@ -113,28 +92,7 @@ public class WorldTest {
     game.moveTarget();
 
     // Target should be at index 2
-    assertEquals("******************************************************************\n"
-            + "* It is Harley Quinn's turn.\n"
-            + "* You have the following information available:\n"
-            + "*\n"
-            + "* NAME: Beach Head One\n"
-            + "* \n"
-            + "* ITEMS:\n"
-            + "* \tHelicopter\n"
-            + "* \tMongal\n"
-            + "* \tDetachable Arms\n"
-            + "* \tBoomerang\n"
-            + "* \n"
-            + "* NEIGHBORING SPACES:\n"
-            + "* \tBeach Head Two\n"
-            + "* \tForest\n"
-            + "*\n"
-            + "* TARGET:\n"
-            + "* Starro The Conqueror is located at Town\n"
-            + "*\n"
-            + "* Pet:\n"
-            + "* Baby Starro is here.\n"
-            + "******************************************************************\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
             .getCurrentPlayerTurnInfo());
   }
 
@@ -145,28 +103,7 @@ public class WorldTest {
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
     // Target starts at index 0
-    assertEquals("******************************************************************\n"
-            + "* It is Harley Quinn's turn.\n"
-            + "* You have the following information available:\n"
-            + "*\n"
-            + "* NAME: Beach Head One\n"
-            + "* \n"
-            + "* ITEMS:\n"
-            + "* \tHelicopter\n"
-            + "* \tMongal\n"
-            + "* \tDetachable Arms\n"
-            + "* \tBoomerang\n"
-            + "* \n"
-            + "* NEIGHBORING SPACES:\n"
-            + "* \tBeach Head Two\n"
-            + "* \tForest\n"
-            + "*\n"
-            + "* TARGET:\n"
-            + "* Starro The Conqueror is located at Beach Head One\n"
-            + "*\n"
-            + "* Pet:\n"
-            + "* Baby Starro is here.\n"
-            + "******************************************************************\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
             .getCurrentPlayerTurnInfo());
 
     // Move target past the last space.
@@ -183,28 +120,7 @@ public class WorldTest {
     game.moveTarget();
 
     // Target should be at index 2
-    assertEquals("******************************************************************\n"
-            + "* It is Harley Quinn's turn.\n"
-            + "* You have the following information available:\n"
-            + "*\n"
-            + "* NAME: Beach Head One\n"
-            + "* \n"
-            + "* ITEMS:\n"
-            + "* \tHelicopter\n"
-            + "* \tMongal\n"
-            + "* \tDetachable Arms\n"
-            + "* \tBoomerang\n"
-            + "* \n"
-            + "* NEIGHBORING SPACES:\n"
-            + "* \tBeach Head Two\n"
-            + "* \tForest\n"
-            + "*\n"
-            + "* TARGET:\n"
-            + "* Starro The Conqueror is located at Town\n"
-            + "*\n"
-            + "* Pet:\n"
-            + "* Baby Starro is here.\n"
-            + "******************************************************************\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
             .getCurrentPlayerTurnInfo());
   }
 

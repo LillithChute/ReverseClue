@@ -45,7 +45,7 @@ public class SpaceTest {
   public void setup() {
     builder = new InstanceBuilder();
     expectedConstructorOutput = "2;Jotunheim;1;1;4;4";
-    expectedItemsOutput = "Baseball Bat;2;2;Machete;3;2;";
+    expectedItemsOutput = "Baseball Bat; Damage = 2;Machete; Damage = 3;";
     expectedItemCount = 2;
     target = builder.targetBuilder("Starro", 9, 50);
 

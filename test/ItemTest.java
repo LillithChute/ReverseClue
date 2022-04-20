@@ -20,7 +20,7 @@ public class ItemTest {
    */
   @Before
   public void setup() {
-    expectedValidConstuctorOutput = "Baseball Bat;3;1";
+    expectedValidConstuctorOutput = "Baseball Bat; Damage = 3";
     builder = new InstanceBuilder();
   }
 

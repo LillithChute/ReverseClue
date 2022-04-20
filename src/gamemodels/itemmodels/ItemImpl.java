@@ -103,10 +103,9 @@ public class ItemImpl implements Item, ItemViewModel {
   public String toString() {
     StringBuilder buildItemString = new StringBuilder();
     buildItemString.append(name)
-            .append(";")
-            .append(damage)
-            .append(";")
-            .append(spaceLocation);
+            .append("; ")
+            .append("Damage = ")
+            .append(damage);
 
     return buildItemString.toString();
   }
