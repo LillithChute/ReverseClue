@@ -299,12 +299,12 @@ public class WorldImpl implements World {
   public String getCurrentPlayerTurnInfo() {
     StringBuilder turnInformation = new StringBuilder();
 
-    // Get player name
-    turnInformation.append("******************************************************************\n");
+/*    // Get player name
+    turnInformation.append("******************************************************************\n");*/
     turnInformation.append("* It is ").append(getCurrentPlayer().getPlayerName()).append("'s turn"
             + ".\n");
 
-    turnInformation.append("* You have the following information available:\n*\n");
+    /*turnInformation.append("* You have the following information available:\n*\n");
 
     // Get basic surrounding information
     turnInformation.append(spaces.get(
@@ -324,7 +324,7 @@ public class WorldImpl implements World {
       turnInformation.append("* The pet is not here.\n");
     }
 
-    turnInformation.append("******************************************************************\n");
+    turnInformation.append("******************************************************************\n");*/
 
     return turnInformation.toString();
   }
