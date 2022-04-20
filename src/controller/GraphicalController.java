@@ -37,9 +37,11 @@ public class GraphicalController implements UiController, ControllerFeatures {
   private ImainForm view;
 
   private GameCommand command;
+  private boolean started;
 
   public GraphicalController(World w) {
     this.model = w;
+    this.started = false;
   }
 
 
@@ -141,7 +143,9 @@ public class GraphicalController implements UiController, ControllerFeatures {
   public void setView(MainForm v) {
     this.view = v;
     v.setFeatures(this);
+    updateViewComponentStates();
     v.welcome();
+
   }
 
   @Override
@@ -181,11 +185,26 @@ public class GraphicalController implements UiController, ControllerFeatures {
   @Override
   public void advanceTurn() {
     if (model.isGameOver()) {
-      //TODO: END THE DAMN GAME
+      this.updateViewInfo();
+      this.started = false;
+      this.updateViewComponentStates();
+      this.view.showEndingPrompt(model.getCurrentPlayer().getPlayerName());
+      return;
     }
     this.model.moveTarget();
     this.model.nextTurn();
     this.updateViewInfo();
+  }
+
+  @Override
+  public void startGame(int turnCount) {
+    this.model.setMaxNumberOfTurns(turnCount);
+    this.started = true;
+    this.updateViewComponentStates();
+  }
+
+  private void updateViewComponentStates() {
+    this.view.setStartedState(this.started);
   }
 
   @Override

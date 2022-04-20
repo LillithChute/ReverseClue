@@ -28,4 +28,5 @@ public interface ControllerFeatures {
   public void advanceTurn();
   public void updateViewInfo();
   public PlayerViewModel getCurrentPlayer();
+  public void startGame(int turnCount);
 }

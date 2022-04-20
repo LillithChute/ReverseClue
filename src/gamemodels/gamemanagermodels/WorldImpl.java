@@ -301,8 +301,10 @@ public class WorldImpl implements World {
 
 /*    // Get player name
     turnInformation.append("******************************************************************\n");*/
-    turnInformation.append("* It is ").append(getCurrentPlayer().getPlayerName()).append("'s turn"
-            + ".\n");
+    turnInformation.append("* Turn of ").append(getCurrentPlayer().getPlayerName());
+    turnInformation.append(String.format(" %d/%d Turns *",
+            this.getTurnTotal(), this.getMaxNumberOfTurns()));
+    turnInformation.append("\n");
 
     /*turnInformation.append("* You have the following information available:\n*\n");
 
