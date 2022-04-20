@@ -129,7 +129,7 @@ public class WorldImpl implements World {
                 v,
                 (((y - 1 + 0.8f) + i) * scale));
       }
-      if (currentSpace.isTargetInThisSpace()) {
+      if (currentSpace.isTargetInThisSpace() && !currentSpace.hasPet()) {
         g2d.draw(new Rectangle2D.Double(
                 ((x - 1) * scale + 0.1f * scale),
                 (((y - 1 + 0.2f) + i) * scale),

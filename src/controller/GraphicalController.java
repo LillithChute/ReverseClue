@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,10 @@ import gamecommands.LookAround;
 import gamecommands.Move;
 import gamecommands.TurnInformation;
 import gameinterfaces.iteminterfaces.Item;
+import gameinterfaces.iteminterfaces.ItemViewModel;
+import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.playerinterfaces.PlayerViewModel;
+import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
@@ -150,6 +154,15 @@ public class GraphicalController implements UiController, ControllerFeatures {
   public void updateViewInfo() {
     this.view.setGraphics(model.worldImage());
     this.view.setTurnInfo(model.getCurrentPlayerTurnInfo());
+    Player current = model.getCurrentPlayer();
+    Space currentSpace = model.getSpaces()
+            .stream()
+            .filter(r -> r.getPlayersInThisSpace().contains(current))
+            .findFirst().orElse(null);
+    List<ItemViewModel> backpack = new ArrayList<>(current.getPlayerItems());
+    List<ItemViewModel> ground = new ArrayList<>(currentSpace.getItems());
+    this.view.setGroundItems(ground);
+    this.view.setBackpackItems(backpack);
   }
 
   @Override

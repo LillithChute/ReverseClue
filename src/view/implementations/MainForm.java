@@ -37,6 +37,7 @@ import javax.swing.filechooser.FileFilter;
 import controller.ControllerFeatures;
 import dtos.PlayerCreation;
 import gameinterfaces.iteminterfaces.Item;
+import gameinterfaces.iteminterfaces.ItemViewModel;
 import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.playerinterfaces.PlayerViewModel;
 import gameinterfaces.spaceinterfaces.SpaceViewModel;
@@ -71,10 +72,10 @@ public class MainForm extends JFrame implements ImainForm {
   private JTextArea logInfo;
   private JScrollPane logInfoPane;
 
-  private JList<Item> itemOnGroundBox;
+  private JList<ItemViewModel> itemOnGroundBox;
   private JScrollPane itemOnGroundPane;
 
-  private JList<Item> backpack;
+  private JList<ItemViewModel> backpack;
   private JScrollPane backpackPane;
 
   private JButton pickUpButton;
@@ -444,6 +445,16 @@ public class MainForm extends JFrame implements ImainForm {
 
     popup.show(this, imagePane.getMousePosition().x + imagePane.getX(),
             imagePane.getMousePosition().y + imagePane.getY());
+  }
+
+  @Override
+  public void setGroundItems(List<ItemViewModel> items) {
+    this.itemOnGroundBox.setListData(items.toArray(new ItemViewModel[0]));
+  }
+
+  @Override
+  public void setBackpackItems(List<ItemViewModel> items) {
+    this.backpack.setListData(items.toArray(new ItemViewModel[0]));
   }
 
   @Override
