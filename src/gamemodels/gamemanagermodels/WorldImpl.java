@@ -95,7 +95,7 @@ public class WorldImpl implements World {
   @Override
   public BufferedImage worldImage() {
     int width = cols + 7; //7
-    int height = rows + 1; //1
+    int height = rows + 5; //1
 
     // Constructs a BufferedImage of one of the predefined image types.
     BufferedImage bufferedImage = new BufferedImage((width * scale), (height * scale), BufferedImage.TYPE_INT_RGB);
@@ -131,7 +131,9 @@ public class WorldImpl implements World {
                 v,
                 (((y - 1 + 0.8f) + i) * scale));
       }
-      if (currentSpace.isTargetInThisSpace() && !currentSpace.hasPet()) {
+      if ((currentSpace.isTargetInThisSpace() && !currentSpace.hasPet()) ||
+              (currentSpace.getPlayersInThisSpace().contains(getCurrentPlayer())
+                      && currentSpace.isTargetInThisSpace())) {
         g2d.draw(new Rectangle2D.Double(
                 ((x - 1) * scale + 0.1f * scale),
                 (((y - 1 + 0.2f) + i) * scale),
@@ -263,6 +265,11 @@ public class WorldImpl implements World {
     Player newPlayer = new ComputerPlayerImpl(playerName, playerLocation, itemLimit);
     players.add(newPlayer);
     totalPlayers = players.size();
+  }
+
+  @Override
+  public int getPlayerCount() {
+    return this.players.size();
   }
 
   @Override
@@ -448,10 +455,10 @@ public class WorldImpl implements World {
         // Line 4 through however many spaces is the number of spaces
         // we need to create.
         if (lineNumber > 4 && lineNumber <= totalSpaces + 4) {
-          int upperLeftY = Integer.parseInt(gameData[0]);
-          int upperLeftX = Integer.parseInt(gameData[1]);
-          int lowerRightY = Integer.parseInt(gameData[2]);
-          int lowerRightX = Integer.parseInt(gameData[3]);
+          int upperLeftY = Integer.parseInt(gameData[0]) + 1;
+          int upperLeftX = Integer.parseInt(gameData[1]) + 1;
+          int lowerRightY = Integer.parseInt(gameData[2]) + 1;
+          int lowerRightX = Integer.parseInt(gameData[3]) + 1;
 
           StringBuilder buildSpaceName = new StringBuilder();
           for (int i = 4; i < gameData.length; i++) {

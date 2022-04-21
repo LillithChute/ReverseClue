@@ -30,4 +30,6 @@ public interface ControllerFeatures {
   public PlayerViewModel getCurrentPlayer();
   public void startGame(int turnCount);
   public List<SpaceViewModel> spawningRooms();
+  public void restartGame();
+  public boolean gameStarted();
 }

@@ -34,6 +34,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.text.DefaultCaret;
 
 import controller.ControllerFeatures;
 import dtos.PlayerCreation;
@@ -131,6 +132,12 @@ public class MainForm extends JFrame implements ImainForm {
         features.setModel(selected);
       }
     });
+    restartGame.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        features.restartGame();
+      }
+    });
 
     gameMenu = new JMenu("Game");
     addHuman = new JMenuItem("Add Human Player");
@@ -157,12 +164,6 @@ public class MainForm extends JFrame implements ImainForm {
         }
       }
     });
-    startGame.addActionListener(new AbstractAction() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        processGameStart();
-      }
-    });
 
 
     bar.add(gameMenu);
@@ -170,7 +171,6 @@ public class MainForm extends JFrame implements ImainForm {
     helpMenu = new JMenu("Help");
     gameHelp = new JMenuItem("Game Help");
     gameAbout = new JMenuItem("About...");
-    startGame = new JMenuItem("Start Game!");
     gameAbout.addActionListener(new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -190,7 +190,7 @@ public class MainForm extends JFrame implements ImainForm {
 
     this.setJMenuBar(bar);
 
-    imageLabel = new JLabel("No game found at the moment.");
+    imageLabel = new JLabel("Add Players and Start the game!");
     imagePane = new JScrollPane(imageLabel);
     GridBagConstraints imagePaneConstraints = new GridBagConstraints();
     imagePaneConstraints.gridx = 1;
@@ -205,6 +205,9 @@ public class MainForm extends JFrame implements ImainForm {
     this.add(imagePane);
 
     logInfo = new JTextArea();
+    logInfo.setEditable(false);
+    DefaultCaret caret = (DefaultCaret)logInfo.getCaret();
+    caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     logInfoPane = new JScrollPane(logInfo);
     GridBagConstraints locationInfoConstraints = new GridBagConstraints();
     locationInfoConstraints.gridx = 0;
@@ -374,21 +377,6 @@ public class MainForm extends JFrame implements ImainForm {
   @Override
   public void setFeatures(ControllerFeatures f) {
     this.features = f;
-    //TODO: move this to an appropriate location
-    this.imageLabel.setIcon(new ImageIcon(features.obtainImage()));
-    this.imageLabel.setText(null);
-
-    //TODO: Adding a test player
-    features.addPlayer("Test Player", "Jotunheim", 3);
-    features.addPlayer("Alice", "Beach Head Two", 5);
-    features.addPlayer("Bob", "Beach Head One", 5);
-    features.addPlayer("Charlie", "Beach Head One", 5);
-
-    // Set the turn information for the first player
-    this.turnInfo.setText(features.getTurnInformation());
-
-    // Get the items in the space for the player whose turn it is.
-    itemOnGroundBox.setListData(features.getItemsOnTheGround().toArray(new Item[0]));
 
   }
 
@@ -401,6 +389,7 @@ public class MainForm extends JFrame implements ImainForm {
   public void setPreGameMenuVisibility(boolean enabled) {
     this.addHuman.setEnabled(enabled);
     this.addCpu.setEnabled(enabled);
+    this.startGame.setEnabled(enabled);
   }
 
 
@@ -493,6 +482,9 @@ public class MainForm extends JFrame implements ImainForm {
   }
 
   private void processPopup(MouseEvent e) {
+    if (!features.gameStarted()) {
+      return;
+    }
     JPopupMenu popup = new JPopupMenu();
     SpaceViewModel hit = features.hitDetection(e.getX(), e.getY());
     if (hit == null) {
@@ -524,7 +516,7 @@ public class MainForm extends JFrame implements ImainForm {
       playerinfo.addActionListener(new AbstractAction() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          logGameplay(p.describePlayer());
+          features.describePlayer();
         }
       });
       popup.add(playerinfo);
@@ -568,7 +560,8 @@ public class MainForm extends JFrame implements ImainForm {
   @Override
   public void showEndingPrompt(String winner) {
     JOptionPane.showMessageDialog(this,
-            String.format("Game Ended! Winner is: %s", winner));
+            String.format("Game Ended! %s", winner));
+    System.exit(0);
   }
 
   @Override
