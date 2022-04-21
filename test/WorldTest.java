@@ -84,7 +84,7 @@ public class WorldTest {
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
     // Target starts at index 0
-    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns *  Pet: Baby Starro is here.\n", game
             .getCurrentPlayerTurnInfo());
 
     // Move target twice.
@@ -92,7 +92,7 @@ public class WorldTest {
     game.moveTarget();
 
     // Target should be at index 2
-    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns *  Pet: Baby Starro is here.\n", game
             .getCurrentPlayerTurnInfo());
   }
 
@@ -103,7 +103,7 @@ public class WorldTest {
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
     // Target starts at index 0
-    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns *  Pet: Baby Starro is here.\n", game
             .getCurrentPlayerTurnInfo());
 
     // Move target past the last space.
@@ -120,7 +120,7 @@ public class WorldTest {
     game.moveTarget();
 
     // Target should be at index 2
-    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns *  Pet: Baby Starro is here.\n", game
             .getCurrentPlayerTurnInfo());
   }
 

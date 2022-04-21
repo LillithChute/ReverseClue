@@ -304,7 +304,7 @@ public class WorldImpl implements World {
     turnInformation.append("* Turn of ").append(getCurrentPlayer().getPlayerName());
     turnInformation.append(String.format(" %d/%d Turns *",
             this.getTurnTotal(), this.getMaxNumberOfTurns()));
-    turnInformation.append("\n");
+    turnInformation.append(" ");
 
     /*turnInformation.append("* You have the following information available:\n*\n");
 
@@ -315,18 +315,18 @@ public class WorldImpl implements World {
 
     // Get the location of the Target
     turnInformation.append(getTargetNameAndLocation());
+    */
 
     // If the pet is here
-    turnInformation.append("\n* Pet:\n");
+    turnInformation.append(" Pet: ");
     if (spaces.get(getCurrentPlayer().getLocation()).hasPet()) {
-      turnInformation.append("* ")
-              .append(spaces.get(getCurrentPlayer().getLocation()).getPet().getName())
+      turnInformation.append(spaces.get(getCurrentPlayer().getLocation()).getPet().getName())
              .append(" is here.\n");
     } else {
-      turnInformation.append("* The pet is not here.\n");
+      turnInformation.append("Is not here.\n");
     }
 
-    turnInformation.append("******************************************************************\n");*/
+    /*turnInformation.append("******************************************************************\n");*/
 
     return turnInformation.toString();
   }
