@@ -529,7 +529,7 @@ public class MainForm extends JFrame implements ImainForm {
       });
       popup.add(playerinfo);
     }
-    if (hit.isTargetInThisSpace()) {
+    if (hit.isTargetInThisSpace() && !hit.hasPet()) {
       TargetViewModel target = hit.getTargetFromThisSpace();
       JMenuItem targetinfo = new JMenuItem("Target Character Info");
       targetinfo.addActionListener(new AbstractAction() {
