@@ -507,6 +507,15 @@ public class MainForm extends JFrame implements ImainForm {
     });
     popup.add(move);
 
+    JMenuItem movePet = new JMenuItem("Move Pet here...");
+    movePet.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        features.movePet(hit.getTheNameOfThisSpace());
+      }
+    });
+    popup.add(movePet);
+
     for (PlayerViewModel p : hit.getPlayersInThisSpace()) {
       if (p != features.getCurrentPlayer()) {
         continue;

@@ -16,6 +16,7 @@ import gamecommands.AddPlayer;
 import gamecommands.Attack;
 import gamecommands.LookAround;
 import gamecommands.Move;
+import gamecommands.MovePet;
 import gamecommands.PickUpItem;
 import gamecommands.TurnInformation;
 import gameinterfaces.iteminterfaces.Item;
@@ -116,7 +117,13 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void movePet(String nameOfSpace) {
-
+    command = new MovePet(nameOfSpace);
+    try {
+      this.view.logGameplay(command.execute(model));
+      this.advanceTurn();
+    } catch (IllegalStateException ex) {
+      this.view.promptError(ex.getMessage());
+    }
   }
 
   @Override
