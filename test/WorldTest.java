@@ -606,7 +606,7 @@ public class WorldTest {
             + "\tNone.", harley.lookAround());
 
     // Computer should attack the target
-    String result = harley.TakeRandomAction(game);
+    String result = harley.takeRandomAction(game);
 
     assertEquals("You attacked with Helicopter and did 5 points of damage to Starro "
             + "The Conqueror.  Helicopter is now evidence.  Starro The Conqueror now has 70 "
@@ -673,7 +673,7 @@ public class WorldTest {
             + "Peacemaker is in Forest", harley.lookAround());
 
     // Computer should attack the target
-    String result = harley.TakeRandomAction(game);
+    String result = harley.takeRandomAction(game);
 
     assertEquals("You attacked with Boomerang and did 2 points of damage to Starro The "
             + "Conqueror.  Boomerang is now evidence.  Starro The Conqueror now has 73 health "
@@ -740,7 +740,7 @@ public class WorldTest {
             + "\tNone.", harley.lookAround());
 
     // Computer should attack the target
-    String result = harley.TakeRandomAction(game);
+    String result = harley.takeRandomAction(game);
 
     // If harley attacked it would be the string below.
     assertNotEquals("You attacked with Helicopter and did 5 points of damage to Starro "

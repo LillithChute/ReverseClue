@@ -29,4 +29,5 @@ public interface ControllerFeatures {
   public void updateViewInfo();
   public PlayerViewModel getCurrentPlayer();
   public void startGame(int turnCount);
+  public List<SpaceViewModel> spawningRooms();
 }

@@ -15,7 +15,7 @@ public class ComputerPlayerImpl extends BasePlayer {
   }
 
   @Override
-  public String TakeRandomAction(World world) {
+  public String takeRandomAction(World world) {
     Random random = new Random();
 
     // If the computer is in the same room as the target and can't be seen the computer WILL
@@ -33,12 +33,12 @@ public class ComputerPlayerImpl extends BasePlayer {
 
         // We have the most damaging weapon.  Use it
         String result =  attack(highestDamage.getNameOfItem());
-
+        this.actionFinished = false;
         return result;
       }
     } else {
       int randomChoice = random.nextInt(4);
-
+      this.actionFinished = false;
       return calculateComputerChoice(randomChoice, world);
     }
   }
@@ -148,4 +148,11 @@ public class ComputerPlayerImpl extends BasePlayer {
     return null;
   }
 
+  @Override
+  public boolean completedTurn() {
+    if (!this.actionFinished) {
+      this.actionFinished = true;
+    }
+    return false;
+  }
 }

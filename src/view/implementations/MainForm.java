@@ -431,13 +431,16 @@ public class MainForm extends JFrame implements ImainForm {
 
   private PlayerCreation getPlayerInput() {
     JTextField name = new JTextField();
-    JTextField location = new JTextField();
+    JList<SpaceViewModel> avaliable = new JList<>();
+    avaliable.setListData(features.spawningRooms().toArray(new SpaceViewModel[0]));
+    JScrollPane avaliablePane = new JScrollPane(avaliable);
+    avaliable.setSelectedIndex(0);
     JTextField limit = new JTextField();
     JPanel panel = new JPanel();
     panel.add(new JLabel("Player Name:"));
     panel.add(name);
     panel.add(new JLabel("Starting Location:"));
-    panel.add(location);
+    panel.add(avaliablePane);
     panel.add(new JLabel("Carry Limit:"));
     panel.add(limit);
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -445,7 +448,8 @@ public class MainForm extends JFrame implements ImainForm {
     int result = JOptionPane.showConfirmDialog(this, panel,
             "Enter Player Info...", JOptionPane.OK_CANCEL_OPTION);
     if (result == JOptionPane.OK_OPTION) {
-      return new PlayerCreation(name.getText(), location.getText(),
+      return new PlayerCreation(name.getText(),
+              avaliable.getSelectedValue().getTheNameOfThisSpace(),
               Integer.parseInt(limit.getText()));
     } else {
       return null;

@@ -184,6 +184,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void advanceTurn() {
+    this.updateViewInfo();
     if (model.isGameOver()) {
       this.updateViewInfo();
       this.started = false;
@@ -193,8 +194,13 @@ public class GraphicalController implements UiController, ControllerFeatures {
     }
     this.model.moveTarget();
     this.model.nextTurn();
+    if (!model.getCurrentPlayer().completedTurn()) {
+      this.view.logGameplay(this.model.getCurrentPlayer().takeRandomAction(model));
+      this.advanceTurn();
+    }
     this.updateViewInfo();
   }
+
 
   @Override
   public void startGame(int turnCount) {
@@ -210,5 +216,10 @@ public class GraphicalController implements UiController, ControllerFeatures {
   @Override
   public PlayerViewModel getCurrentPlayer() {
     return model.getCurrentPlayer();
+  }
+
+  @Override
+  public List<SpaceViewModel> spawningRooms() {
+    return new ArrayList<>(model.getSpaces());
   }
 }
