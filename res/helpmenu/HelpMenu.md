@@ -10,7 +10,7 @@ of absolutely annihilating your opponent, you have done it wrong.
 
 # Game Board Basic Layout.
 
-![Game Board](../helpmenu/PlayingArea.png "Game Board")
+![Game Board](../helpmenu/PlayingArea.PNG "Game Board")
 
 The game board consists of several areas.  There is the menu bar which has: 
 1. File - For loading a new world, replaying with the same world, exiting the game.
@@ -31,7 +31,7 @@ the course of playing the game.  Think of it as a diabolical diary of your plan 
 
 # Menu Items
 
-![File Menu](../helpmenu/FileMenu.png "File Menu")
+![File Menu](../helpmenu/FileMenu.PNG "File Menu")
 
 So, you are wondering what these little bad boy menu items are for and how they can help me kill my 
 least favorite target?  Well, here we go..
@@ -41,7 +41,7 @@ least favorite target?  Well, here we go..
 3. **Exit** - Duh.
 
 
-![Game Menu](../helpmenu/GameMenu.png "Game Menu")
+![Game Menu](../helpmenu/GameMenu.PNG "Game Menu")
 
 This menu is key to getting your ultimate revenge plot off the ground.  You must start here.  Before you can 
 work out your frustrations, you need to add players to the game.  So, add yourself!  Add your friends!  Have a party!!!!
@@ -75,7 +75,7 @@ the game begins!
 
 # Playing the Game A.K.A. Game Features
 
-![Game Play](../helpmenu/GamePlay.png "Game Play")
+![Game Play](../helpmenu/GamePlay.PNG "Game Play")
 
 So, here we have a game in progress.  In the middle is the world the players are inhabiting.  If you 
 look on the board, you will see a player named *Harley Quinn*.  That's me!  Your narrator!.  You will also 
