@@ -12,7 +12,7 @@ import view.implementations.MainForm;
 
 public class ViewTest {
   public static void main(String[] args) throws FileNotFoundException {
-    MainForm mainForm = new MainForm("main window");
+    MainForm mainForm = new MainForm("Reverse Clue");
     World world =
         new WorldImpl(new BufferedReader(new FileReader("./res/worlds/CortoMaltese"
             + ".txt")));
