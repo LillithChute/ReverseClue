@@ -12,9 +12,9 @@ public class PlayerImpl extends BasePlayer {
   /**
    * This builds an instance of a basic player.
    *
-   * @param playerName - Name of the player
+   * @param playerName     - Name of the player
    * @param playerLocation - Location the player starts at
-   * @param itemLimit - The number of items a player can carry.
+   * @param itemLimit      - The number of items a player can carry.
    */
   public PlayerImpl(String playerName, Space playerLocation, int itemLimit) {
     super(playerName, playerLocation, itemLimit);

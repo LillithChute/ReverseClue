@@ -3,7 +3,6 @@ package gameinterfaces.worldbuilderinterfaces;
 import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
 import gamemodels.targetmodels.TargetImpl;
-
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -63,27 +62,20 @@ public interface World {
   /**
    * This method adds a {@link Player} to the game.
    *
-   * @param playerName - The name of the player.
+   * @param playerName     - The name of the player.
    * @param playerLocation - The starting space of the player.
-   * @param itemLimit - The maximum number of items the player can carry.
+   * @param itemLimit      - The maximum number of items the player can carry.
    */
   void addPlayer(String playerName, Space playerLocation, int itemLimit);
 
   /**
    * This method adds a {@link Player} to the game.
    *
-   * @param playerName - The name of the player.
+   * @param playerName     - The name of the player.
    * @param playerLocation - The starting space of the player.
-   * @param itemLimit - The maximum number of items the player can carry.
+   * @param itemLimit      - The maximum number of items the player can carry.
    */
   void addComputerPlayer(String playerName, Space playerLocation, int itemLimit);
-
-  /**
-   * This will set the maximum turns to be played in the game.
-   *
-   * @param maxTurns - Max number of turns.
-   */
-  void setMaxNumberOfTurns(int maxTurns);
 
   /**
    * This will get the maximum allowable turns in the game.
@@ -91,6 +83,13 @@ public interface World {
    * @return - Max number of turns.
    */
   int getMaxNumberOfTurns();
+
+  /**
+   * This will set the maximum turns to be played in the game.
+   *
+   * @param maxTurns - Max number of turns.
+   */
+  void setMaxNumberOfTurns(int maxTurns);
 
   /**
    * We need a way to tell the client all the available locations to choose from when they

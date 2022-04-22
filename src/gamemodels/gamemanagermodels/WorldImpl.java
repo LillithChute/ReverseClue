@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.imageio.ImageIO;
 
 /**
@@ -32,6 +31,11 @@ import javax.imageio.ImageIO;
  * of it.  We can get space descriptions, move the target, and print out an image of a map.
  */
 public class WorldImpl implements World {
+  private final List<Player> players;
+  private final List<Space> spaces;
+  private final List<Item> items;
+  private final InstanceBuilder instanceBuilder;
+  private final int scale;
   private int rows;
   private int cols;
   private String gameName;
@@ -44,17 +48,10 @@ public class WorldImpl implements World {
   private int totalPlayers;
   private int maximumTurns;
   private int turnTotal;
-  private final List<Player> players;
-  private final List<Space> spaces;
-  private final List<Item> items;
-  private final InstanceBuilder instanceBuilder;
-
-  private final int scale;
 
   /**
    * This will take the filename of the file that has the information about creating the world of
    * the game.  Using that, it will build the world.
-   *
    *
    * @param file - File data that contains the world description.
    */
@@ -98,50 +95,51 @@ public class WorldImpl implements World {
     int height = rows + 5; //1
 
     // Constructs a BufferedImage of one of the predefined image types.
-    BufferedImage bufferedImage = new BufferedImage((width * scale), (height * scale), BufferedImage.TYPE_INT_RGB);
+    BufferedImage bufferedImage =
+        new BufferedImage((width * scale), (height * scale), BufferedImage.TYPE_INT_RGB);
 
     // Create a graphics which can be used to draw into the buffered image
     Graphics2D g2d = bufferedImage.createGraphics();
     //g2d.scale(scale, scale);
     for (Space currentSpace :
-            spaces) {
+        spaces) {
       int rectWidth = currentSpace
-              .getLowerRightxCoordinate() - currentSpace.getUpperLeftxCoordinate();
+          .getLowerRightxCoordinate() - currentSpace.getUpperLeftxCoordinate();
       int rectHeight = currentSpace
-              .getLowerRightyCoordinate() - currentSpace.getUpperLeftyCoordinate();
+          .getLowerRightyCoordinate() - currentSpace.getUpperLeftyCoordinate();
       int x = currentSpace.getUpperLeftxCoordinate();
       int y = currentSpace.getUpperLeftyCoordinate();
       //draw the room itself
       g2d.draw(new Rectangle2D.Double((x - 1) * scale, (y - 1) * scale,
-              (rectWidth + 1) * scale, (rectHeight + 1) * scale));
+          (rectWidth + 1) * scale, (rectHeight + 1) * scale));
       //draw the name of the room
       g2d.drawString(currentSpace.getTheNameOfThisSpace(), (x - 1 + 0.1f) * scale,
-              (y - 0.1f + rectHeight) * scale);
+          (y - 0.1f + rectHeight) * scale);
       //draw players
       int i = 0;
       float v = (x - 1) * scale + 0.2f * scale;
       for (; i < currentSpace.getPlayersInThisSpace().size(); i++) {
         Player p = currentSpace.getPlayersInThisSpace().get(i);
         g2d.draw(new Rectangle2D.Double(
-                ((x - 1) * scale + 0.1f * scale),
-                (((y - 1 + 0.2f) + i) * scale),
-                ((rectWidth + 0.8f) * scale),
-                0.8f * scale ));
+            ((x - 1) * scale + 0.1f * scale),
+            (((y - 1 + 0.2f) + i) * scale),
+            ((rectWidth + 0.8f) * scale),
+            0.8f * scale));
         g2d.drawString(p.getPlayerName(),
-                v,
-                (((y - 1 + 0.8f) + i) * scale));
+            v,
+            (((y - 1 + 0.8f) + i) * scale));
       }
       if ((currentSpace.isTargetInThisSpace() && !currentSpace.hasPet()) ||
-              (currentSpace.getPlayersInThisSpace().contains(getCurrentPlayer())
-                      && currentSpace.isTargetInThisSpace())) {
+          (currentSpace.getPlayersInThisSpace().contains(getCurrentPlayer())
+              && currentSpace.isTargetInThisSpace())) {
         g2d.draw(new Rectangle2D.Double(
-                ((x - 1) * scale + 0.1f * scale),
-                (((y - 1 + 0.2f) + i) * scale),
-                ((rectWidth + 0.8f) * scale),
-                0.8f * scale ));
+            ((x - 1) * scale + 0.1f * scale),
+            (((y - 1 + 0.2f) + i) * scale),
+            ((rectWidth + 0.8f) * scale),
+            0.8f * scale));
         g2d.drawString(target.getTargetName(),
-                v,
-                (((y - 1 + 0.8f) + i) * scale));
+            v,
+            (((y - 1 + 0.8f) + i) * scale));
       }
     }
     //g2d.draw(new Rectangle2D.Double(x, y, rectWidth, rectHeight));
@@ -152,16 +150,15 @@ public class WorldImpl implements World {
 
   @Override
   public Space hitDetection(double mx, double my) {
-    for (Space s: spaces)
-    {
+    for (Space s : spaces) {
       int rectWidth = s
-              .getLowerRightxCoordinate() - s.getUpperLeftxCoordinate();
+          .getLowerRightxCoordinate() - s.getUpperLeftxCoordinate();
       int rectHeight = s
-              .getLowerRightyCoordinate() - s.getUpperLeftyCoordinate();
+          .getLowerRightyCoordinate() - s.getUpperLeftyCoordinate();
       int x = s.getUpperLeftxCoordinate();
       int y = s.getUpperLeftyCoordinate();
       Rectangle box = new Rectangle((x - 1) * scale, (y - 1) * scale,
-              (rectWidth + 1) * scale, (rectHeight + 1) * scale);
+          (rectWidth + 1) * scale, (rectHeight + 1) * scale);
       Point p = new Point((int) mx, (int) my);
       if (box.contains(p)) {
         return s;
@@ -185,7 +182,7 @@ public class WorldImpl implements World {
     }
 
     for (Space currentSpace :
-            this.getSpaces()) {
+        this.getSpaces()) {
       if (currentSpace.getTheNameOfThisSpace().equalsIgnoreCase(nameOfSpace)) {
         getRequiredSpace = currentSpace;
       }
@@ -205,7 +202,7 @@ public class WorldImpl implements World {
 
     // Where is the target now?
     for (Space currentSpace :
-            spaces) {
+        spaces) {
       if (currentSpace.isTargetInThisSpace()) {
         // Get the index of this space because we want to move target
         currentIndex = currentSpace.getIndexOfTheSpace();
@@ -238,7 +235,7 @@ public class WorldImpl implements World {
     List<Space> neighbors;
 
     for (Space currentSpace :
-            this.getSpaces()) {
+        this.getSpaces()) {
       if (currentSpace.getIndexOfTheSpace() == indexOfThisSpace) {
         getRequiredSpace = currentSpace;
       }
@@ -273,6 +270,11 @@ public class WorldImpl implements World {
   }
 
   @Override
+  public int getMaxNumberOfTurns() {
+    return maximumTurns;
+  }
+
+  @Override
   public void setMaxNumberOfTurns(int maxTurns) {
     if (maxTurns < 1) {
       throw new IllegalArgumentException("The maximum number of turns must be greater than 0.");
@@ -282,18 +284,13 @@ public class WorldImpl implements World {
   }
 
   @Override
-  public int getMaxNumberOfTurns() {
-    return maximumTurns;
-  }
-
-  @Override
   public String getAvailableLocations() {
     StringBuilder buildString = new StringBuilder();
 
     for (Space currentSpace :
-            spaces) {
+        spaces) {
       buildString.append(currentSpace.getTheNameOfThisSpace())
-              .append(", ");
+          .append(", ");
     }
 
     // Get rid of the trailing comma and space
@@ -310,7 +307,7 @@ public class WorldImpl implements World {
     turnInformation.append("******************************************************************\n");*/
     turnInformation.append("* Turn of ").append(getCurrentPlayer().getPlayerName());
     turnInformation.append(String.format(" %d/%d Turns *",
-            this.getTurnTotal(), this.getMaxNumberOfTurns()));
+        this.getTurnTotal(), this.getMaxNumberOfTurns()));
     //turnInformation.append("\n");
 
     /*turnInformation.append("* You have the following information available:\n*\n");
@@ -325,8 +322,8 @@ public class WorldImpl implements World {
     turnInformation.append(" Pet: ");
     if (spaces.get(getCurrentPlayer().getLocation()).hasPet()) {
       turnInformation //.append("* ")
-              .append(spaces.get(getCurrentPlayer().getLocation()).getPet().getName())
-             .append(" is here.\n");
+          .append(spaces.get(getCurrentPlayer().getLocation()).getPet().getName())
+          .append(" is here.\n");
     } else {
       turnInformation.append("Is not here.\n");
     }
@@ -342,14 +339,14 @@ public class WorldImpl implements World {
     targetInformation.append("*\n* TARGET:\n");
 
     for (Space currentSpace :
-         spaces) {
+        spaces) {
       if (currentSpace.isTargetInThisSpace()) {
         var targetName = currentSpace.getTargetFromThisSpace().getTargetName();
         var targetLocation = currentSpace.getTheNameOfThisSpace();
         targetInformation.append("* ").append(targetName)
-                .append(" is located at ")
-                .append(targetLocation)
-                .append("\n*");
+            .append(" is located at ")
+            .append(targetLocation)
+            .append("\n*");
       }
     }
 
@@ -371,10 +368,10 @@ public class WorldImpl implements World {
     StringBuilder buildString = new StringBuilder();
 
     buildString.append(rows)
-            .append(";")
-            .append(cols)
-            .append(";")
-            .append(gameName);
+        .append(";")
+        .append(cols)
+        .append(";")
+        .append(gameName);
 
     return buildString.toString();
   }
@@ -466,14 +463,14 @@ public class WorldImpl implements World {
 
           // Now that we have space info, we can create the instance
           if (upperLeftX < 0 || upperLeftX > cols || lowerRightX < 0
-                  || lowerRightX > cols || upperLeftY < 0 || upperLeftY > rows
-                  || lowerRightY < 0 || lowerRightY > rows) {
+              || lowerRightX > cols || upperLeftY < 0 || upperLeftY > rows
+              || lowerRightY < 0 || lowerRightY > rows) {
             throw new IllegalArgumentException("The coordinates for building the space '"
-                    + spaceName + "' are not valid.  An index is out of range.");
+                + spaceName + "' are not valid.  An index is out of range.");
           }
 
           Space space = instanceBuilder.spaceBuilder(spaceIndexNumber, spaceName,
-                  upperLeftX, upperLeftY, lowerRightX, lowerRightY);
+              upperLeftX, upperLeftY, lowerRightX, lowerRightY);
 
           spaces.add(space);
 
@@ -489,7 +486,7 @@ public class WorldImpl implements World {
 
         // Get the item data and create an instance of item to add to the list.
         if (lineNumber >= beginningIndexOfItems
-                && lineNumber <= totalItems + beginningIndexOfItems) {
+            && lineNumber <= totalItems + beginningIndexOfItems) {
           int spaceItemIsIn = Integer.parseInt(gameData[0]);
           int damage = Integer.parseInt(gameData[1]);
 
@@ -503,7 +500,7 @@ public class WorldImpl implements World {
           // Now that we have the total number of spaces, we can create the target
           if (spaceItemIsIn < 0 || spaceItemIsIn > totalSpaces - 1) {
             throw new IllegalArgumentException("The item '" + itemName
-                    + "' has an invalid location at index: " + spaceItemIsIn);
+                + "' has an invalid location at index: " + spaceItemIsIn);
           } else {
             Item item = instanceBuilder.itemBuilder(itemName, damage, spaceItemIsIn);
 
@@ -523,7 +520,7 @@ public class WorldImpl implements World {
         List<Item> itemsInThisSpace = new ArrayList<>();
 
         for (Item currentItem :
-                items) {
+            items) {
           if (currentItem.getSpaceIndexOfItem() == i) {
             itemsInThisSpace.add(currentItem);
           }
@@ -548,7 +545,7 @@ public class WorldImpl implements World {
 
     // Loop through list of the spaces in the game.
     for (Space currentSpace :
-            allTheSpaces) {
+        allTheSpaces) {
       // If the space to be examined is not this space, process it.
       if (currentSpace.getIndexOfTheSpace() != spaceBeingExamined.getIndexOfTheSpace()) {
         // Calculate if these two are neighbors
@@ -566,51 +563,51 @@ public class WorldImpl implements World {
     // and upper left X, lower right y+1; lower right X, lower right Y+1.  For inclusivity add 1 to
     // lower right Y of incoming space.
     if (doesWallIntersect(spaceBeingExamined.getUpperLeftxCoordinate(),
-            spaceBeingExamined.getUpperLeftyCoordinate(),
-            spaceBeingExamined.getLowerRightxCoordinate(),
-            spaceBeingExamined.getUpperLeftyCoordinate(),
-            spaceInTheListOfAll.getUpperLeftxCoordinate(),
-            spaceInTheListOfAll.getLowerRightyCoordinate() + 1,
-            spaceInTheListOfAll.getLowerRightxCoordinate(),
-            spaceInTheListOfAll.getLowerRightyCoordinate() + 1)) {
+        spaceBeingExamined.getUpperLeftyCoordinate(),
+        spaceBeingExamined.getLowerRightxCoordinate(),
+        spaceBeingExamined.getUpperLeftyCoordinate(),
+        spaceInTheListOfAll.getUpperLeftxCoordinate(),
+        spaceInTheListOfAll.getLowerRightyCoordinate() + 1,
+        spaceInTheListOfAll.getLowerRightxCoordinate(),
+        spaceInTheListOfAll.getLowerRightyCoordinate() + 1)) {
 
       return true;
 
       // Examine east wall.  upper left X upper left Y, upper left X; lower right Y of current room
       // and lower right X+1, upper left Y; lower right X+1, lower right Y.
     } else if (doesWallIntersect(spaceBeingExamined.getUpperLeftxCoordinate(),
-            spaceBeingExamined.getUpperLeftyCoordinate(),
-            spaceBeingExamined.getUpperLeftxCoordinate(),
-            spaceBeingExamined.getLowerRightyCoordinate(),
-            spaceInTheListOfAll.getLowerRightxCoordinate() + 1,
-            spaceInTheListOfAll.getUpperLeftyCoordinate(),
-            spaceInTheListOfAll.getLowerRightxCoordinate() + 1,
-            spaceInTheListOfAll.getLowerRightyCoordinate())) {
+        spaceBeingExamined.getUpperLeftyCoordinate(),
+        spaceBeingExamined.getUpperLeftxCoordinate(),
+        spaceBeingExamined.getLowerRightyCoordinate(),
+        spaceInTheListOfAll.getLowerRightxCoordinate() + 1,
+        spaceInTheListOfAll.getUpperLeftyCoordinate(),
+        spaceInTheListOfAll.getLowerRightxCoordinate() + 1,
+        spaceInTheListOfAll.getLowerRightyCoordinate())) {
 
       return true;
       // Examine south wall.  upper left X lower right Y, lower right X; lower right Y of current
       // room and upper left X, upper left Y-1; lower right X, upper left Y-1.
     } else if (doesWallIntersect(spaceBeingExamined.getUpperLeftxCoordinate(),
-            spaceBeingExamined.getLowerRightyCoordinate(),
-            spaceBeingExamined.getLowerRightxCoordinate(),
-            spaceBeingExamined.getLowerRightyCoordinate(),
-            spaceInTheListOfAll.getUpperLeftxCoordinate(),
-            spaceInTheListOfAll.getUpperLeftyCoordinate() - 1,
-            spaceInTheListOfAll.getLowerRightxCoordinate(),
-            spaceInTheListOfAll.getUpperLeftyCoordinate() - 1)) {
+        spaceBeingExamined.getLowerRightyCoordinate(),
+        spaceBeingExamined.getLowerRightxCoordinate(),
+        spaceBeingExamined.getLowerRightyCoordinate(),
+        spaceInTheListOfAll.getUpperLeftxCoordinate(),
+        spaceInTheListOfAll.getUpperLeftyCoordinate() - 1,
+        spaceInTheListOfAll.getLowerRightxCoordinate(),
+        spaceInTheListOfAll.getUpperLeftyCoordinate() - 1)) {
 
       return true;
       // Examine west wall. lower right X upper left Y, lower right X; lower right Y of current room
       // and upper left X-1, upper left Y; upper left X-1, lower right Y.
     } else {
       return doesWallIntersect(spaceBeingExamined.getLowerRightxCoordinate(),
-              spaceBeingExamined.getUpperLeftyCoordinate(),
-              spaceBeingExamined.getLowerRightxCoordinate(),
-              spaceBeingExamined.getLowerRightyCoordinate(),
-              spaceInTheListOfAll.getUpperLeftxCoordinate() - 1,
-              spaceInTheListOfAll.getUpperLeftyCoordinate(),
-              spaceInTheListOfAll.getUpperLeftxCoordinate() - 1,
-              spaceInTheListOfAll.getLowerRightyCoordinate());
+          spaceBeingExamined.getUpperLeftyCoordinate(),
+          spaceBeingExamined.getLowerRightxCoordinate(),
+          spaceBeingExamined.getLowerRightyCoordinate(),
+          spaceInTheListOfAll.getUpperLeftxCoordinate() - 1,
+          spaceInTheListOfAll.getUpperLeftyCoordinate(),
+          spaceInTheListOfAll.getUpperLeftxCoordinate() - 1,
+          spaceInTheListOfAll.getLowerRightyCoordinate());
     }
   }
 
@@ -626,22 +623,22 @@ public class WorldImpl implements World {
   private boolean doSpacesOverlap(Space newSpace, Space currentSpace) {
 
     // Represent incoming space as (bottom left) (top right) [col1, row1, col2, row2]
-    int[] spaceOne = new int[]{newSpace.getUpperLeftxCoordinate(),
-            newSpace.getLowerRightyCoordinate(),
-            newSpace.getLowerRightxCoordinate(),
-            newSpace.getUpperLeftyCoordinate()};
+    int[] spaceOne = new int[] {newSpace.getUpperLeftxCoordinate(),
+        newSpace.getLowerRightyCoordinate(),
+        newSpace.getLowerRightxCoordinate(),
+        newSpace.getUpperLeftyCoordinate()};
 
 
-    int[] existingSpace = new int[]{currentSpace.getUpperLeftxCoordinate(),
-            currentSpace.getLowerRightyCoordinate(),
-            currentSpace.getLowerRightxCoordinate(),
-            currentSpace.getUpperLeftyCoordinate()};
+    int[] existingSpace = new int[] {currentSpace.getUpperLeftxCoordinate(),
+        currentSpace.getLowerRightyCoordinate(),
+        currentSpace.getLowerRightxCoordinate(),
+        currentSpace.getUpperLeftyCoordinate()};
 
     // Need to add a +1 for inclusivity of the coordinates.
     return !(spaceOne[2] + 1 <= existingSpace[0] //Is space one to the left of existing
-            || spaceOne[3] >= existingSpace[1] // Is space one below existing
-            || spaceOne[0] >= existingSpace[2] // Is space one to the right of existing
-            || spaceOne[1] + 1 >= existingSpace[3]);
+        || spaceOne[3] >= existingSpace[1] // Is space one below existing
+        || spaceOne[0] >= existingSpace[2] // Is space one to the right of existing
+        || spaceOne[1] + 1 >= existingSpace[3]);
   }
 
   private void buildGameLevelData(String[] gameData) {

@@ -1,8 +1,7 @@
 package view.implementations;
 
-import java.util.Random;
-
 import gameinterfaces.iteminterfaces.ItemViewModel;
+import java.util.Random;
 
 //TODO: remove this whole thing
 public class TestingItem implements ItemViewModel {

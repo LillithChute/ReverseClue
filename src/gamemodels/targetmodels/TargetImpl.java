@@ -20,10 +20,10 @@ public class TargetImpl implements Target, TargetViewModel {
    * begins at space zero and each turn moves a space until the target hits the maximum and then
    * the target returns to the beginning.
    *
-   * @param name - Name of the target.
+   * @param name             - Name of the target.
    * @param maxIndexOfSpaces - Essentially the total number of rooms.  If the mx spaces is hit,
    *                         the next move of the target will be back to room index 0.
-   * @param health - Health of the target.
+   * @param health           - Health of the target.
    */
   public TargetImpl(String name, int maxIndexOfSpaces, int health) {
     if (name == null || name.isBlank()) {
@@ -36,7 +36,7 @@ public class TargetImpl implements Target, TargetViewModel {
 
     if (health < 1) {
       throw new IllegalArgumentException("The Target cannot have 0 or negative health to "
-              + "start with.");
+          + "start with.");
     }
 
     this.name = name;
@@ -60,7 +60,7 @@ public class TargetImpl implements Target, TargetViewModel {
    * @return The target's current health.
    */
   public int getCurrentHealth() {
-    return  this.health;
+    return this.health;
   }
 
   /**
@@ -77,12 +77,12 @@ public class TargetImpl implements Target, TargetViewModel {
   public String toString() {
     StringBuilder buildString = new StringBuilder();
     buildString.append(this.name)
-            .append(";")
-            .append(this.health)
-            .append(";")
-            .append(this.currentSpaceLocation)
-            .append(";")
-            .append(this.maxIndexOfSpaces);
+        .append(";")
+        .append(this.health)
+        .append(";")
+        .append(this.currentSpaceLocation)
+        .append(";")
+        .append(this.maxIndexOfSpaces);
 
     return buildString.toString();
   }

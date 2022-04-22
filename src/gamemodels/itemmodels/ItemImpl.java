@@ -2,7 +2,6 @@ package gamemodels.itemmodels;
 
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.iteminterfaces.ItemViewModel;
-
 import java.util.Objects;
 
 /**
@@ -22,8 +21,8 @@ public class ItemImpl implements Item, ItemViewModel {
    * place it is located.  None of these are mutable.  It is expected that the name, damage, and
    * the location can't be empty or negative.
    *
-   * @param name - The name or description of the item.
-   * @param damage - The amount of damage the item can do.
+   * @param name          - The name or description of the item.
+   * @param damage        - The amount of damage the item can do.
    * @param spaceLocation - The location on the board of the item.
    */
   public ItemImpl(String name, int damage, int spaceLocation) {
@@ -84,14 +83,18 @@ public class ItemImpl implements Item, ItemViewModel {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     ItemImpl item = (ItemImpl) o;
     return damage == item.damage
-            && spaceLocation == item.spaceLocation
-            && isWithPlayer == item.isWithPlayer
-            && isEvidence == item.isEvidence
-            && name.equals(item.name);
+        && spaceLocation == item.spaceLocation
+        && isWithPlayer == item.isWithPlayer
+        && isEvidence == item.isEvidence
+        && name.equals(item.name);
   }
 
   @Override
@@ -103,9 +106,9 @@ public class ItemImpl implements Item, ItemViewModel {
   public String toString() {
     StringBuilder buildItemString = new StringBuilder();
     buildItemString.append(name)
-            .append("; ")
-            .append("Damage = ")
-            .append(damage);
+        .append("; ")
+        .append("Damage = ")
+        .append(damage);
 
     return buildItemString.toString();
   }

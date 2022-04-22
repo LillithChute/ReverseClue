@@ -18,7 +18,7 @@ public class MovePet implements GameCommand {
   public MovePet(String nameOfSpace) {
     if (nameOfSpace == null || nameOfSpace.isBlank()) {
       throw new IllegalArgumentException("The name of the space you are moving the pet to cannot "
-              + "be blank.");
+          + "be blank.");
     }
 
     this.nameOfSpace = nameOfSpace;

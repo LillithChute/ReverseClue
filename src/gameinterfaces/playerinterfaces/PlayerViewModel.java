@@ -1,10 +1,11 @@
 package gameinterfaces.playerinterfaces;
 
+import gameinterfaces.iteminterfaces.Item;
 import java.util.List;
 
-import gameinterfaces.iteminterfaces.Item;
-import gameinterfaces.spaceinterfaces.Space;
-
+/**
+ * The readonly view-model representing a player in the game.
+ */
 public interface PlayerViewModel {
 
   /**
@@ -22,14 +23,14 @@ public interface PlayerViewModel {
   int getLocation();
 
   /**
-   *  * This method returns a description of all items a player is carrying.
+   * * This method returns a description of all items a player is carrying.
    *
    * @return A description of the items the player has.
    */
   String getPlayerItemsDescription();
 
   /**
-   *  * This method returns all the items a player is carrying.
+   * * This method returns all the items a player is carrying.
    *
    * @return A list of the items the player has.
    */

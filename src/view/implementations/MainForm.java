@@ -2,6 +2,12 @@ package view.implementations;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
+import controller.ControllerFeatures;
+import dtos.PlayerCreation;
+import gameinterfaces.iteminterfaces.ItemViewModel;
+import gameinterfaces.playerinterfaces.PlayerViewModel;
+import gameinterfaces.spaceinterfaces.SpaceViewModel;
+import gameinterfaces.targetinterfaces.TargetViewModel;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -12,14 +18,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,68 +44,58 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultCaret;
-
-import controller.ControllerFeatures;
-import dtos.PlayerCreation;
-import gameinterfaces.iteminterfaces.Item;
-import gameinterfaces.iteminterfaces.ItemViewModel;
-import gameinterfaces.playerinterfaces.PlayerViewModel;
-import gameinterfaces.spaceinterfaces.SpaceViewModel;
-import gameinterfaces.targetinterfaces.TargetViewModel;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
 import view.interfaces.ImainForm;
 
+/**
+ * The Main view of the game, displaying information, graphics and handles user inputs.
+ */
 public class MainForm extends JFrame implements ImainForm {
+  static String welcomeMsg;
+
+  static {
+    welcomeMsg = "Welcome to CS 5010 Milestone, The world!\n"
+        + "Authors: Lillith Chute & Donglin Xu";
+  }
+
   private GridBagLayout mainLayout;
   private JMenuBar bar;
   private JMenu fileMenu;
   private JMenuItem restartGame;
   private JMenuItem newGame;
   private JMenuItem exitGame;
-
   private JMenu gameMenu;
   private JMenuItem addHuman;
   private JMenuItem addCpu;
-
   private JMenu helpMenu;
   private JMenuItem gameHelp;
   private JMenuItem gameAbout;
   private JMenuItem startGame;
-
   private JLabel imageLabel;
   private JScrollPane imagePane;
-
   private JLabel turnInfo;
-
   private JTextArea logInfo;
   private JScrollPane logInfoPane;
-
   private JLabel itemGroundLabel;
   private JList<ItemViewModel> itemOnGroundBox;
   private JScrollPane itemOnGroundPane;
-
   private JLabel backpackLabel;
   private JList<ItemViewModel> backpack;
   private JScrollPane backpackPane;
-
   private JButton pickUpButton;
-
   private JButton lookaroundButton;
-
   private JButton attackButton;
-
   private ControllerFeatures features;
-
   private List<Component> preGameComponents;
   private List<Component> inGameComponents;
 
-  static String welcomeMsg;
 
-  static {
-    welcomeMsg = "Welcome to CS 5010 Milestone, The world!\n"
-            + "Authors: Lillith Chute & Donglin Xu";
-  }
-
-
+  /**
+   * Constructs a game interface object.
+   *
+   * @param caption the title of the window.
+   */
   public MainForm(String caption) {
     super(caption);
     this.preGameComponents = new ArrayList<>();
@@ -104,7 +103,7 @@ public class MainForm extends JFrame implements ImainForm {
 
     setSize(800, 600);
     setPreferredSize(new Dimension(1350, 950));
-    setLocation(400,400);
+    setLocation(400, 400);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     this.mainLayout = new GridBagLayout();
@@ -187,6 +186,31 @@ public class MainForm extends JFrame implements ImainForm {
     helpMenu.add(gameAbout);
     bar.add(helpMenu);
 
+    gameHelp.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JEditorPane editor = new JEditorPane();
+        editor.setEditable(false);
+        JScrollPane htmlScrollPane = new JScrollPane(editor);
+        htmlScrollPane.setPreferredSize(new Dimension(1600, 1200));
+
+        HTMLEditorKit kit = new HTMLEditorKit();
+        editor.setEditorKit(kit);
+
+        Document htm = kit.createDefaultDocument();
+        editor.setDocument(htm);
+        try {
+          editor.setText(Files.readString(Path.of("./res/README.html")));
+        } catch (IOException ex) {
+          throw new IllegalArgumentException();
+        }
+        JPanel popup = new JPanel();
+        popup.add(htmlScrollPane);
+        JOptionPane.showConfirmDialog(null, popup,
+            "Help", JOptionPane.DEFAULT_OPTION);
+      }
+    });
+
 
     this.setJMenuBar(bar);
 
@@ -206,7 +230,7 @@ public class MainForm extends JFrame implements ImainForm {
 
     logInfo = new JTextArea();
     logInfo.setEditable(false);
-    DefaultCaret caret = (DefaultCaret)logInfo.getCaret();
+    DefaultCaret caret = (DefaultCaret) logInfo.getCaret();
     caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     logInfoPane = new JScrollPane(logInfo);
     GridBagConstraints locationInfoConstraints = new GridBagConstraints();
@@ -390,6 +414,7 @@ public class MainForm extends JFrame implements ImainForm {
     this.addHuman.setEnabled(enabled);
     this.addCpu.setEnabled(enabled);
     this.startGame.setEnabled(enabled);
+    this.turnInfo.setText("ADD PLAYERS AND START THE GAME!");
   }
 
 
@@ -435,11 +460,11 @@ public class MainForm extends JFrame implements ImainForm {
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
     int result = JOptionPane.showConfirmDialog(this, panel,
-            "Enter Player Info...", JOptionPane.OK_CANCEL_OPTION);
+        "Enter Player Info...", JOptionPane.OK_CANCEL_OPTION);
     if (result == JOptionPane.OK_OPTION) {
       return new PlayerCreation(name.getText(),
-              avaliable.getSelectedValue().getTheNameOfThisSpace(),
-              Integer.parseInt(limit.getText()));
+          avaliable.getSelectedValue().getTheNameOfThisSpace(),
+          Integer.parseInt(limit.getText()));
     } else {
       return null;
     }
@@ -453,7 +478,7 @@ public class MainForm extends JFrame implements ImainForm {
     panel.add(input);
     panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
     int result = JOptionPane.showConfirmDialog(this, panel, "Enter Max Turns:",
-            JOptionPane.OK_CANCEL_OPTION);
+        JOptionPane.OK_CANCEL_OPTION);
     if (result == JOptionPane.OK_OPTION) {
       try {
         int turnCount = Integer.parseInt(input.getText());
@@ -528,14 +553,14 @@ public class MainForm extends JFrame implements ImainForm {
         @Override
         public void actionPerformed(ActionEvent e) {
           logGameplay(String.format("Target %s, Health %d", target.getTargetName(),
-                  target.getCurrentHealth()));
+              target.getCurrentHealth()));
         }
       });
       popup.add(targetinfo);
     }
 
     popup.show(this, imagePane.getMousePosition().x + imagePane.getX(),
-            imagePane.getMousePosition().y + imagePane.getY());
+        imagePane.getMousePosition().y + imagePane.getY());
   }
 
   @Override
@@ -544,23 +569,29 @@ public class MainForm extends JFrame implements ImainForm {
       for (Component c : this.preGameComponents) {
         c.setEnabled(false);
       }
-      for (Component c: this.inGameComponents) {
+      for (Component c : this.inGameComponents) {
         c.setEnabled(true);
       }
     } else {
       for (Component c : this.preGameComponents) {
         c.setEnabled(true);
       }
-      for (Component c: this.inGameComponents) {
+      for (Component c : this.inGameComponents) {
         c.setEnabled(false);
       }
+      this.imageLabel.setIcon(null);
+      this.backpack.setListData(new ItemViewModel[0]);
+      this.itemOnGroundBox.setListData(new ItemViewModel[0]);
+      this.logInfo.setText("");
+      this.turnInfo.setText("ADD PLAYERS AND START THE GAME!");
+
     }
   }
 
   @Override
   public void showEndingPrompt(String winner) {
     JOptionPane.showMessageDialog(this,
-            String.format("Game Ended! %s", winner));
+        String.format("Game Ended! %s", winner));
     System.exit(0);
   }
 
@@ -575,7 +606,7 @@ public class MainForm extends JFrame implements ImainForm {
   }
 
   @Override
-  public void setPlayerName(PlayerViewModel player) {
+  public void setBackpackPlayer(PlayerViewModel player) {
     this.backpackLabel.setText(String.format("Items of %s:", player.getPlayerName()));
   }
 

@@ -1,16 +1,5 @@
 package controller;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import gamecommands.AddComputerPlayer;
 import gamecommands.AddPlayer;
 import gamecommands.Attack;
@@ -20,7 +9,6 @@ import gamecommands.Move;
 import gamecommands.MovePet;
 import gamecommands.PickUpItem;
 import gamecommands.TurnInformation;
-import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.iteminterfaces.ItemViewModel;
 import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.playerinterfaces.PlayerViewModel;
@@ -29,10 +17,23 @@ import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
 import gamemodels.gamemanagermodels.WorldImpl;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import utilitles.Utility;
 import view.implementations.MainForm;
 import view.interfaces.ImainForm;
 
+/**
+ * The milestone-4 controller for the game. It performs commands on the model and pushes
+ * changes back to the view.
+ */
 public class GraphicalController implements UiController, ControllerFeatures {
 
   private World model;
@@ -41,8 +42,13 @@ public class GraphicalController implements UiController, ControllerFeatures {
   private GameCommand command;
   private boolean started;
 
-  private File loaded = null;
+  private File loaded;
 
+  /**
+   * Constructs a controller for the game.
+   *
+   * @param f The world-representation file to be parsed into the model.
+   */
   public GraphicalController(File f) {
     Utility.checkNull(f);
     try {
@@ -54,11 +60,6 @@ public class GraphicalController implements UiController, ControllerFeatures {
     this.started = false;
   }
 
-
-  @Override
-  public BufferedImage obtainImage() {
-    return model.worldImage();
-  }
 
   @Override
   public void addComputerPlayer(String playerName, String playerLocation, int itemLimit) {
@@ -110,10 +111,6 @@ public class GraphicalController implements UiController, ControllerFeatures {
     updateViewInfo();
   }
 
-  @Override
-  public void describeSpace(String spaceName) {
-
-  }
 
   @Override
   public void lookaround() {
@@ -167,13 +164,6 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public List<Item> getItemsOnTheGround() {
-    SpaceViewModel currentPlayersLocation = model.getSpaces().get(model.getCurrentPlayer().getLocation());
-
-    return currentPlayersLocation.getItems();
-  }
-
-  @Override
   public void setView(MainForm v) {
     this.view = v;
     v.setFeatures(this);
@@ -208,10 +198,10 @@ public class GraphicalController implements UiController, ControllerFeatures {
   public void resetView() {
     this.view.setPreGameMenuVisibility(true);
     this.view.setFeatures(this);
+    this.view.setStartedState(false);
   }
 
-  @Override
-  public void updateViewInfo() {
+  private void updateViewInfo() {
     if (!this.started) {
       return;
     }
@@ -219,20 +209,19 @@ public class GraphicalController implements UiController, ControllerFeatures {
     this.view.setTurnInfo(model.getCurrentPlayerTurnInfo());
     Player current = model.getCurrentPlayer();
     Space currentSpace = model.getSpaces()
-            .stream()
-            .filter(r -> r.getPlayersInThisSpace().contains(current))
-            .findFirst().orElse(null);
+        .stream()
+        .filter(r -> r.getPlayersInThisSpace().contains(current))
+        .findFirst().orElse(null);
     List<ItemViewModel> backpack = new ArrayList<>(current.getPlayerItems());
     List<ItemViewModel> ground = currentSpace.getItems().stream()
-            .filter(i -> !i.isItemWithPlayer()).collect(Collectors.toList());
+        .filter(i -> !i.isItemWithPlayer()).collect(Collectors.toList());
     this.view.setGraphics(model.worldImage());
-    this.view.setPlayerName(model.getCurrentPlayer());
+    this.view.setBackpackPlayer(model.getCurrentPlayer());
     this.view.setGroundItems(ground);
     this.view.setBackpackItems(backpack);
   }
 
-  @Override
-  public void advanceTurn() {
+  private void advanceTurn() {
     this.updateViewInfo();
     if (model.isGameOver()) {
       this.updateViewInfo();
@@ -242,7 +231,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
         this.view.showEndingPrompt("Target Character Escaped and NO ONE wins!");
       } else {
         this.view.showEndingPrompt(String.format("%s WINS!",
-                model.getCurrentPlayer().getPlayerName()));
+            model.getCurrentPlayer().getPlayerName()));
       }
       return;
     }
@@ -285,4 +274,5 @@ public class GraphicalController implements UiController, ControllerFeatures {
   public List<SpaceViewModel> spawningRooms() {
     return new ArrayList<>(model.getSpaces());
   }
+
 }
