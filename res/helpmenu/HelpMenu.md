@@ -50,3 +50,23 @@ work out your frustrations, you need to add players to the game.  So, add yourse
 2. **Add CPU Player** - If you want a challenge, you can add a computer player to play against.  The computer will automatically take actions and try to kill the target before you do.
 3. **Start Game** - Once you have added all the players, hit the start button, and you are on your way!
 
+Finally, we have the **Help**.  If you are reading this, you have already been there and know what you are doing.  Also, 
+click on the **About..** to find out who the **brilliant minds** are behind this incredible game! 
+
+# Adding Players
+
+When you are ready to play, the first thing you want to do is add players to the game.  Go to the **Game** menu item and select either 
+Add Human or Add CPU.  YOu will be presented with the following menu:
+
+![Add Player](../helpmenu/AddPlayer.png "Add Player")
+
+When you decide to add either a computer or human player, you are presented with the same dialog box.  THere 
+are three pieces of information you need to provide to create a player.  You need a name, obviously.  Second, you need 
+to pick a starting location on the map.  THe list are all the possible locations where you can begin.  Throw a dart!  Finally, 
+the last piece of information is the maximum number of dangerous weapons that you can carry.  For a challenge, choose a small number.  You can also go 
+really big so you can scarf up everything on the map! Who says you can't carry 324,567 weapons? 
+
+Once you have finished adding players, click on **Start Game** within the *Game* menu to begin.
+
+# Playing the Game A.K.A. Game Features
+
