@@ -9,7 +9,7 @@ will need to destroy the target of your choice.  If you don't feel a sense of re
 of absolutely annihilating your opponent, you have done it wrong.
 
 # Game Board Basic Layout.
-PlayingArea.PNG
+
 ![Game Board](../helpmenu/PlayingArea.png "Game Board")
 
 The game board consists of several areas.  There is the menu bar which has: 
@@ -28,3 +28,25 @@ the current player is carrying around.
 
 The area below the map contains a field that displays all the actions that have taken place during 
 the course of playing the game.  Think of it as a diabolical diary of your plan of death!
+
+# Menu Items
+
+![File Menu](../helpmenu/FileMenu.png "File Menu")
+
+So, you are wondering what these little bad boy menu items are for and how they can help me kill my 
+least favorite target?  Well, here we go..
+
+1. **New Game With Another World** - This lets you select from wherever you are storing your world building files, any world to play than the one you are playing.  You *could* also pick the one that you just played, but that would be a little weird, don't you think?
+2. **New Game With Same World** - THis just restarts the game using the same world map you just played.  You get to kill that enemy of yours all over again!  Huzzah!
+3. **Exit** - Duh.
+
+
+![Game Menu](../helpmenu/GameMenu.png "Game Menu")
+
+This menu is key to getting your ultimate revenge plot off the ground.  You must start here.  Before you can 
+work out your frustrations, you need to add players to the game.  So, add yourself!  Add your friends!  Have a party!!!!
+
+1. **Add human player** - If you are a human and will be the one taking control of the death and destruction, you want to use this menu item.
+2. **Add CPU Player** - If you want a challenge, you can add a computer player to play against.  The computer will automatically take actions and try to kill the target before you do.
+3. **Start Game** - Once you have added all the players, hit the start button, and you are on your way!
+
