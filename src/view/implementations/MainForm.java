@@ -390,6 +390,7 @@ public class MainForm extends JFrame implements ImainForm {
     this.addHuman.setEnabled(enabled);
     this.addCpu.setEnabled(enabled);
     this.startGame.setEnabled(enabled);
+    this.turnInfo.setText("ADD PLAYERS AND START THE GAME!");
   }
 
 
@@ -554,6 +555,12 @@ public class MainForm extends JFrame implements ImainForm {
       for (Component c: this.inGameComponents) {
         c.setEnabled(false);
       }
+      this.imageLabel.setIcon(null);
+      this.backpack.setListData(new ItemViewModel[0]);
+      this.itemOnGroundBox.setListData(new ItemViewModel[0]);
+      this.logInfo.setText("");
+      this.turnInfo.setText("ADD PLAYERS AND START THE GAME!");
+
     }
   }
 

@@ -208,6 +208,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
   public void resetView() {
     this.view.setPreGameMenuVisibility(true);
     this.view.setFeatures(this);
+    this.view.setStartedState(false);
   }
 
   @Override
@@ -285,4 +286,5 @@ public class GraphicalController implements UiController, ControllerFeatures {
   public List<SpaceViewModel> spawningRooms() {
     return new ArrayList<>(model.getSpaces());
   }
+
 }
