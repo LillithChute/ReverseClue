@@ -1,4 +1,4 @@
-# Reverse Clue
+# Reverse Clue A.K.A. The Best Game You Have Ever Played
 
 Congratulations on deciding to be a super cool gamer and electing to find out what it feels like to be on the other side of 
 the game of Clue.  Instead of trying to figure out who the killer is, you get to BE the killer!  On 
@@ -8,7 +8,7 @@ This help menu will guide you on your journey to understanding the game elements
 will need to destroy the target of your choice.  If you don't feel a sense of relief at the conclusion 
 of absolutely annihilating your opponent, you have done it wrong.
 
-# Game Board Basic Layout.
+# Game Board Basic Layout A.K.A. The Designer is Genius!
 
 ![Game Board](../helpmenu/PlayingArea.PNG "Game Board")
 
@@ -29,7 +29,7 @@ the current player is carrying around.
 The area below the map contains a field that displays all the actions that have taken place during 
 the course of playing the game.  Think of it as a diabolical diary of your plan of death!
 
-# Menu Items
+# Menu Items A.K.A. Boring Stuff You Need To Know
 
 ![File Menu](../helpmenu/FileMenu.PNG "File Menu")
 
@@ -37,7 +37,7 @@ So, you are wondering what these little bad boy menu items are for and how they 
 least favorite target?  Well, here we go..
 
 1. **New Game With Another World** - This lets you select a world from wherever you are storing your world building files.  Any world you want to play other than the one you are playing.  You *could* also pick the one that you just played, but that would be a little weird, don't you think?
-2. **New Game With Same World** - THis just restarts the game using the same world map you just played.  You get to kill that enemy of yours all over again!  Huzzah!
+2. **New Game With Same World** - This just restarts the game using the same world map you just played.  You get to kill that enemy of yours all over again!  Huzzah!
 3. **Exit** - Duh.
 
 
@@ -46,29 +46,30 @@ least favorite target?  Well, here we go..
 This menu is key to getting your ultimate revenge plot off the ground.  You must start here.  Before you can 
 work out your frustrations, you need to add players to the game.  So, add yourself!  Add your friends!  Have a party!!!!
 
-1. **Add human player** - If you are a human and will be the one taking control of the death and destruction, you want to use this menu item.
+1. **Add Human Player** - If you are a human and will be the one taking control of the death and destruction, you want to use this menu item.
 2. **Add CPU Player** - If you want a challenge, you can add a computer player to play against.  The computer will automatically take actions and try to kill the target before you do.
 3. **Start Game** - Once you have added all the players, hit the start button, and you are on your way!
 
 Finally, we have the **Help**.  If you are reading this, you have already been there and know what you are doing.  Also, 
 click on the **About..** to find out who the **brilliant minds** are behind this incredible game! 
 
-# Adding Players
+# Adding Players A.K.A. Pick Me!  Pick Me!
 
 When you are ready to play, the first thing you want to do is add players to the game.  Go to the **Game** menu item and select either 
-Add Human or Add CPU.  YOu will be presented with the following menu:
+Add Human or Add CPU.  You will be presented with the following menu:
 
 ![Add Player](../helpmenu/AddPlayer.png "Add Player")
 
-When you decide to add either a computer or human player, you are presented with the same dialog box.  THere 
+When you decide to add either a computer or human player, you are presented with the same dialog box.  There 
 are three pieces of information you need to provide to create a player.  You need a name, obviously.  Second, you need 
-to pick a starting location on the map.  THe list are all the possible locations where you can begin.  Throw a dart!  Finally, 
+to pick a starting location on the map.  The list are all the possible locations where you can begin.  Throw a dart!  Finally, 
 the last piece of information is the maximum number of dangerous weapons that you can carry.  For a challenge, choose a small number.  You can also go 
 really big so you can scarf up everything on the map! Who says you can't carry 324,567 weapons? 
 
-# Starting the Game
+# Starting the Game A.K.A. About Time
 
-Once you have finished adding players, click on **Start Game** within the *Game* menu to begin.  
+Once you have finished adding players, click on **Start Game** within the **Game** menu to begin.  
+
 After, you will be prompted for the maximum number of turns that the game will have.  Put in any number!  Make the 
 game short, make it long, have so many turns you will grow wrinkles!  After you tell it how many turns there will be, 
 the game begins!
@@ -78,7 +79,7 @@ the game begins!
 ![Game Play](../helpmenu/GamePlay.PNG "Game Play")
 
 So, here we have a game in progress.  In the middle is the world the players are inhabiting.  If you 
-look on the board, you will see a player named *Harley Quinn*.  That's me!  Your narrator!.  You will also 
+look on the board, you will see a player named *Harley Quinn*.  That's me!  Your narrator!  You will also 
 see *Starro The Conqueror*.  He's a big bad starfish causing all sorts of problems.  That's my target.
 
 To the left you will see the **Items on the Ground** pane.  These are the items in the room that I am 
@@ -87,27 +88,28 @@ are the weapons I am currently carrying around.
 
 At the bottom of the screen is all the stuff that has happened since I started trying to kill Starro.
 
-At the top, right above the map is a think little par that lets you, the player, know whose turn it currently is, how many 
-turns have been taken out of the maximum, and whether the Target's pet is in the room with you.
+At the top, right above the map is a think little bar that lets you, the player, know whose turn it currently is, how many 
+turns have been taken out of the maximum, and whether the Target's pet is in the room with you.  Pet?  What Pet, you ask?  
+We will get to that shortly.
 
-### Buttons
+### Buttons A.K.A. Push Them All!
 
-1. **Pickup Item** - To take this action you first click on an item from the *Items on the ground* pane and then click the button and the item will be added to your inventory as long as you haven't reached your limit.
-2. **Look around** - Clicking this button will print a very detailed description to the bottom text pain describing your room, the items in it, if the target is there, if the pet is there, if other players are there and will provide that same information about all the rooms that are neighbors to your current location.  THe only caveat to that is if the *Pet* is in a neighboring space.  If that is the case you can't see into that space.
+1. **Pickup Item** - To take this action you first click on an item from the *Items on the ground* pane and then click the button and the item will be added to your inventory as long as you haven't reached your limit.  Remember that limit I told you about when adding a player?  Yeah, that's the one.
+2. **Look around** - Clicking this button will print a very detailed description to the bottom text pane describing your room, the items in it, if the target is there, if the pet is there, if other players are there and will provide that same information about all the rooms that are neighbors to your current location.  The only caveat to that is if the *Pet* is in a neighboring space.  If that is the case you can't see into that space.
 3. **Attack** - To take this action you first select a weapon from your inventory and then click the button.  If you have no items in your inventory, clicking the button will make you poke the target in the eye.  There are rules about successfully attacking a target.
    1. The target must be in the same room
    2. The attacking player cannot be seen by another player.  This means:
        1. Another player is not in the same space
        2. Another player is not in a neighboring space
 
-### Context menu
+### Context menu A.K.A. More Boring Stuff
 ![Context Menu](../helpmenu/ContextMenu.png "Game Play")
 
-The context menu is displayed when you right-click on a player or on a room in the map.  This menu as three more 
+The context menu is displayed when you right-click on a player or on a room in the map.  This menu has three more 
 actions that a player can take during their turn
 
 1. **Move Player Here** - Clicking anywhere on the map will bring up this particular context menu item.  So long as the room you are clicking on is a neighboring space, you can move there.  If not, too bad.  We haven't developed teleportation yet!
-2. **Move Pet Here** - The Pet is a special character that makes a room's content completely invisible except to the player in the room with the Pet.  Further, the Pet, clearly can teleport, because the Pet can go from any room to any room.  Selecting this menu item will move the Pet from the room it is in to the room you selected.
+2. **Move Pet Here** - Yes!  Now you get to find out about this Pet thing.  The Pet is a special character that makes a room's content completely invisible except to the player(s) in the room with the Pet.  Further, the Pet clearly can teleport, because the Pet can go from any room to any room.  Selecting this menu item will move the Pet from the room it is in to the room you selected making the contents of that room invisible, including you if you are in it.  They can't see you!  If the target is there, kill away!
 3. **Target Character Info** - This menu item only displays if you click on a player's name and only if it is that player's turn.  This menu item describes the player, where the player is, all the items that the player is carrying and prints it to the text area at the bottom of the game board.
 
 
