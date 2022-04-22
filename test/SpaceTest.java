@@ -16,7 +16,6 @@ import org.junit.Test;
  * Class for testing an instance of a Space class.
  */
 public class SpaceTest {
-  private String expectedConstructorOutput;
   private String expectedItemsOutput;
   private int expectedItemCount;
   private List<Item> locationZero;
@@ -44,7 +43,6 @@ public class SpaceTest {
   @Before
   public void setup() {
     builder = new InstanceBuilder();
-    expectedConstructorOutput = "2;Jotunheim;1;1;4;4";
     expectedItemsOutput = "Baseball Bat; Damage = 2;Machete; Damage = 3;";
     expectedItemCount = 2;
     target = builder.targetBuilder("Starro", 9, 50);
@@ -122,7 +120,12 @@ public class SpaceTest {
   @Test
   public void testValidConstructor() {
     Space newSpace = builder.spaceBuilder(2, "Jotunheim", 1, 1, 4, 4);
-    assertEquals(expectedConstructorOutput, newSpace.toString());
+    assertEquals("Jotunheim", newSpace.getTheNameOfThisSpace());
+    assertEquals(2, newSpace.getIndexOfTheSpace());
+    assertEquals(1, newSpace.getUpperLeftxCoordinate());
+    assertEquals(1, newSpace.getUpperLeftyCoordinate());
+    assertEquals(4, newSpace.getLowerRightxCoordinate());
+    assertEquals(4, newSpace.getLowerRightyCoordinate());
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -342,6 +345,6 @@ public class SpaceTest {
   @Test
   public void testToString() {
     Space newSpace = builder.spaceBuilder(2, "Jotunheim", 1, 1, 4, 4);
-    assertEquals(expectedConstructorOutput, newSpace.toString());
+    assertEquals("Jotunheim", newSpace.toString());
   }
 }

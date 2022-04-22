@@ -30,8 +30,6 @@ public class Attack implements GameCommand {
     }
 
     String result = game.getCurrentPlayer().attack(itemName);
-    game.moveTarget();
-    game.nextTurn();
 
     return result;
   }

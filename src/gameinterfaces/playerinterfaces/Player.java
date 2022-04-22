@@ -106,5 +106,7 @@ public interface Player extends PlayerViewModel {
    * @param world The game world that is being used for the players
    * @return The result of the action taken.
    */
-  String TakeRandomAction(World world);
+  String takeRandomAction(World world);
+
+  public boolean completedTurn();
 }

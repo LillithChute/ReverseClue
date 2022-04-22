@@ -169,7 +169,7 @@ public class GameController implements Controller {
 
         if (!(game.getCurrentPlayer() instanceof PlayerImpl)) {
           try {
-            String result = game.getCurrentPlayer().TakeRandomAction(game);
+            String result = game.getCurrentPlayer().takeRandomAction(game);
             this.out.append(result).append("\n");
           } catch (IllegalStateException | IllegalArgumentException ex) {
             try {
