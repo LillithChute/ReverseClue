@@ -12,6 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +23,7 @@ import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +39,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultCaret;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
 
 import controller.ControllerFeatures;
 import dtos.PlayerCreation;
@@ -186,6 +192,31 @@ public class MainForm extends JFrame implements ImainForm {
     helpMenu.add(gameHelp);
     helpMenu.add(gameAbout);
     bar.add(helpMenu);
+
+    gameHelp.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JEditorPane editor = new JEditorPane();
+        editor.setEditable(false);
+        JScrollPane htmlScrollPane = new JScrollPane(editor);
+        htmlScrollPane.setPreferredSize(new Dimension(1600, 1200));
+
+        HTMLEditorKit kit = new HTMLEditorKit();
+        editor.setEditorKit(kit);
+
+        Document htm = kit.createDefaultDocument();
+        editor.setDocument(htm);
+        try {
+          editor.setText(Files.readString(Path.of("./res/README.html")));
+        } catch (IOException ex) {
+          throw new IllegalArgumentException();
+        }
+        JPanel popup = new JPanel();
+        popup.add(htmlScrollPane);
+        JOptionPane.showConfirmDialog(null, popup,
+                "Help", JOptionPane.DEFAULT_OPTION);
+      }
+    });
 
 
     this.setJMenuBar(bar);
