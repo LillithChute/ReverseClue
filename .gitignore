@@ -219,3 +219,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/checkstyleidea-libs/readme.txt
