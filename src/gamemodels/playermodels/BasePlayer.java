@@ -1,21 +1,19 @@
 package gamemodels.playermodels;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.petinterfaces.Pet;
 import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.playerinterfaces.PlayerViewModel;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.worldbuilderinterfaces.World;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BasePlayer implements Player, PlayerViewModel {
   protected final String playerName;
   protected final List<Item> playerItems;
-  protected Space space;
   protected final int itemLimit;
+  protected Space space;
   protected boolean actionFinished;
 
   protected BasePlayer(String playerName, Space playerLocation, int itemLimit) {
@@ -65,7 +63,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
 
   private Space findNeighborSpace(String nameOfLocation) {
     for (Space currentSpace :
-            space.getNeighbors()) {
+        space.getNeighbors()) {
       if (nameOfLocation.equalsIgnoreCase(currentSpace.getTheNameOfThisSpace())) {
         return currentSpace;
       }
@@ -112,7 +110,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
 
   private Item findItem(String itemName) {
     for (Item currentItem :
-            space.getItems()) {
+        space.getItems()) {
       if (itemName.equalsIgnoreCase(currentItem.getNameOfItem())) {
         return currentItem;
       }
@@ -131,15 +129,15 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     StringBuilder buildString = new StringBuilder();
 
     buildString.append(playerName)
-            .append(" is carrying:")
-            .append("\n");
+        .append(" is carrying:")
+        .append("\n");
 
     // Only return items that are not in evidence (has been used)
     for (Item item :
-            playerItems) {
+        playerItems) {
       if (!item.isItemEvidence()) {
         buildString.append(item.getNameOfItem())
-                .append("\n");
+            .append("\n");
       }
     }
 
@@ -152,7 +150,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     List<Item> copyOfItems = new ArrayList<>();
 
     for (Item currentItem :
-            playerItems) {
+        playerItems) {
       copyOfItems.add(currentItem);
     }
 
@@ -165,19 +163,19 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
 
     buildString.append("Player Description:\n");
     buildString.append("\tName: ")
-            .append(getPlayerName())
-            .append("\n");
+        .append(getPlayerName())
+        .append("\n");
 
     // Items
     buildString.append("\tItems:\n")
-            .append("\t\t")
-            .append(getPlayerItemsDescription());
+        .append("\t\t")
+        .append(getPlayerItemsDescription());
 
     // Location
     String locationName = space.getTheNameOfThisSpace();
 
     buildString.append("\tLocation: ")
-            .append(locationName);
+        .append(locationName);
 
     return buildString.toString();
   }
@@ -188,8 +186,8 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
 
     // Intro
     buildString.append(getPlayerName()).append(" is in here in ")
-            .append(space.getTheNameOfThisSpace())
-            .append(".\n\n");
+        .append(space.getTheNameOfThisSpace())
+        .append(".\n\n");
 
     // The Items in this room
     buildString = getItemsInTheSpace(buildString, space);
@@ -216,11 +214,11 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     // Is target here?
     if (currentSpace.isTargetInThisSpace()) {
       buildString.append("\t")
-              .append(currentSpace.getTargetFromThisSpace().getTargetName())
-              .append(" is here.\n\n");
+          .append(currentSpace.getTargetFromThisSpace().getTargetName())
+          .append(" is here.\n\n");
     } else {
       buildString.append("\t")
-              .append("The target is not here.\n\n");
+          .append("The target is not here.\n\n");
     }
 
     return buildString;
@@ -233,11 +231,11 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     // Is Pet here?
     if (currentSpace.hasPet()) {
       buildString.append("\t")
-              .append(currentSpace.getPet().getName())
-              .append(" is here.\n\n");
+          .append(currentSpace.getPet().getName())
+          .append(" is here.\n\n");
     } else {
       buildString.append("\t")
-              .append("The pet is not here.\n\n");
+          .append("The pet is not here.\n\n");
     }
 
     return buildString;
@@ -260,7 +258,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     // If the above cases are not true, then we need to check the neighboring spaces.  If there is
     // a player in a neighbor space, then this player can be seen
     for (Space currentSpace :
-            space.getNeighbors()) {
+        space.getNeighbors()) {
       // There is a player in a neighboring space
       if (currentSpace.getPlayersInThisSpace().size() > 0) {
         return true;
@@ -274,12 +272,12 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
   public void movePet(Space spaceToMovePetTo, List<Space> allSpaces) {
     if (spaceToMovePetTo == null) {
       throw new IllegalArgumentException("The space to move the pet to cannot be "
-              + "null.");
+          + "null.");
     }
 
     if (allSpaces == null) {
       throw new IllegalArgumentException("We need a list of the spaces in the game to perform the"
-              + " move action for the pet.");
+          + " move action for the pet.");
     }
 
     // We need to get the space the Pet is in and get the pet from it
@@ -287,7 +285,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     Pet pet = null;
 
     for (Space currentSpace :
-            allSpaces) {
+        allSpaces) {
       if (currentSpace.hasPet()) {
         petSpace = currentSpace;
         pet = currentSpace.getPet();
@@ -339,13 +337,13 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     // damage and isn't part of the ITEM in the WORLD situation
     if ("Poke in the Eye".equalsIgnoreCase(itemName)) {
       space.getTargetFromThisSpace().setHealth(
-              space.getTargetFromThisSpace().getCurrentHealth() - 1);
+          space.getTargetFromThisSpace().getCurrentHealth() - 1);
 
       result.append("You poked ").append(space.getTargetFromThisSpace().getTargetName())
-              .append(" in the eye and did 1 point of damage!")
-              .append("  ").append(space.getTargetFromThisSpace().getTargetName())
-              .append(" now has ").append(space.getTargetFromThisSpace().getCurrentHealth())
-              .append(" health remaining.");
+          .append(" in the eye and did 1 point of damage!")
+          .append("  ").append(space.getTargetFromThisSpace().getTargetName())
+          .append(" now has ").append(space.getTargetFromThisSpace().getCurrentHealth())
+          .append(" health remaining.");
     } else {
       Item attackingItem = getPlayerItemByName(itemName);
 
@@ -356,7 +354,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
 
       // We have the item.  Let's damage the target
       space.getTargetFromThisSpace().setHealth(
-              space.getTargetFromThisSpace().getCurrentHealth() - attackingItem.getItemDamage());
+          space.getTargetFromThisSpace().getCurrentHealth() - attackingItem.getItemDamage());
 
       // The item is now evidence
       attackingItem.setItemIsEvidence();
@@ -366,18 +364,18 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
 
       // Tell the player what happened
       result.append("You attacked with ").append(attackingItem.getNameOfItem()).append(" and did ")
-              .append(attackingItem.getItemDamage()).append(" points of damage to ")
-              .append(space.getTargetFromThisSpace().getTargetName()).append(".  ")
-              .append(attackingItem.getNameOfItem()).append(" is now evidence.")
-              .append("  ").append(space.getTargetFromThisSpace().getTargetName())
-              .append(" now has ").append(space.getTargetFromThisSpace().getCurrentHealth())
-              .append(" health remaining.");
+          .append(attackingItem.getItemDamage()).append(" points of damage to ")
+          .append(space.getTargetFromThisSpace().getTargetName()).append(".  ")
+          .append(attackingItem.getNameOfItem()).append(" is now evidence.")
+          .append("  ").append(space.getTargetFromThisSpace().getTargetName())
+          .append(" now has ").append(space.getTargetFromThisSpace().getCurrentHealth())
+          .append(" health remaining.");
     }
 
     // Target is dead
     if (space.getTargetFromThisSpace().getCurrentHealth() == 0) {
       result.append("\n\nCongratulations!  You killed ").append(space.getTargetFromThisSpace()
-              .getTargetName()).append("!\n");
+          .getTargetName()).append("!\n");
     }
 
     return result.toString();
@@ -390,20 +388,20 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     // Get the players in this room
     if (currentSpace.getPlayersInThisSpace().size() > 0) {
       for (Player currentPlayer :
-              currentSpace.getPlayersInThisSpace()) {
+          currentSpace.getPlayersInThisSpace()) {
         if (currentPlayer != this) {
           // It is not the current player, so it is a different one
           buildString.append(currentPlayer.getPlayerName())
-                  .append(" is in ")
-                  .append(currentSpace.getTheNameOfThisSpace())
-                  .append("\n");
+              .append(" is in ")
+              .append(currentSpace.getTheNameOfThisSpace())
+              .append("\n");
         }
       }
     }
 
     // if we only have the title line, no one was here
     if (buildString.toString()
-            .equalsIgnoreCase("The following players are in the room:\n")) {
+        .equalsIgnoreCase("The following players are in the room:\n")) {
       buildString.append("\tNone.\n");
     }
 
@@ -419,9 +417,9 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
 
     // Now, for each room we want items, players, and target data
     for (Space currentNeighbor :
-            neighbors) {
+        neighbors) {
       neighboringInfo.append("This space is ").append(currentNeighbor.getTheNameOfThisSpace())
-              .append("\n");
+          .append("\n");
 
       if (!currentNeighbor.hasPet()) {
         // Item information
@@ -443,7 +441,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     buildString.append("Here is a list of items located here:\n");
 
     for (Item item :
-            currentSpace.getItems()) {
+        currentSpace.getItems()) {
       if (!item.isItemWithPlayer()) {
         buildString.append("\t").append(item.getNameOfItem()).append("\n");
       }
@@ -460,7 +458,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     }
 
     for (Item currentItem :
-            playerItems) {
+        playerItems) {
       if (currentItem.getNameOfItem().equalsIgnoreCase(itemName)) {
         return currentItem;
       }
@@ -470,6 +468,12 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
   }
 
   public abstract String takeRandomAction(World world);
+
+  /**
+   * Abstract base method to mark if a player has completed the actions within this turn.
+   *
+   * @return true if the actions are completed, false otherwise.
+   */
   public abstract boolean completedTurn();
 
   @Override
@@ -477,15 +481,15 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     StringBuilder buildString = new StringBuilder();
 
     buildString.append(playerName)
-            .append(";")
-            .append(space.getIndexOfTheSpace())
-            .append(";")
-            .append(itemLimit);
+        .append(";")
+        .append(space.getIndexOfTheSpace())
+        .append(";")
+        .append(itemLimit);
 
     for (Item item :
-            playerItems) {
+        playerItems) {
       buildString.append(";")
-              .append(item.getNameOfItem());
+          .append(item.getNameOfItem());
     }
 
     return buildString.toString();

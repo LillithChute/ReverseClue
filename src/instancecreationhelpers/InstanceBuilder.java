@@ -19,8 +19,8 @@ public class InstanceBuilder {
   /**
    * Builder method to return a new Item instance.
    *
-   * @param name - Name of the item.
-   * @param damage Damage the item does.
+   * @param name          - Name of the item.
+   * @param damage        Damage the item does.
    * @param spaceLocation - Space the item is in.
    * @return - A new Item instance.
    */
@@ -32,11 +32,11 @@ public class InstanceBuilder {
    * Builder method to return a new Space instance.
    *
    * @param indexOfSpace - The index of the order of this Space in the list
-   * @param name - The name of this particular space.
-   * @param upperLeftX - The upper left X coordinate
-   * @param upperLeftY - The upper left Y coordinate
-   * @param lowerRightX - The lower right X coordinate
-   * @param lowerRightY - The lower right Y coordinate
+   * @param name         - The name of this particular space.
+   * @param upperLeftX   - The upper left X coordinate
+   * @param upperLeftY   - The upper left Y coordinate
+   * @param lowerRightX  - The lower right X coordinate
+   * @param lowerRightY  - The lower right Y coordinate
    * @return - A new Space instance.
    */
   public Space spaceBuilder(int indexOfSpace, String name, int upperLeftX,
@@ -47,9 +47,9 @@ public class InstanceBuilder {
   /**
    * This method is a builder that creates a Target instance.
    *
-   * @param name - Name of the target.
+   * @param name             - Name of the target.
    * @param maxIndexOfSpaces - Maximum number of spaces.
-   * @param health - Stamina of the target.
+   * @param health           - Stamina of the target.
    * @return - A new Target.
    */
   public Target targetBuilder(String name, int maxIndexOfSpaces, int health) {
@@ -59,9 +59,9 @@ public class InstanceBuilder {
   /**
    * This method creates an instance of a Player.
    *
-   * @param playerName - Name of the player.
+   * @param playerName     - Name of the player.
    * @param playerLocation - The player's location.
-   * @param itemLimit - List of items the player is carrying.
+   * @param itemLimit      - List of items the player is carrying.
    * @return An instance of a {@link Player}.
    */
   public Player playerBuilder(String playerName, Space playerLocation, int itemLimit) {

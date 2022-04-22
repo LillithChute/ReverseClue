@@ -8,7 +8,6 @@ import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.targetinterfaces.Target;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A space is a location where a target or a player may move to.  It is, essentially, the game
@@ -34,10 +33,10 @@ public class SpaceImpl implements Space, SpaceViewModel {
    * Additionally, we will have a name for the space and the Index that is the order of this Space
    * in the list.
    *
-   * @param indexOfThisSpace - The index of the order of this Space in the list
-   * @param nameOfThisSpace - The name of this particular space.
-   * @param upperLeftxCoordinate - The upper left X coordinate
-   * @param upperLeftyCoordinate - The upper left Y coordinate
+   * @param indexOfThisSpace      - The index of the order of this Space in the list
+   * @param nameOfThisSpace       - The name of this particular space.
+   * @param upperLeftxCoordinate  - The upper left X coordinate
+   * @param upperLeftyCoordinate  - The upper left Y coordinate
    * @param lowerRightxCoordinate - The lower right X coordinate
    * @param lowerRightyCoordinate - The lower right Y coordinate
    */
@@ -46,7 +45,7 @@ public class SpaceImpl implements Space, SpaceViewModel {
 
     // None of the coordinates can be negative
     if (upperLeftxCoordinate < 0 || upperLeftyCoordinate < 0
-            || lowerRightxCoordinate < 0 || lowerRightyCoordinate < 0) {
+        || lowerRightxCoordinate < 0 || lowerRightyCoordinate < 0) {
       throw new IllegalArgumentException("None of the coordinates for a space can be negative.");
     }
 
@@ -117,7 +116,7 @@ public class SpaceImpl implements Space, SpaceViewModel {
   public void putItemsInTheSpace(List<Item> items) {
     // Deep copy.
     for (Item currentItem :
-            items) {
+        items) {
       itemsInThisSpace.add(currentItem);
     }
   }
@@ -126,7 +125,7 @@ public class SpaceImpl implements Space, SpaceViewModel {
   public void setNeighborsOfThisSpace(List<Space> neighbors) {
     // Deep copy
     for (Space currentSpace :
-            neighbors) {
+        neighbors) {
       this.neighbors.add(currentSpace);
     }
   }
@@ -155,7 +154,7 @@ public class SpaceImpl implements Space, SpaceViewModel {
     List<Player> copyOfPlayerList = new ArrayList<>();
 
     for (Player currentPlayer :
-            players) {
+        players) {
       copyOfPlayerList.add(currentPlayer);
     }
 
@@ -184,7 +183,7 @@ public class SpaceImpl implements Space, SpaceViewModel {
     List<Item> copyOfItemsList = new ArrayList<>();
 
     for (Item currentItem :
-            itemsInThisSpace) {
+        itemsInThisSpace) {
       copyOfItemsList.add(currentItem);
     }
 
@@ -202,7 +201,7 @@ public class SpaceImpl implements Space, SpaceViewModel {
     List<Space> copyOfNeighborsList = new ArrayList<>();
 
     for (Space currentNeighbor :
-            neighbors) {
+        neighbors) {
       copyOfNeighborsList.add(currentNeighbor);
     }
 
@@ -225,14 +224,14 @@ public class SpaceImpl implements Space, SpaceViewModel {
 
     // Get name of the space
     buildDescription.append("* NAME: ").append(getTheNameOfThisSpace())
-            .append("\n* ")
-            .append("\n* ");
+        .append("\n* ")
+        .append("\n* ");
 
     // Get the items here
     buildDescription.append("ITEMS:\n");
 
     for (Item item :
-            itemsInThisSpace) {
+        itemsInThisSpace) {
       if (!item.isItemWithPlayer()) {
         buildDescription.append("* \t").append(item.getNameOfItem()).append("\n");
       }
@@ -244,7 +243,7 @@ public class SpaceImpl implements Space, SpaceViewModel {
     buildDescription.append("* NEIGHBORING SPACES:\n");
 
     for (Space space :
-            this.neighbors) {
+        this.neighbors) {
       buildDescription.append("* \t").append(space.getTheNameOfThisSpace()).append("\n");
     }
 

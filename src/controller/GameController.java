@@ -14,7 +14,6 @@ import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.Controller;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
 import gamemodels.playermodels.PlayerImpl;
-
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -29,7 +28,7 @@ public class GameController implements Controller {
   /**
    * Constructor for the ControllerImpl class.
    *
-   * @param in The input stream.
+   * @param in  The input stream.
    * @param out The output stream.
    */
   public GameController(Readable in, Appendable out) {
@@ -69,7 +68,7 @@ public class GameController implements Controller {
       }
 
       System.out.println("We need to add players to the game.  Each player has a name, a starting"
-              + " point, and a maximum number of items they can carry.");
+          + " point, and a maximum number of items they can carry.");
 
       boolean flagDoneInitializing = false;
       while (!flagDoneInitializing) {
@@ -79,7 +78,7 @@ public class GameController implements Controller {
         int itemLimit = -1;
 
         System.out.println("Type 'human' to add a human player.  Type 'computer' to add a "
-                + "computer controlled player.  Type 'done' when finished.");
+            + "computer controlled player.  Type 'done' when finished.");
 
         String input = scan.next();
         switch (input.toLowerCase()) {
@@ -126,7 +125,7 @@ public class GameController implements Controller {
             // Item limit of player
             while (itemLimit < 0) {
               System.out.println("Please enter the maximum number items the computer player can "
-                      + "carry: ");
+                  + "carry: ");
 
               if (isInt(scan)) {
                 itemLimit = scan.nextInt();
@@ -154,7 +153,7 @@ public class GameController implements Controller {
             this.out.append(result);
           } catch (IOException e) {
             appendableErrorMessage();
-          }  catch (IllegalStateException ex) {
+          } catch (IllegalStateException ex) {
             System.err.println(ex.getMessage());
           } catch (IllegalArgumentException ex) {
             System.err.println("ERROR: " + ex.getMessage());
@@ -185,7 +184,7 @@ public class GameController implements Controller {
         }
 
         System.out.println("You can: look around, describe player, pick up item, move pet, "
-                + "move, attack, or quit?\n");
+            + "move, attack, or quit?\n");
 
 
         String input = scan.next();
@@ -226,8 +225,8 @@ public class GameController implements Controller {
           case "attack":
             StringBuilder attackText = new StringBuilder();
             attackText.append("Please enter the name of the item to use (")
-                            .append(game.getCurrentPlayer().getPlayerItemsDescription())
-                                    .append("Poke in the Eye):");
+                .append(game.getCurrentPlayer().getPlayerItemsDescription())
+                .append("Poke in the Eye):");
             System.out.println(attackText);
             String nameOfItem = scan.next() + scan.nextLine();
             gameCmd = new Attack(nameOfItem);
@@ -244,7 +243,7 @@ public class GameController implements Controller {
             System.out.println("Attempting to save an image of the game board to disk.");
             break;
           case "quit":
-          case"q":
+          case "q":
             return;
           default:
             try {

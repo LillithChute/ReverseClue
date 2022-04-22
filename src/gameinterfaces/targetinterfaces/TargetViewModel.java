@@ -1,5 +1,8 @@
 package gameinterfaces.targetinterfaces;
 
+/**
+ * A readonly view-model representing the target character of the game.
+ */
 public interface TargetViewModel {
   /**
    * This returns the name of the target.
