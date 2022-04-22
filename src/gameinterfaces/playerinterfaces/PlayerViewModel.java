@@ -1,9 +1,7 @@
 package gameinterfaces.playerinterfaces;
 
-import java.util.List;
-
 import gameinterfaces.iteminterfaces.Item;
-import gameinterfaces.spaceinterfaces.Space;
+import java.util.List;
 
 public interface PlayerViewModel {
 
@@ -22,14 +20,14 @@ public interface PlayerViewModel {
   int getLocation();
 
   /**
-   *  * This method returns a description of all items a player is carrying.
+   * * This method returns a description of all items a player is carrying.
    *
    * @return A description of the items the player has.
    */
   String getPlayerItemsDescription();
 
   /**
-   *  * This method returns all the items a player is carrying.
+   * * This method returns all the items a player is carrying.
    *
    * @return A list of the items the player has.
    */

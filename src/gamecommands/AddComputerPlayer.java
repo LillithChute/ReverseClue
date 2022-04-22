@@ -15,9 +15,9 @@ public class AddComputerPlayer implements GameCommand {
   /**
    * Constructor for adding a player to the game.
    *
-   * @param playerName - Name of the player.
+   * @param playerName     - Name of the player.
    * @param playerLocation - Starting location of the player.
-   * @param itemLimit - Maximum number of items the player can carry.
+   * @param itemLimit      - Maximum number of items the player can carry.
    */
   public AddComputerPlayer(String playerName, String playerLocation, int itemLimit) {
     // Validation
@@ -50,12 +50,12 @@ public class AddComputerPlayer implements GameCommand {
 
     StringBuilder result = new StringBuilder();
     result.append("Added computer player: ")
-            .append(playerName)
-            .append("  Location: ")
-            .append(playerLocation)
-            .append("  Max Items: ")
-            .append(itemLimit)
-            .append("\n");
+        .append(playerName)
+        .append("  Location: ")
+        .append(playerLocation)
+        .append("  Max Items: ")
+        .append(itemLimit)
+        .append("\n");
 
     return result.toString();
   }

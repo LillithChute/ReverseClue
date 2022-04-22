@@ -1,11 +1,10 @@
 package gameinterfaces.spaceinterfaces;
 
-import java.util.List;
-
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.petinterfaces.Pet;
 import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.targetinterfaces.Target;
+import java.util.List;
 
 public interface SpaceViewModel {
   /**

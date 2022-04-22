@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 
-/** The main class that kicks off the application.*/
+/**
+ * The main class that kicks off the application.
+ */
 public class Main {
 
   /**
@@ -27,7 +29,7 @@ public class Main {
         file = new BufferedReader(new FileReader(args[0]));
         game = new WorldImpl(file);
 
-        if(game == null) {
+        if (game == null) {
           System.out.println("There was an issue processing the world building file!");
         } else {
           new GameController(new InputStreamReader(System.in), System.out).start(game);

@@ -7,6 +7,13 @@ public class PlayerCreation {
   private final String location;
   private final int limit;
 
+  public PlayerCreation(String n, String lo, int li) {
+    Utility.checkNull(n, lo);
+    this.name = n;
+    this.location = lo;
+    this.limit = li;
+  }
+
   public String getName() {
     return name;
   }
@@ -17,13 +24,6 @@ public class PlayerCreation {
 
   public int getLimit() {
     return limit;
-  }
-
-  public PlayerCreation(String n, String lo, int li) {
-    Utility.checkNull(n, lo);
-    this.name = n;
-    this.location = lo;
-    this.limit = li;
   }
 
 

@@ -1,12 +1,10 @@
 package gamemodels.playermodels;
 
-import java.util.List;
-import java.util.Random;
-
 import gameinterfaces.iteminterfaces.Item;
-import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.worldbuilderinterfaces.World;
+import java.util.List;
+import java.util.Random;
 
 public class ComputerPlayerImpl extends BasePlayer {
 
@@ -32,7 +30,7 @@ public class ComputerPlayerImpl extends BasePlayer {
         Item highestDamage = getHighestDamageItem(getPlayerItems());
 
         // We have the most damaging weapon.  Use it
-        String result =  attack(highestDamage.getNameOfItem());
+        String result = attack(highestDamage.getNameOfItem());
         this.actionFinished = false;
         return result;
       }
@@ -47,7 +45,7 @@ public class ComputerPlayerImpl extends BasePlayer {
     Item theMostDamage = null;
 
     for (Item currentItem :
-            playerItems) {
+        playerItems) {
       if (theMostDamage == null) {
         theMostDamage = currentItem;
       } else if (currentItem.getItemDamage() > theMostDamage.getItemDamage()) {
@@ -78,10 +76,10 @@ public class ComputerPlayerImpl extends BasePlayer {
         playerName = getPlayerName();
 
         if (itemName == null) {
-          result =  "There was nothing for " + playerName + " to pick up.";
+          result = "There was nothing for " + playerName + " to pick up.";
         } else {
           takeItem(itemName);
-          result =  playerName + " picked up item: " + itemName;
+          result = playerName + " picked up item: " + itemName;
         }
         break;
       case 3:

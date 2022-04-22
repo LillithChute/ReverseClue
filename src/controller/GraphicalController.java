@@ -1,16 +1,5 @@
 package controller;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import gamecommands.AddComputerPlayer;
 import gamecommands.AddPlayer;
 import gamecommands.Attack;
@@ -29,6 +18,16 @@ import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
 import gamemodels.gamemanagermodels.WorldImpl;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import utilitles.Utility;
 import view.implementations.MainForm;
 import view.interfaces.ImainForm;
@@ -168,7 +167,8 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public List<Item> getItemsOnTheGround() {
-    SpaceViewModel currentPlayersLocation = model.getSpaces().get(model.getCurrentPlayer().getLocation());
+    SpaceViewModel currentPlayersLocation =
+        model.getSpaces().get(model.getCurrentPlayer().getLocation());
 
     return currentPlayersLocation.getItems();
   }
@@ -220,12 +220,12 @@ public class GraphicalController implements UiController, ControllerFeatures {
     this.view.setTurnInfo(model.getCurrentPlayerTurnInfo());
     Player current = model.getCurrentPlayer();
     Space currentSpace = model.getSpaces()
-            .stream()
-            .filter(r -> r.getPlayersInThisSpace().contains(current))
-            .findFirst().orElse(null);
+        .stream()
+        .filter(r -> r.getPlayersInThisSpace().contains(current))
+        .findFirst().orElse(null);
     List<ItemViewModel> backpack = new ArrayList<>(current.getPlayerItems());
     List<ItemViewModel> ground = currentSpace.getItems().stream()
-            .filter(i -> !i.isItemWithPlayer()).collect(Collectors.toList());
+        .filter(i -> !i.isItemWithPlayer()).collect(Collectors.toList());
     this.view.setGraphics(model.worldImage());
     this.view.setPlayerName(model.getCurrentPlayer());
     this.view.setGroundItems(ground);
@@ -243,7 +243,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
         this.view.showEndingPrompt("Target Character Escaped and NO ONE wins!");
       } else {
         this.view.showEndingPrompt(String.format("%s WINS!",
-                model.getCurrentPlayer().getPlayerName()));
+            model.getCurrentPlayer().getPlayerName()));
       }
       return;
     }
