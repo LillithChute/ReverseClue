@@ -9,6 +9,11 @@ import gameinterfaces.worldbuilderinterfaces.World;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This represents all the actions that a player can take in the game no matter what type of player
+ * this may be.  Actions such as moving, moving a pet, picking up stuff, and so on is the same for
+ * all players.
+ */
 public abstract class BasePlayer implements Player, PlayerViewModel {
   protected final String playerName;
   protected final List<Item> playerItems;

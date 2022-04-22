@@ -6,6 +6,11 @@ import gameinterfaces.worldbuilderinterfaces.World;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * A computer player is a special kind of player.  Not AI like, more like stupid.  However, the
+ * computer player is different in that it will randomly select actions to take based on what
+ * is allowed.
+ */
 public class ComputerPlayerImpl extends BasePlayer {
 
   public ComputerPlayerImpl(String playerName, Space playerLocation, int itemLimit) {

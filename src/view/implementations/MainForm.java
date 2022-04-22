@@ -446,12 +446,12 @@ public class MainForm extends JFrame implements ImainForm {
   }
 
   private PlayerCreation getPlayerInput() {
-    JTextField name = new JTextField();
     JList<SpaceViewModel> avaliable = new JList<>();
     avaliable.setListData(features.spawningRooms().toArray(new SpaceViewModel[0]));
-    JScrollPane avaliablePane = new JScrollPane(avaliable);
     avaliable.setSelectedIndex(0);
+    JTextField name = new JTextField();
     JTextField limit = new JTextField();
+    JScrollPane avaliablePane = new JScrollPane(avaliable);
     JPanel panel = new JPanel();
     panel.add(new JLabel("Player Name:"));
     panel.add(name);

@@ -142,7 +142,6 @@ public class WorldImpl implements World {
             (((y - 1 + 0.8f) + i) * scale));
       }
     }
-    //g2d.draw(new Rectangle2D.Double(x, y, rectWidth, rectHeight));
 
     g2d.dispose();
     return bufferedImage;
