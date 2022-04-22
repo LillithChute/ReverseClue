@@ -60,31 +60,13 @@ public class WorldTest {
   }
 
   @Test
-  public void testDisplayBoard() throws IOException {
-    World game = new WorldImpl(testData.getCortoMalteseData());
-
-    // Save the buffered image to disk
-    String imagePath = game.printWorldImageToDisk();
-
-    // Check if the file exists
-    File tempFile = new File(imagePath);
-    assertTrue(tempFile.exists());
-
-    // Is it an image type
-    Path path = tempFile.toPath();
-    String mimeType = Files.probeContentType(path);
-
-    assertEquals(mimeType, "image/png");
-  }
-
-  @Test
   public void testMoveTarget() {
     World game = new WorldImpl(testData.getCortoMalteseData());
     Space playerLocation = game.getTheSpaceByName("Beach Head One");
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
     // Target starts at index 0
-    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns * Pet: Baby Starro is here.\n", game
             .getCurrentPlayerTurnInfo());
 
     // Move target twice.
@@ -92,7 +74,7 @@ public class WorldTest {
     game.moveTarget();
 
     // Target should be at index 2
-    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns * Pet: Baby Starro is here.\n", game
             .getCurrentPlayerTurnInfo());
   }
 
@@ -103,7 +85,7 @@ public class WorldTest {
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
     // Target starts at index 0
-    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns * Pet: Baby Starro is here.\n", game
             .getCurrentPlayerTurnInfo());
 
     // Move target past the last space.
@@ -120,7 +102,7 @@ public class WorldTest {
     game.moveTarget();
 
     // Target should be at index 2
-    assertEquals("* Turn of Harley Quinn 0/0 Turns *\n", game
+    assertEquals("* Turn of Harley Quinn 0/0 Turns * Pet: Baby Starro is here.\n", game
             .getCurrentPlayerTurnInfo());
   }
 

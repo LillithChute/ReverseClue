@@ -254,18 +254,6 @@ public class SpaceImpl implements Space, SpaceViewModel {
   @Override
   public String toString() {
     StringBuilder buildString = new StringBuilder();
-    buildString.append(indexOfThisSpace)
-            .append(";")
-            .append(nameOfThisSpace)
-            .append(";")
-            .append(upperLeftxCoordinate)
-            .append(";")
-            .append(upperLeftyCoordinate)
-            .append(";")
-            .append(lowerRightxCoordinate)
-            .append(";")
-            .append(lowerRightyCoordinate);
-
-    return buildString.toString();
+    return buildString.append(nameOfThisSpace).toString();
   }
 }
