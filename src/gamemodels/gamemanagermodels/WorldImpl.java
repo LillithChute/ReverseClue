@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 
+import static utilitles.Utility.validatePlayerCreation;
+
 /**
  * This is my facade class.  It takes the required methods from the model that are needed to
  * perform game management and collects them.  Thus, a client will call this to do the activities
@@ -149,6 +151,10 @@ public class WorldImpl implements World {
 
   @Override
   public Space hitDetection(double mx, double my) {
+    if (mx < 0 || my < 0) {
+      throw new IllegalArgumentException("Map coordinates must be positive numbers!");
+    }
+
     for (Space s : spaces) {
       int rectWidth = s
           .getLowerRightxCoordinate() - s.getUpperLeftxCoordinate();
@@ -230,6 +236,10 @@ public class WorldImpl implements World {
 
   @Override
   public List<Space> getNeighborsOfaSpace(int indexOfThisSpace) {
+    if (indexOfThisSpace < 0) {
+      throw new IllegalArgumentException("This space is not valid.");
+    }
+
     Space getRequiredSpace = null;
     List<Space> neighbors;
 
@@ -251,6 +261,8 @@ public class WorldImpl implements World {
 
   @Override
   public void addPlayer(String playerName, Space playerLocation, int itemLimit) {
+    validatePlayerCreation(playerName, playerLocation, itemLimit);
+
     Player newPlayer = new PlayerImpl(playerName, playerLocation, itemLimit);
     players.add(newPlayer);
     totalPlayers = players.size();
@@ -258,6 +270,8 @@ public class WorldImpl implements World {
 
   @Override
   public void addComputerPlayer(String playerName, Space playerLocation, int itemLimit) {
+    validatePlayerCreation(playerName, playerLocation, itemLimit);
+
     Player newPlayer = new ComputerPlayerImpl(playerName, playerLocation, itemLimit);
     players.add(newPlayer);
     totalPlayers = players.size();
@@ -317,27 +331,6 @@ public class WorldImpl implements World {
     }
 
     return turnInformation.toString();
-  }
-
-  private String getTargetNameAndLocation() {
-    StringBuilder targetInformation = new StringBuilder();
-
-    // Get the items here
-    targetInformation.append("*\n* TARGET:\n");
-
-    for (Space currentSpace :
-        spaces) {
-      if (currentSpace.isTargetInThisSpace()) {
-        var targetName = currentSpace.getTargetFromThisSpace().getTargetName();
-        var targetLocation = currentSpace.getTheNameOfThisSpace();
-        targetInformation.append("* ").append(targetName)
-            .append(" is located at ")
-            .append(targetLocation)
-            .append("\n*");
-      }
-    }
-
-    return targetInformation.toString();
   }
 
   @Override
