@@ -1,5 +1,5 @@
 36 30 Doctor Lucky's Mansion
-50 Doctor Lucky
+10 Doctor Lucky
 Fortune the Cat
 21
 22 19 23 26 Armory

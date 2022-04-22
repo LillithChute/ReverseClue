@@ -129,6 +129,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void move(String nameOfSpace) {
+    Utility.checkNull(nameOfSpace);
     command = new Move(nameOfSpace);
     try {
       this.view.logGameplay(command.execute(model));
@@ -141,6 +142,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void movePet(String nameOfSpace) {
+    Utility.checkNull(nameOfSpace);
     command = new MovePet(nameOfSpace);
     try {
       this.view.logGameplay(command.execute(model));
@@ -152,6 +154,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void pickup(String itemName) {
+    Utility.checkNull(itemName);
     command = new PickUpItem(itemName);
     this.view.logGameplay(command.execute(model));
     this.advanceTurn();
@@ -165,6 +168,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void setView(MainForm v) {
+    Utility.checkNull(v);
     this.view = v;
     v.setFeatures(this);
     updateViewComponentStates();
@@ -174,7 +178,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void setModel(File file) {
-    Objects.requireNonNull(file);
+    Utility.checkNull(file);
     this.loaded = file;
     try {
       this.model = new WorldImpl(new BufferedReader(new FileReader(file)));

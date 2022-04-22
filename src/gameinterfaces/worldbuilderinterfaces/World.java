@@ -21,8 +21,20 @@ public interface World {
    */
   String printWorldImageToDisk();
 
+  /**
+   * Generates a graphical representation of the world.
+   *
+   * @return the graphical representation of the world.
+   */
   BufferedImage worldImage();
 
+  /**
+   * Detects the space that contains a point.
+   *
+   * @param x the x-coordinate of the point.
+   * @param y the y-coordinate of the point.
+   * @return the space containing the point.
+   */
   public Space hitDetection(double x, double y);
 
   /**
@@ -129,5 +141,10 @@ public interface World {
    */
   boolean isGameOver();
 
+  /**
+   * Gets the number of the players in this world.
+   *
+   * @return the number of the players in this world.
+   */
   int getPlayerCount();
 }

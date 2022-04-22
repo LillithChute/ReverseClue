@@ -46,6 +46,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
+import utilitles.Utility;
 import view.interfaces.ImainForm;
 
 /**
@@ -400,6 +401,7 @@ public class MainForm extends JFrame implements ImainForm {
 
   @Override
   public void setFeatures(ControllerFeatures f) {
+    Utility.checkNull(f);
     this.features = f;
 
   }
@@ -491,18 +493,20 @@ public class MainForm extends JFrame implements ImainForm {
 
   @Override
   public void logGameplay(String msg) {
-    Objects.requireNonNull(msg);
+    Utility.checkNull(msg);
     this.logInfo.append(msg);
     this.logInfo.append("\n");
   }
 
   @Override
   public void setGraphics(BufferedImage img) {
+    Utility.checkNull(img);
     this.imageLabel.setIcon(new ImageIcon(img));
   }
 
   @Override
   public void setTurnInfo(String msg) {
+    Utility.checkNull(msg);
     this.turnInfo.setText(features.getTurnInformation());
   }
 
@@ -590,6 +594,7 @@ public class MainForm extends JFrame implements ImainForm {
 
   @Override
   public void showEndingPrompt(String winner) {
+    Utility.checkNull(winner);
     JOptionPane.showMessageDialog(this,
         String.format("Game Ended! %s", winner));
     System.exit(0);
@@ -597,21 +602,25 @@ public class MainForm extends JFrame implements ImainForm {
 
   @Override
   public void setGroundItems(List<ItemViewModel> items) {
+    Utility.checkNull(items);
     this.itemOnGroundBox.setListData(items.toArray(new ItemViewModel[0]));
   }
 
   @Override
   public void setBackpackItems(List<ItemViewModel> items) {
+    Utility.checkNull(items);
     this.backpack.setListData(items.toArray(new ItemViewModel[0]));
   }
 
   @Override
   public void setBackpackPlayer(PlayerViewModel player) {
+    Utility.checkNull(player);
     this.backpackLabel.setText(String.format("Items of %s:", player.getPlayerName()));
   }
 
   @Override
   public void promptError(String msg) {
+    Utility.checkNull(msg);
     JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
   }
 }
