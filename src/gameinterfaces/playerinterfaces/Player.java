@@ -109,5 +109,10 @@ public interface Player extends PlayerViewModel {
    */
   String takeRandomAction(World world);
 
+  /**
+   * Indicates if this player has completed all actions within this turn.
+   *
+   * @return true if the player have all actions completed, false otherwise.
+   */
   public boolean completedTurn();
 }

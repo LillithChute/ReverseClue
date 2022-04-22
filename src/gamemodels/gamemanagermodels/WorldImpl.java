@@ -129,8 +129,8 @@ public class WorldImpl implements World {
             v,
             (((y - 1 + 0.8f) + i) * scale));
       }
-      if ((currentSpace.isTargetInThisSpace() && !currentSpace.hasPet()) ||
-          (currentSpace.getPlayersInThisSpace().contains(getCurrentPlayer())
+      if ((currentSpace.isTargetInThisSpace() && !currentSpace.hasPet())
+          || (currentSpace.getPlayersInThisSpace().contains(getCurrentPlayer())
               && currentSpace.isTargetInThisSpace())) {
         g2d.draw(new Rectangle2D.Double(
             ((x - 1) * scale + 0.1f * scale),
@@ -303,21 +303,10 @@ public class WorldImpl implements World {
   public String getCurrentPlayerTurnInfo() {
     StringBuilder turnInformation = new StringBuilder();
 
-/*    // Get player name
-    turnInformation.append("******************************************************************\n");*/
     turnInformation.append("* Turn of ").append(getCurrentPlayer().getPlayerName());
     turnInformation.append(String.format(" %d/%d Turns *",
         this.getTurnTotal(), this.getMaxNumberOfTurns()));
-    //turnInformation.append("\n");
 
-    /*turnInformation.append("* You have the following information available:\n*\n");
-    // Get basic surrounding information
-    turnInformation.append(spaces.get(
-            getCurrentPlayer().getLocation()).getTheFullSpaceDescription()
-    );
-    // Get the location of the Target
-    turnInformation.append(getTargetNameAndLocation());
-    */
     // If the pet is here
     turnInformation.append(" Pet: ");
     if (spaces.get(getCurrentPlayer().getLocation()).hasPet()) {
@@ -327,7 +316,6 @@ public class WorldImpl implements World {
     } else {
       turnInformation.append("Is not here.\n");
     }
-    /*turnInformation.append("******************************************************************\n");*/
 
     return turnInformation.toString();
   }
