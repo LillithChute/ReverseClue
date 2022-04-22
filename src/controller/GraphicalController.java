@@ -14,8 +14,10 @@ import java.util.stream.Collectors;
 import gamecommands.AddComputerPlayer;
 import gamecommands.AddPlayer;
 import gamecommands.Attack;
+import gamecommands.DescribePlayer;
 import gamecommands.LookAround;
 import gamecommands.Move;
+import gamecommands.MovePet;
 import gamecommands.PickUpItem;
 import gamecommands.TurnInformation;
 import gameinterfaces.iteminterfaces.Item;
@@ -39,8 +41,16 @@ public class GraphicalController implements UiController, ControllerFeatures {
   private GameCommand command;
   private boolean started;
 
-  public GraphicalController(World w) {
-    this.model = w;
+  private File loaded = null;
+
+  public GraphicalController(File f) {
+    Utility.checkNull(f);
+    try {
+      this.model = new WorldImpl(new BufferedReader(new FileReader(f)));
+      this.loaded = f;
+    } catch (FileNotFoundException ex) {
+      throw new IllegalArgumentException();
+    }
     this.started = false;
   }
 
@@ -53,6 +63,9 @@ public class GraphicalController implements UiController, ControllerFeatures {
   @Override
   public void addComputerPlayer(String playerName, String playerLocation, int itemLimit) {
     Utility.checkNull(playerName, playerLocation);
+    if (!checkPlayerLimit()) {
+      return;
+    }
     command = new AddComputerPlayer(playerName, playerLocation, itemLimit);
     view.logGameplay(command.execute(model));
     updateViewInfo();
@@ -61,9 +74,20 @@ public class GraphicalController implements UiController, ControllerFeatures {
   @Override
   public void addPlayer(String playerName, String playerLocation, int itemLimit) {
     Utility.checkNull(playerName, playerLocation);
+    if (!checkPlayerLimit()) {
+      return;
+    }
     command = new AddPlayer(playerName, playerLocation, itemLimit);
     view.logGameplay(command.execute(model));
     updateViewInfo();
+  }
+
+  private boolean checkPlayerLimit() {
+    if (this.model.getPlayerCount() > 10) {
+      view.promptError("Too many players!");
+      return false;
+    }
+    return true;
   }
 
   @Override
@@ -74,12 +98,16 @@ public class GraphicalController implements UiController, ControllerFeatures {
     }
     command = new Attack(itemName);
     view.logGameplay(command.execute(model));
+    this.advanceTurn();
     updateViewInfo();
   }
 
   @Override
   public void describePlayer() {
-
+    command = new DescribePlayer();
+    view.logGameplay(command.execute(model));
+    this.advanceTurn();
+    updateViewInfo();
   }
 
   @Override
@@ -116,7 +144,13 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void movePet(String nameOfSpace) {
-
+    command = new MovePet(nameOfSpace);
+    try {
+      this.view.logGameplay(command.execute(model));
+      this.advanceTurn();
+    } catch (IllegalStateException ex) {
+      this.view.promptError(ex.getMessage());
+    }
   }
 
   @Override
@@ -151,22 +185,36 @@ public class GraphicalController implements UiController, ControllerFeatures {
   @Override
   public void setModel(File file) {
     Objects.requireNonNull(file);
+    this.loaded = file;
     try {
       this.model = new WorldImpl(new BufferedReader(new FileReader(file)));
-      this.resetModel();
+      this.started = false;
+      this.resetView();
     } catch (FileNotFoundException ex) {
       throw new IllegalArgumentException();
     }
   }
 
   @Override
-  public void resetModel() {
-    this.view.setPreGameMenuVisibility(false);
+  public void restartGame() {
+    if (loaded == null) {
+      this.view.promptError("No World is loaded!");
+      return;
+    }
+    setModel(loaded);
+  }
+
+  @Override
+  public void resetView() {
+    this.view.setPreGameMenuVisibility(true);
     this.view.setFeatures(this);
   }
 
   @Override
   public void updateViewInfo() {
+    if (!this.started) {
+      return;
+    }
     this.view.setGraphics(model.worldImage());
     this.view.setTurnInfo(model.getCurrentPlayerTurnInfo());
     Player current = model.getCurrentPlayer();
@@ -177,6 +225,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
     List<ItemViewModel> backpack = new ArrayList<>(current.getPlayerItems());
     List<ItemViewModel> ground = currentSpace.getItems().stream()
             .filter(i -> !i.isItemWithPlayer()).collect(Collectors.toList());
+    this.view.setGraphics(model.worldImage());
     this.view.setPlayerName(model.getCurrentPlayer());
     this.view.setGroundItems(ground);
     this.view.setBackpackItems(backpack);
@@ -184,23 +233,43 @@ public class GraphicalController implements UiController, ControllerFeatures {
 
   @Override
   public void advanceTurn() {
+    this.updateViewInfo();
     if (model.isGameOver()) {
       this.updateViewInfo();
       this.started = false;
       this.updateViewComponentStates();
-      this.view.showEndingPrompt(model.getCurrentPlayer().getPlayerName());
+      if (model.getTurnTotal() >= model.getMaxNumberOfTurns()) {
+        this.view.showEndingPrompt("Target Character Escaped and NO ONE wins!");
+      } else {
+        this.view.showEndingPrompt(String.format("%s WINS!",
+                model.getCurrentPlayer().getPlayerName()));
+      }
       return;
     }
     this.model.moveTarget();
     this.model.nextTurn();
+    if (!model.getCurrentPlayer().completedTurn()) {
+      this.view.logGameplay(this.model.getCurrentPlayer().takeRandomAction(model));
+      this.advanceTurn();
+    }
     this.updateViewInfo();
   }
 
   @Override
+  public boolean gameStarted() {
+    return this.started;
+  }
+
+  @Override
   public void startGame(int turnCount) {
+    if (this.model.getPlayerCount() < 1) {
+      view.promptError("Not Enough players to start the game!");
+      return;
+    }
     this.model.setMaxNumberOfTurns(turnCount);
     this.started = true;
     this.updateViewComponentStates();
+    this.updateViewInfo();
   }
 
   private void updateViewComponentStates() {
@@ -210,5 +279,10 @@ public class GraphicalController implements UiController, ControllerFeatures {
   @Override
   public PlayerViewModel getCurrentPlayer() {
     return model.getCurrentPlayer();
+  }
+
+  @Override
+  public List<SpaceViewModel> spawningRooms() {
+    return new ArrayList<>(model.getSpaces());
   }
 }

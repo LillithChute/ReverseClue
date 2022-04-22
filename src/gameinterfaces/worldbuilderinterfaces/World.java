@@ -129,4 +129,6 @@ public interface World {
    * @return True if the above conditions are met, false otherwise.
    */
   boolean isGameOver();
+
+  int getPlayerCount();
 }

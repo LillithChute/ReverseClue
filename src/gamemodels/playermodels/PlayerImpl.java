@@ -21,7 +21,12 @@ public class PlayerImpl extends BasePlayer {
   }
 
   @Override
-  public String TakeRandomAction(World world) {
-    return "This is a human player and must select and action to take.";
+  public String takeRandomAction(World world) {
+    return String.format("%s's Turn, please take action.", this.playerName);
+  }
+
+  @Override
+  public boolean completedTurn() {
+    return true;
   }
 }

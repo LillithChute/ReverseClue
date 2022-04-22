@@ -16,6 +16,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
   protected final List<Item> playerItems;
   protected Space space;
   protected final int itemLimit;
+  protected boolean actionFinished;
 
   protected BasePlayer(String playerName, Space playerLocation, int itemLimit) {
     // Validation
@@ -35,6 +36,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     this.space = playerLocation;
     this.space.addPlayerToSpace(this);
     this.itemLimit = itemLimit;
+    actionFinished = false;
     playerItems = new ArrayList<>();
   }
 
@@ -467,7 +469,8 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     return null;
   }
 
-  public abstract String TakeRandomAction(World world);
+  public abstract String takeRandomAction(World world);
+  public abstract boolean completedTurn();
 
   @Override
   public String toString() {
