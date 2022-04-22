@@ -36,7 +36,7 @@ the course of playing the game.  Think of it as a diabolical diary of your plan 
 So, you are wondering what these little bad boy menu items are for and how they can help me kill my 
 least favorite target?  Well, here we go..
 
-1. **New Game With Another World** - This lets you select from wherever you are storing your world building files, any world to play than the one you are playing.  You *could* also pick the one that you just played, but that would be a little weird, don't you think?
+1. **New Game With Another World** - This lets you select a world from wherever you are storing your world building files.  Any world you want to play other than the one you are playing.  You *could* also pick the one that you just played, but that would be a little weird, don't you think?
 2. **New Game With Same World** - THis just restarts the game using the same world map you just played.  You get to kill that enemy of yours all over again!  Huzzah!
 3. **Exit** - Duh.
 
