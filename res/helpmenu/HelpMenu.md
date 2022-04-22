@@ -66,7 +66,57 @@ to pick a starting location on the map.  THe list are all the possible locations
 the last piece of information is the maximum number of dangerous weapons that you can carry.  For a challenge, choose a small number.  You can also go 
 really big so you can scarf up everything on the map! Who says you can't carry 324,567 weapons? 
 
-Once you have finished adding players, click on **Start Game** within the *Game* menu to begin.
+# Starting the Game
+
+Once you have finished adding players, click on **Start Game** within the *Game* menu to begin.  
+After, you will be prompted for the maximum number of turns that the game will have.  Put in any number!  Make the 
+game short, make it long, have so many turns you will grow wrinkles!  After you tell it how many turns there will be, 
+the game begins!
 
 # Playing the Game A.K.A. Game Features
 
+![Game Play](../helpmenu/GamePlay.png "Game Play")
+
+So, here we have a game in progress.  In the middle is the world the players are inhabiting.  If you 
+look on the board, you will see a player named *Harley Quinn*.  That's me!  Your narrator!.  You will also 
+see *Starro The Conqueror*.  He's a big bad starfish causing all sorts of problems.  That's my target.
+
+To the left you will see the **Items on the Ground** pane.  These are the items in the room that I am 
+occupying that I can pick up to add to my inventory.  Right below that is the **Items of Harley Quinn**.  There 
+are the weapons I am currently carrying around.
+
+At the bottom of the screen is all the stuff that has happened since I started trying to kill Starro.
+
+At the top, right above the map is a think little par that lets you, the player, know whose turn it currently is, how many 
+turns have been taken out of the maximum, and whether the Target's pet is in the room with you.
+
+### Buttons
+
+1. **Pickup Item** - To take this action you first click on an item from the *Items on the ground* pane and then click the button and the item will be added to your inventory as long as you haven't reached your limit.
+2. **Look around** - Clicking this button will print a very detailed description to the bottom text pain describing your room, the items in it, if the target is there, if the pet is there, if other players are there and will provide that same information about all the rooms that are neighbors to your current location.  THe only caveat to that is if the *Pet* is in a neighboring space.  If that is the case you can't see into that space.
+3. **Attack** - To take this action you first select a weapon from your inventory and then click the button.  If you have no items in your inventory, clicking the button will make you poke the target in the eye.  There are rules about successfully attacking a target.
+   1. The target must be in the same room
+   2. The attacking player cannot be seen by another player.  This means:
+       1. Another player is not in the same space
+       2. Another player is not in a neighboring space
+
+### Context menu
+![Context Menu](../helpmenu/ContextMenu.png "Game Play")
+
+The context menu is displayed when you right-click on a player or on a room in the map.  This menu as three more 
+actions that a player can take during their turn
+
+1. **Move Player Here** - Clicking anywhere on the map will bring up this particular context menu item.  So long as the room you are clicking on is a neighboring space, you can move there.  If not, too bad.  We haven't developed teleportation yet!
+2. **Move Pet Here** - The Pet is a special character that makes a room's content completely invisible except to the player in the room with the Pet.  Further, the Pet, clearly can teleport, because the Pet can go from any room to any room.  Selecting this menu item will move the Pet from the room it is in to the room you selected.
+3. **Target Character Info** - This menu item only displays if you click on a player's name and only if it is that player's turn.  This menu item describes the player, where the player is, all the items that the player is carrying and prints it to the text area at the bottom of the game board.
+
+
+# Winning the Game A.K.A. I am Awesome
+
+Well, you made it this far, so you must be really into this or completely bored out of your mind.  Anyway, the game 
+will end one of two ways.  Either your master plan of causing permanent bodily harm to your target came to fruition, and you 
+were the one that killed the target, in which case, congratulations!  You won the game!  Alternatively, the maximum number of turns 
+was reached and the target is still alive.  In this case, boo!  The target got away, and you will have to come up with a new master 
+death plan and try again another day.
+
+Best of luck to you, my death dealers!
