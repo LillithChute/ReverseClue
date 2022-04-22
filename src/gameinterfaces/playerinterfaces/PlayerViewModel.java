@@ -3,6 +3,9 @@ package gameinterfaces.playerinterfaces;
 import gameinterfaces.iteminterfaces.Item;
 import java.util.List;
 
+/**
+ * The readonly view-model representing a player in the game.
+ */
 public interface PlayerViewModel {
 
   /**

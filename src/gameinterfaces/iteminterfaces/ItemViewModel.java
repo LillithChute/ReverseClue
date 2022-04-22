@@ -1,5 +1,8 @@
 package gameinterfaces.iteminterfaces;
 
+/**
+ * The readonly view-model representing an item in the game.
+ */
 public interface ItemViewModel {
   /**
    * Retrieves the name/description of the item.

@@ -48,6 +48,9 @@ import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import view.interfaces.ImainForm;
 
+/**
+ * The Main view of the game, displaying information, graphics and handles user inputs.
+ */
 public class MainForm extends JFrame implements ImainForm {
   static String welcomeMsg;
 
@@ -88,6 +91,11 @@ public class MainForm extends JFrame implements ImainForm {
   private List<Component> inGameComponents;
 
 
+  /**
+   * Constructs a game interface object.
+   *
+   * @param caption the title of the window.
+   */
   public MainForm(String caption) {
     super(caption);
     this.preGameComponents = new ArrayList<>();
@@ -598,7 +606,7 @@ public class MainForm extends JFrame implements ImainForm {
   }
 
   @Override
-  public void setPlayerName(PlayerViewModel player) {
+  public void setBackpackPlayer(PlayerViewModel player) {
     this.backpackLabel.setText(String.format("Items of %s:", player.getPlayerName()));
   }
 

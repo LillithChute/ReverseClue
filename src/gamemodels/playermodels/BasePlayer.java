@@ -469,6 +469,11 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
 
   public abstract String takeRandomAction(World world);
 
+  /**
+   * Abstract base method to mark if a player has completed the actions within this turn.
+   *
+   * @return true if the actions are completed, false otherwise.
+   */
   public abstract boolean completedTurn();
 
   @Override

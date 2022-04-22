@@ -6,6 +6,9 @@ import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.targetinterfaces.Target;
 import java.util.List;
 
+/**
+ * The readonly view-model representing a space in the game.
+ */
 public interface SpaceViewModel {
   /**
    * This method will collect all the items contained in this room.  Any room can have 0 to many
