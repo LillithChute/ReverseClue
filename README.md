@@ -81,8 +81,9 @@ This menu has three more actions that a player can take during their turn
 
 
 ### How to Run
-**********PLACEHOLDER*************
-The JAR file is called MileStone3.jar.  The parameters it require are a fully qualified path and filename for the properly formatted world building file, and the maximum number of turns allowed.
+
+The JAR file is called cs5010-final-project-lillith-chute-and-donglin-xu-s-team.jar.jar.  The 
+parameters it require are a fully qualified path and filename for the properly formatted world building file, and the maximum number of turns allowed.
 An example usage using windows would be to open a command window.  Navigate to the directory
 containing the jar file.  Use the following command:
 
@@ -279,7 +280,7 @@ one in granular terms might take as long to write as it was to write the applica
 15. The pet only moves when a player moves it.
 16. Computer player can do all the same actions as a human player
 17. The computer player will ALWAYS choose to attack if they cannot be seen.  They will also ALWAYS choose the item with the highest damage.
-18. The jar file is ONLY ran from the /res directory relative to the repository root. This is essential for the view to correctly locate the help file.
+18. The jar file is ONLY run from the /res directory relative to the repository root. This is essential for the view to correctly locate the help file.
 
 
 ### Limitations

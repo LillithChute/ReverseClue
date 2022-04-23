@@ -81,16 +81,17 @@ This menu has three more actions that a player can take during their turn
 
 
 ### How to Run
-**********PLACEHOLDER*************
-The JAR file is called MileStone3.jar.  The only parameter it requires is a fully qualified path and filename for the properly formatted world building file.
+
+The JAR file is called cs5010-final-project-lillith-chute-and-donglin-xu-s-team.jar.jar.  The 
+parameters it require are a fully qualified path and filename for the properly formatted world building file, and the maximum number of turns allowed.
 An example usage using windows would be to open a command window.  Navigate to the directory
 containing the jar file.  Use the following command:
 
-java -jar MileStone3.jar {filename of world building file}
+java -jar ./cs5010-final-project-lillith-chute-and-donglin-xu-s-team.jar {filename of world building file} {number of turns}
 
 i.e. for me using the Suicide Squad world:
 
-java -jar MileStone3.jar CortoMaltese.txt
+java -jar ./cs5010-final-project-lillith-chute-and-donglin-xu-s-team.jar CortoMaltese.txt 40
 
 ### How to Use the Program
 
@@ -106,7 +107,7 @@ of absolutely annihilating your opponent, you have done it wrong.
 
 # Game Board Basic Layout A.K.A. The Designer is Genius!
 
-![Game Board](../res/helpmenu/PlayingArea.PNG "Game Board")
+![Game Board](./res/helpmenu/PlayingArea.PNG "Game Board")
 
 The game board consists of several areas.  There is the menu bar which has:
 1. File - For loading a new world, replaying with the same world, exiting the game.
@@ -127,7 +128,7 @@ the course of playing the game.  Think of it as a diabolical diary of your plan 
 
 # Menu Items A.K.A. Boring Stuff You Need To Know
 
-![File Menu](../res/helpmenu/FileMenu.PNG "File Menu")
+![File Menu](./res/helpmenu/FileMenu.PNG "File Menu")
 
 So, you are wondering what these little bad boy menu items are for and how they can help me kill my
 least favorite target?  Well, here we go..
@@ -137,7 +138,7 @@ least favorite target?  Well, here we go..
 3. **Exit** - Duh.
 
 
-![Game Menu](../res/helpmenu/GameMenu.PNG "Game Menu")
+![Game Menu](./res/helpmenu/GameMenu.PNG "Game Menu")
 
 This menu is key to getting your ultimate revenge plot off the ground.  You must start here.  Before you can
 work out your frustrations, you need to add players to the game.  So, add yourself!  Add your friends!  Have a party!!!!
@@ -154,7 +155,7 @@ click on the **About..** to find out who the **brilliant minds** are behind this
 When you are ready to play, the first thing you want to do is add players to the game.  Go to the **Game** menu item and select either
 Add Human or Add CPU.  You will be presented with the following menu:
 
-![Add Player](../res/helpmenu/AddPlayer.png "Add Player")
+![Add Player](./res/helpmenu/AddPlayer.png "Add Player")
 
 When you decide to add either a computer or human player, you are presented with the same dialog box.  There
 are three pieces of information you need to provide to create a player.  You need a name, obviously.  Second, you need
@@ -172,7 +173,7 @@ the game begins!
 
 # Playing the Game A.K.A. Game Features
 
-![Game Play](../res/helpmenu/GamePlay.PNG "Game Play")
+![Game Play](./res/helpmenu/GamePlay.PNG "Game Play")
 
 So, here we have a game in progress.  In the middle is the world the players are inhabiting.  If you
 look on the board, you will see a player named *Harley Quinn*.  That's me!  Your narrator!  You will also
@@ -199,7 +200,7 @@ We will get to that shortly.
         2. Another player is not in a neighboring space
 
 ### Context menu A.K.A. More Boring Stuff
-![Context Menu](../res/helpmenu/ContextMenu.png "Game Play")
+![Context Menu](./res/helpmenu/ContextMenu.png "Game Play")
 
 The context menu is displayed when you right-click on a player or on a room in the map.  This menu has three more
 actions that a player can take during their turn
@@ -250,6 +251,9 @@ one in granular terms might take as long to write as it was to write the applica
    4. Created an interface for the View that has public methods for things like the Welcome screen, error prompting and so on.
    5. Created a Main form that implements that Interface and builds the actual GUI out of Java Swing components and implements the listeners needed for the user to interact with the game.
    6. Created a Driver class to start up the program. 
+   7. Commands are refractored and re-written for the proper functionality in the graphical controller.
+10. Mock model classes and a Mock view class is added to the project. They are capable of logging method calls and are used in controller testing.
+
 
 ### Assumptions
 
@@ -276,6 +280,7 @@ one in granular terms might take as long to write as it was to write the applica
 15. The pet only moves when a player moves it.
 16. Computer player can do all the same actions as a human player
 17. The computer player will ALWAYS choose to attack if they cannot be seen.  They will also ALWAYS choose the item with the highest damage.
+18. The jar file is ONLY run from the /res directory relative to the repository root. This is essential for the view to correctly locate the help file.
 
 
 ### Limitations
