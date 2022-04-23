@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="cs5010-final-project-lillith-chute-and-donglin-xu-s-team:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/cs5010_final_project_lillith_chute_and_donglin_xu_s_team_jar</output-path>
+    <root id="archive" name="cs5010-final-project-lillith-chute-and-donglin-xu-s-team.jar">
+      <element id="module-output" name="cs5010-final-project-lillith-chute-and-donglin-xu-s-team" />
+    </root>
+  </artifact>
+</component>
