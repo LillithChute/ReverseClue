@@ -83,23 +83,38 @@ public class ComputerPlayerImpl extends BasePlayer {
         if (itemName == null) {
           result = "There was nothing for " + playerName + " to pick up.";
         } else {
+          StringBuilder buildString = new StringBuilder();
+
           // For the computer player, we want to avoid the exception of a full backpack.  This is
           // because it will get the GUI controller stuck on the computer player's turn.  Thus,
           // check the item limit and if it is full move on.
           if (playerItems.size() < itemLimit) {
             takeItem(itemName);
-            result = playerName + " picked up item: " + itemName;
+            buildString.append("**").append(playerName).append("**\n");
+            buildString.append(playerName).append(" picked up item: ").append(itemName);
+
+            result = buildString.toString();
           } else {
-            result = playerName + " cannot carry more items.";
+            buildString.append("**").append(playerName).append("**\n");
+            buildString.append(playerName).append(" cannot carry more items.");
+
+            result = buildString.toString();
           }
         }
         break;
       case 3:
         // move
+        StringBuilder buildString = new StringBuilder();
+
         String location = getNameOfSpaceToMoveTo();
         playerName = getPlayerName();
+
         move(location);
-        result = playerName + " Moved to location:  " + location;
+
+        buildString.append("**").append(playerName).append("**\n");
+        buildString.append(playerName).append(" Moved to location:  ").append(location);
+
+        result = buildString.toString();
         break;
       case 4:
         // move Pet

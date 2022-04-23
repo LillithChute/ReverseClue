@@ -30,12 +30,16 @@ public class MovePet implements GameCommand {
       throw new IllegalArgumentException("The game manager can't be null.");
     }
 
+    StringBuilder result = new StringBuilder();
+
     // Get the Space the pet is moving to
     Space spacePetIsMovingTo = game.getTheSpaceByName(nameOfSpace.trim());
 
     // Get the current player and list of game spaces (pet can be move anywhere) and then move
     // the pet
     game.getCurrentPlayer().movePet(spacePetIsMovingTo, game.getSpaces());
+    result.append("**").append(game.getCurrentPlayer().getPlayerName()).append("**\n");
+    result.append("Moved pet to location: ").append(nameOfSpace.trim());
 
     // Target moves
     game.moveTarget();
@@ -43,6 +47,6 @@ public class MovePet implements GameCommand {
     // This is a turn
     game.nextTurn();
 
-    return "Moved pet to location: " + nameOfSpace.trim();
+    return  result.toString();
   }
 }

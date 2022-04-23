@@ -30,8 +30,14 @@ public class PickUpItem implements GameCommand {
       throw new IllegalArgumentException("There is an issue with the game world!\n");
     }
 
+    StringBuilder result = new StringBuilder();
+    String playerName = game.getCurrentPlayer().getPlayerName();
+
     game.getCurrentPlayer().takeItem(itemName);
 
-    return "Player picked up item: " + itemName;
+    result.append("**").append(playerName).append("**\n");
+    result.append(playerName).append(" picked up item: ").append(itemName);
+
+    return result.toString();
   }
 }
