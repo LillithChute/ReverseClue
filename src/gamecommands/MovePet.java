@@ -41,12 +41,6 @@ public class MovePet implements GameCommand {
     result.append("**").append(game.getCurrentPlayer().getPlayerName()).append("**\n");
     result.append("Moved pet to location: ").append(nameOfSpace.trim());
 
-    // Target moves
-    game.moveTarget();
-
-    // This is a turn
-    game.nextTurn();
-
     return  result.toString();
   }
 }
