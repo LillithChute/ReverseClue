@@ -132,7 +132,6 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
   @Override
   public String getPlayerItemsDescription() {
     StringBuilder buildString = new StringBuilder();
-
     buildString.append(playerName)
         .append(" is carrying:")
         .append("\n");
@@ -166,6 +165,7 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
   public String describePlayer() {
     StringBuilder buildString = new StringBuilder();
 
+    buildString.append("**").append(playerName).append("**\n");
     buildString.append("Player Description:\n");
     buildString.append("\tName: ")
         .append(getPlayerName())
@@ -188,6 +188,8 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
   @Override
   public String lookAround() {
     StringBuilder buildString = new StringBuilder();
+
+    buildString.append("**").append(playerName).append("**\n");
 
     // Intro
     buildString.append(getPlayerName()).append(" is in here in ")
@@ -309,6 +311,8 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
   @Override
   public String attack(String itemName) {
     StringBuilder result = new StringBuilder();
+
+    result.append("**").append(playerName).append("**\n");
 
     // Validation
     if (itemName == null || itemName.isBlank()) {
