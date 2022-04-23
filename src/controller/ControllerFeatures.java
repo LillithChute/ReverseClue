@@ -94,7 +94,7 @@ public interface ControllerFeatures {
    *
    * @param file a file in which the model will be constructed.
    */
-  public void setModel(File file);
+  public void setModel(String file);
 
   /**
    * Obtains a view-model corresponding to the player of the current turn.

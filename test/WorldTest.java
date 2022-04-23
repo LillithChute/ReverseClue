@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.worldbuilderinterfaces.World;
+import gamemodels.gamemanagermodels.MockWorld;
 import gamemodels.gamemanagermodels.WorldImpl;
 import java.io.File;
 import java.io.IOException;
@@ -750,5 +751,13 @@ public class WorldTest {
     World game = new WorldImpl(testData.getCortoMalteseData());
     assertEquals("Beach Head One, Beach Head Two, Town, Forest, Insurgent Camp, Road, "
             + "Palace, Guard House, Jotunheim", game.getAvailableLocations());
+  }
+
+  //TODO: REMOVE THIS!
+  @Test
+  public void testMock() {
+    MockWorld mock = new MockWorld();
+    mock.getTurnTotal();
+    assertEquals("", mock.getMockLog().get(mock.getMockLog().size() - 1));
   }
 }

@@ -16,8 +16,9 @@ public class ViewTest {
     World world =
         new WorldImpl(new BufferedReader(new FileReader("./res/worlds/CortoMaltese"
             + ".txt")));
-    UiController controller = new GraphicalController(new File("./res/worlds/CortoMaltese"
-        + ".txt"));
+    UiController controller = new GraphicalController(new BufferedReader(
+        new FileReader("./res/worlds/CortoMaltese.txt")),
+        "./res/worlds/CortoMaltese.txt");
     controller.setView(mainForm);
   }
 }

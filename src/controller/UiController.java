@@ -23,7 +23,7 @@ public interface UiController {
    *
    * @param file a file in which the model will be constructed.
    */
-  public void setModel(File file);
+  public void setModel(String file);
 
   /**
    * Reset the view back to its initial state after each game.
