@@ -26,6 +26,7 @@ public class GraphicalDriver {
           "You must provide a world file in the command-line arguments!",
           "ERROR",
           JOptionPane.ERROR_MESSAGE);
+      return;
     }
     String path = args[0];
     MainForm mainForm = new MainForm("Reverse Clue");

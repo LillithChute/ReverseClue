@@ -138,6 +138,6 @@ public class MockPlayer extends Mock implements Player {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return false;
+    return true;
   }
 }
