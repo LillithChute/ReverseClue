@@ -20,6 +20,14 @@ public class Utility {
     }
   }
 
+  /**
+   * Validation checker for creating a player in the game.  Every player needs a name, a place
+   * to call home, and the number of items they can carry.
+   *
+   * @param playerName - Name of the player.
+   * @param playerLocation - Space the player is starting in.
+   * @param itemLimit - Maximum number of items they can carry.
+   */
   public static void validatePlayerCreation(String playerName, Space playerLocation,
                                             int itemLimit) {
     // Validation
