@@ -138,6 +138,12 @@ public class MainForm extends JFrame implements ImainForm {
         features.restartGame();
       }
     });
+    exitGame.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        System.exit(0);
+      }
+    });
 
     gameMenu = new JMenu("Game");
     addHuman = new JMenuItem("Add Human Player");
