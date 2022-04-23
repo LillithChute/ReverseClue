@@ -30,21 +30,41 @@ public class GraphicalControllerTest {
 
   @Test
   public void addComputerPlayer() {
-    controller.addComputerPlayer("test", "mocked", 3);
-    String modelexpected = "addComputerPlayer called, playerName = test,"
-        + " playerLocation = null, itemLimit = 3";
+    String modelexpected = "addComputerPlayer called, playerName = Computer Player, "
+            + "playerLocation = null, itemLimit = 3";
+    String viewexpected = "logGameplay called. msg = Added computer player: Computer Player  "
+            + "Location: Jotunheim  Max Items: 3\n";
+
+    controller.addComputerPlayer("Computer Player", "Jotunheim", 3);
+
     assertEquals(modelexpected, model.recentMockLog(1)[0]);
-    String viewexpected = "logGameplay called. msg = Added computer player:"
-        + " test  Location: mocked  Max Items: 3\n";
     assertEquals(viewexpected, view.recentMockLog(1)[0]);
   }
 
   @Test
   public void addPlayer() {
+    String modelexpected = "addPlayer called, playerName = Human Player, playerLocation = null, "
+            + "itemLimit = 3";
+    String viewexpected = "logGameplay called. msg = Added player: Human Player  Location: "
+            + "Forest  Max Items: 3\n";
+
+    controller.addPlayer("Human Player", "Forest", 3);
+
+    assertEquals(modelexpected, model.recentMockLog(1)[0]);
+    assertEquals(viewexpected, view.recentMockLog(1)[0]);
   }
 
   @Test
   public void attack() {
+    String modelexpected = "addPlayer called, playerName = Human Player, playerLocation = null, "
+            + "itemLimit = 3";
+    String viewexpected = "logGameplay called. msg = Added player: Human Player  Location: "
+            + "Forest  Max Items: 3\n";
+
+    controller.attack(null);
+
+    assertEquals(modelexpected, model.recentMockLog(1)[0]);
+    assertEquals(viewexpected, view.recentMockLog(1)[0]);
   }
 
   @Test
