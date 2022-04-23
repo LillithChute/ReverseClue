@@ -4,6 +4,7 @@ import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gamemodels.Mock;
+import gamemodels.playermodels.MockPlayer;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -158,7 +159,7 @@ public class MockWorld extends Mock implements World {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return null;
+    return new MockPlayer();
   }
 
   @Override
