@@ -201,7 +201,7 @@ public class MainForm extends JFrame implements ImainForm {
         Document htm = kit.createDefaultDocument();
         editor.setDocument(htm);
         try {
-          editor.setText(Files.readString(Path.of("./res/README.html")));
+          editor.setText(Files.readString(Path.of("./res/helpmenu/HelpMenu.html")));
         } catch (IOException ex) {
           throw new IllegalArgumentException();
         }
