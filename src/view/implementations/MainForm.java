@@ -129,13 +129,19 @@ public class MainForm extends JFrame implements ImainForm {
         if (selected == null) {
           showMessageDialog(null, "File not selected!");
         }
-        features.setModel(selected);
+        features.setModel(selected.getAbsolutePath());
       }
     });
     restartGame.addActionListener(new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent e) {
         features.restartGame();
+      }
+    });
+    exitGame.addActionListener(new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        System.exit(0);
       }
     });
 

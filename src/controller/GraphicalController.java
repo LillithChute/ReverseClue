@@ -17,6 +17,7 @@ import gameinterfaces.spaceinterfaces.SpaceViewModel;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gameinterfaces.worldcontrollerinterfaces.GameCommand;
 import gamemodels.gamemanagermodels.WorldImpl;
+import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,22 +43,29 @@ public class GraphicalController implements UiController, ControllerFeatures {
   private GameCommand command;
   private boolean started;
 
-  private File loaded;
+  private String loaded;
 
   /**
    * Constructs a controller for the game.
    *
    * @param f The world-representation file to be parsed into the model.
    */
-  public GraphicalController(File f) {
+  public GraphicalController(Readable f, String filename) {
     Utility.checkNull(f);
-    try {
-      this.model = new WorldImpl(new BufferedReader(new FileReader(f)));
-      this.loaded = f;
-    } catch (FileNotFoundException ex) {
-      throw new IllegalArgumentException();
-    }
+    this.model = new WorldImpl(f);
+    this.loaded = filename;
     this.started = false;
+  }
+
+  /**
+   * Constructs the controller from the given view and the model.
+   *
+   * @param v the view to be associated with this controller
+   * @param m the model to be associated with this controller
+   */
+  public GraphicalController(ImainForm v, World m) {
+    this.view = v;
+    this.model = m;
   }
 
 
@@ -167,7 +175,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public void setView(MainForm v) {
+  public void setView(ImainForm v) {
     Utility.checkNull(v);
     this.view = v;
     v.setFeatures(this);
@@ -177,7 +185,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public void setModel(File file) {
+  public void setModel(String file) {
     Utility.checkNull(file);
     this.loaded = file;
     try {
@@ -187,6 +195,12 @@ public class GraphicalController implements UiController, ControllerFeatures {
     } catch (FileNotFoundException ex) {
       throw new IllegalArgumentException();
     }
+  }
+
+  @Override
+  public void setModel(World w) {
+    Utility.checkNull(w);
+    this.model = w;
   }
 
   @Override
