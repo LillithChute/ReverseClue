@@ -1,5 +1,7 @@
 package gamemodels.gamemanagermodels;
 
+import static utilitles.Utility.validatePlayerCreation;
+
 import customexceptions.IncorrectFilePathException;
 import gameinterfaces.iteminterfaces.Item;
 import gameinterfaces.petinterfaces.Pet;
@@ -23,8 +25,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
-
-import static utilitles.Utility.validatePlayerCreation;
 
 /**
  * This is my facade class.  It takes the required methods from the model that are needed to
