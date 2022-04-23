@@ -207,7 +207,10 @@ public class MainForm extends JFrame implements ImainForm {
         Document htm = kit.createDefaultDocument();
         editor.setDocument(htm);
         try {
-          editor.setText(Files.readString(Path.of("./res/helpmenu/HelpMenu.html")));
+          /* NOTE: this will cause an exception when you debug straight from the IDE.
+            However, it's essential so that the jar submission works properly.
+           */
+          editor.setText(Files.readString(Path.of("./helpmenu/HelpMenu.html")));
         } catch (IOException ex) {
           throw new IllegalArgumentException();
         }

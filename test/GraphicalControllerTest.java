@@ -1,7 +1,13 @@
 import static org.junit.Assert.assertEquals;
 
 import controller.GraphicalController;
+import gamemodels.Mock;
 import gamemodels.gamemanagermodels.MockWorld;
+import gamemodels.itemmodels.MockItem;
+import gamemodels.petmodels.MockPet;
+import gamemodels.playermodels.MockPlayer;
+import gamemodels.spacemodels.MockSpace;
+import gamemodels.targetmodels.MockTarget;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import junit.framework.TestCase;
@@ -17,12 +23,22 @@ public class GraphicalControllerTest {
   GraphicalController controller;
   String readFrom;
   MockWorld model;
+  MockPlayer player;
+  MockSpace space;
+  MockItem item;
+  MockPet pet;
+  MockTarget target;
   MockMainForm view;
 
   @Before
   public void setUp() {
     view = new MockMainForm();
-    model = new MockWorld();
+    item = new MockItem();
+    pet = new MockPet();
+    target = new MockTarget();
+    player = new MockPlayer(item);
+    space = new MockSpace(item, player, target, pet);
+    model = new MockWorld(item, pet, player, space, target);
     controller = new GraphicalController(view, model);
     controller.setModel(model);
     controller.setView(view);

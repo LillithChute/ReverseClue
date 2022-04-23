@@ -5,6 +5,7 @@ import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gamemodels.Mock;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,25 @@ import java.util.List;
  * calls and is used in testing.
  */
 public class MockPlayer extends Mock implements Player {
-  
+
+  private Item item;
+
+  /**
+   * The default constructor that builds a mock player with logging only to itself.
+   */
+  public MockPlayer() {
+
+  }
+
+  /**
+   * Constructs a Mock player that contains a mock item.
+   *
+   * @param i the mock item to be used
+   */
+  public MockPlayer(Item i) {
+    this.item = i;
+  }
+
   @Override
   public void move(String nameOfSpace) {
     String methodName = new MockPlayer() {}
@@ -59,7 +78,9 @@ public class MockPlayer extends Mock implements Player {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return null;
+    var res = new ArrayList<Item>();
+    res.add(item);
+    return res;
   }
 
   @Override

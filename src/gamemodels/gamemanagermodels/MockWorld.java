@@ -4,7 +4,11 @@ import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.worldbuilderinterfaces.World;
 import gamemodels.Mock;
+import gamemodels.itemmodels.MockItem;
+import gamemodels.petmodels.MockPet;
 import gamemodels.playermodels.MockPlayer;
+import gamemodels.spacemodels.MockSpace;
+import gamemodels.targetmodels.MockTarget;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +18,37 @@ import java.util.List;
  * calls and is used in testing.
  */
 public class MockWorld extends Mock implements World {
+  private MockItem item;
+  private MockPet pet;
+  private MockPlayer player;
+  private MockSpace space;
+  private MockTarget target;
+
+  /**
+   * The default constructor that builds a MockWorld providing only mocks about itself.
+   */
+  public MockWorld() {
+
+  }
+
+
+  /**
+   * Constructs a MockWorld that provides functionalities to return other mock objects
+   * that are passed in.
+   *
+   * @param i a mock item object
+   * @param p a mock pet object
+   * @param pl a mock player object
+   * @param s a mock space object
+   * @param t a mock target object
+   */
+  public MockWorld(MockItem i, MockPet p, MockPlayer pl, MockSpace s, MockTarget t) {
+    item = i;
+    pet = p;
+    player = pl;
+    space = s;
+    target = t;
+  }
 
   @Override
   public String printWorldImageToDisk() {
@@ -42,7 +77,7 @@ public class MockWorld extends Mock implements World {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called, x=%f, y=%f", methodName, x, y));
-    return null;
+    return space;
   }
 
   @Override
@@ -70,7 +105,9 @@ public class MockWorld extends Mock implements World {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return null;
+    var res = new ArrayList<Space>();
+    res.add(space);
+    return res;
   }
 
   @Override
@@ -80,7 +117,7 @@ public class MockWorld extends Mock implements World {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called, nameOfSpace = %s", methodName, nameOfSpace));
-    return null;
+    return space;
   }
 
   @Override
@@ -90,7 +127,9 @@ public class MockWorld extends Mock implements World {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called, indexOfSpace = %d", methodName, indexOfSpace));
-    return null;
+    var res = new ArrayList<Space>();
+    res.add(space);
+    return res;
   }
 
   @Override
@@ -159,7 +198,7 @@ public class MockWorld extends Mock implements World {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return new MockPlayer();
+    return player;
   }
 
   @Override

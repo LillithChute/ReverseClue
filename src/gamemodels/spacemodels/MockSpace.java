@@ -6,6 +6,7 @@ import gameinterfaces.playerinterfaces.Player;
 import gameinterfaces.spaceinterfaces.Space;
 import gameinterfaces.targetinterfaces.Target;
 import gamemodels.Mock;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,6 +15,32 @@ import java.util.List;
  * calls and is used in testing.
  */
 public class MockSpace extends Mock implements Space {
+
+  private Item item;
+  private Player player;
+  private Target target;
+  private Pet pet;
+
+  /**
+   * The default constructor that builds a mock space with logging only to itself.
+   */
+  public MockSpace() {
+
+  }
+
+  /**
+   * Constructs a Mock space that contains other mock objects that can be returned
+   * to support a wider range of logging.
+   *
+   * @param i the mock item to be used
+   */
+  public MockSpace(Item i, Player p, Target t, Pet pe) {
+    this.item = i;
+    this.player = p;
+    this.target = t;
+    this.pet = pe;
+  }
+
   @Override
   public List<Item> getItems() {
     String methodName = new MockSpace() {}
@@ -21,7 +48,9 @@ public class MockSpace extends Mock implements Space {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return null;
+    var res = new ArrayList<Item>();
+    res.add(item);
+    return res;
   }
 
   @Override
@@ -41,7 +70,9 @@ public class MockSpace extends Mock implements Space {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return null;
+    var res = new ArrayList<Space>();
+    res.add(this);
+    return res;
   }
 
   @Override
@@ -131,7 +162,7 @@ public class MockSpace extends Mock implements Space {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return null;
+    return target;
   }
 
   @Override
@@ -180,7 +211,9 @@ public class MockSpace extends Mock implements Space {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return null;
+    var res = new ArrayList<Player>();
+    res.add(player);
+    return res;
   }
 
   @Override
@@ -210,6 +243,6 @@ public class MockSpace extends Mock implements Space {
         .getEnclosingMethod()
         .getName();
     mockLog.add(String.format("%s called.", methodName));
-    return null;
+    return pet;
   }
 }
