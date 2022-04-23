@@ -56,11 +56,10 @@ public class GraphicalControllerTest {
 
   @Test
   public void attack() {
-    String modelexpected = "addPlayer called, playerName = Human Player, playerLocation = null, "
-            + "itemLimit = 3";
-    String viewexpected = "logGameplay called. msg = Added player: Human Player  Location: "
-            + "Forest  Max Items: 3\n";
+    String modelexpected = "getCurrentPlayer called.";
+    String viewexpected = "logGameplay called. msg = null";
 
+    // This is a poke in the eye attack
     controller.attack(null);
 
     assertEquals(modelexpected, model.recentMockLog(1)[0]);
@@ -69,6 +68,13 @@ public class GraphicalControllerTest {
 
   @Test
   public void describePlayer() {
+    String modelexpected = "getCurrentPlayer called.";
+    String viewexpected = "logGameplay called. msg = null";
+
+    controller.describePlayer();
+
+    assertEquals(modelexpected, model.recentMockLog(1)[0]);
+    assertEquals(viewexpected, view.recentMockLog(1)[0]);
   }
 
   @Test
