@@ -114,6 +114,10 @@ public class SpaceImpl implements Space, SpaceViewModel {
 
   @Override
   public void putItemsInTheSpace(List<Item> items) {
+    if (items == null) {
+      throw new IllegalArgumentException("To put items in a Space you must actually have items!");
+    }
+
     // Deep copy.
     for (Item currentItem :
         items) {
@@ -123,6 +127,11 @@ public class SpaceImpl implements Space, SpaceViewModel {
 
   @Override
   public void setNeighborsOfThisSpace(List<Space> neighbors) {
+    if (neighbors == null) {
+      throw new IllegalArgumentException("To set neighbors of a Space you must actually have "
+              + "neighbors!");
+    }
+
     // Deep copy
     for (Space currentSpace :
         neighbors) {

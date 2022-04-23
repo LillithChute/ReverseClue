@@ -19,6 +19,10 @@ public class ComputerPlayerImpl extends BasePlayer {
 
   @Override
   public String takeRandomAction(World world) {
+    if (world == null) {
+      throw new IllegalArgumentException("The World must exist!");
+    }
+
     Random random = new Random();
 
     // If the computer is in the same room as the target and can't be seen the computer WILL

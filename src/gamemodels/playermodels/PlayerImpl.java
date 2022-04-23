@@ -22,6 +22,10 @@ public class PlayerImpl extends BasePlayer {
 
   @Override
   public String takeRandomAction(World world) {
+    if (world == null) {
+      throw new IllegalArgumentException("The World must exist!");
+    }
+
     return String.format("%s's Turn, please take action.", this.playerName);
   }
 
