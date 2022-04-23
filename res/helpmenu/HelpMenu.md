@@ -88,7 +88,7 @@ are the weapons I am currently carrying around.
 
 At the bottom of the screen is all the stuff that has happened since I started trying to kill Starro.
 
-At the top, right above the map is a think little bar that lets you, the player, know whose turn it currently is, how many 
+At the top, right above the map is a thin little bar that lets you, the player, know whose turn it currently is, how many 
 turns have been taken out of the maximum, and whether the Target's pet is in the room with you.  Pet?  What Pet, you ask?  
 We will get to that shortly.
 
