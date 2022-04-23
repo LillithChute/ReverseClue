@@ -3,6 +3,10 @@ package gamemodels.targetmodels;
 import gameinterfaces.targetinterfaces.Target;
 import gamemodels.Mock;
 
+/**
+ * The mock Target class that behaves like a Target but instead logs all method
+ * calls and is used in testing.
+ */
 public class MockTarget extends Mock implements Target {
   @Override
   public String getTargetName() {

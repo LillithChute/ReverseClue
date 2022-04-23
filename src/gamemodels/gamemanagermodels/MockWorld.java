@@ -8,6 +8,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The mock World class that behaves like a World but instead logs all method
+ * calls and is used in testing.
+ */
 public class MockWorld extends Mock implements World {
 
   @Override
@@ -36,7 +40,7 @@ public class MockWorld extends Mock implements World {
         .getClass()
         .getEnclosingMethod()
         .getName();
-    mockLog.add(String.format("%s called, x=%d, y=%d", methodName, x ,y));
+    mockLog.add(String.format("%s called, x=%f, y=%f", methodName, x, y));
     return null;
   }
 

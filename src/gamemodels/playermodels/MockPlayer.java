@@ -7,6 +7,10 @@ import gameinterfaces.worldbuilderinterfaces.World;
 import gamemodels.Mock;
 import java.util.List;
 
+/**
+ * The mock Player class that behaves like a Player but instead logs all method
+ * calls and is used in testing.
+ */
 public class MockPlayer extends Mock implements Player {
   
   @Override

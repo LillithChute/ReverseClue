@@ -7,10 +7,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import javax.swing.JOptionPane;
 import view.implementations.MainForm;
-import view.interfaces.ImainForm;
 
+
+/**
+ * The driver for the milestone 4 graphical game.
+ */
 public class GraphicalDriver {
 
+  /**
+   * The entry point of the Application. It reads a world description file
+   * from and command-line and passes it to the necessary model objects.
+   *
+   * @param args the command-line arguments
+   */
   public static void main(String[] args) {
     if (args.length != 1) {
       JOptionPane.showMessageDialog(null,

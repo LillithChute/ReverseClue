@@ -57,6 +57,17 @@ public class GraphicalController implements UiController, ControllerFeatures {
     this.started = false;
   }
 
+  /**
+   * Constructs the controller from the given view and the model.
+   *
+   * @param v the view to be associated with this controller
+   * @param m the model to be associated with this controller
+   */
+  public GraphicalController(ImainForm v, World m) {
+    this.view = v;
+    this.model = m;
+  }
+
 
   @Override
   public void addComputerPlayer(String playerName, String playerLocation, int itemLimit) {
@@ -164,7 +175,7 @@ public class GraphicalController implements UiController, ControllerFeatures {
   }
 
   @Override
-  public void setView(MainForm v) {
+  public void setView(ImainForm v) {
     Utility.checkNull(v);
     this.view = v;
     v.setFeatures(this);
@@ -184,6 +195,12 @@ public class GraphicalController implements UiController, ControllerFeatures {
     } catch (FileNotFoundException ex) {
       throw new IllegalArgumentException();
     }
+  }
+
+  @Override
+  public void setModel(World w) {
+    Utility.checkNull(w);
+    this.model = w;
   }
 
   @Override

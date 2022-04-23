@@ -8,6 +8,10 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import view.interfaces.ImainForm;
 
+/**
+ * The mock MainForm class that behaves like a MainForm but instead logs all method
+ * calls and is used in testing.
+ */
 public class MockMainForm extends Mock implements ImainForm {
   @Override
   public void setFeatures(ControllerFeatures f) {

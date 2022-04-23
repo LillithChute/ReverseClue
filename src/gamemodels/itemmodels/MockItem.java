@@ -3,6 +3,10 @@ package gamemodels.itemmodels;
 import gameinterfaces.iteminterfaces.Item;
 import gamemodels.Mock;
 
+/**
+ * The mock Item class that behaves like an Item but instead logs all method
+ * calls and is used in testing.
+ */
 public class MockItem extends Mock implements Item {
   
   @Override

@@ -8,6 +8,11 @@ import gameinterfaces.targetinterfaces.Target;
 import gamemodels.Mock;
 import java.util.List;
 
+
+/**
+ * The mock Space class that behaves like a Space but instead logs all method
+ * calls and is used in testing.
+ */
 public class MockSpace extends Mock implements Space {
   @Override
   public List<Item> getItems() {

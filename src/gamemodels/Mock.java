@@ -16,7 +16,22 @@ public abstract class Mock {
     this.mockLog = new ArrayList<>();
   }
 
+  /**
+   * Obtains all the mock logs received.
+   *
+   * @return a list containing all the mock logs
+   */
   public List<String> getMockLog() {
     return new ArrayList<>(mockLog);
+  }
+
+  /**
+   * Obtains the last couple of logs appended to this object.
+   *
+   * @param r number of logs to fetch
+   * @return recent appended logs
+   */
+  public String[] recentMockLog(int r) {
+    return mockLog.subList(Math.max(mockLog.size() - r, 0), mockLog.size()).toArray(new String[0]);
   }
 }
