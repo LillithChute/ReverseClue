@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import controller.GraphicalController;
+import gameinterfaces.worldbuilderinterfaces.World;
 import gamemodels.Mock;
 import gamemodels.gamemanagermodels.MockWorld;
 import gamemodels.itemmodels.MockItem;
@@ -61,6 +62,16 @@ public class GraphicalControllerTest {
     assertEquals(viewexpected, view.recentMockLog(1)[0]);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void addComputerPlayerBadName() {
+    controller.addComputerPlayer("", "Jotunheim", 3);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void addComputerPlayerBadLocation() {
+    controller.addComputerPlayer("Me", null, 3);
+  }
+
   @Test
   public void addPlayer() {
     String viewexpected = "logGameplay called. msg = Added player: Human Player  Location: "
@@ -72,6 +83,17 @@ public class GraphicalControllerTest {
             + "playerLocation = "));
     assertEquals(viewexpected, view.recentMockLog(1)[0]);
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void addPlayerBadName() {
+    controller.addComputerPlayer("", "Jotunheim", 3);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void addPlayerBadLocation() {
+    controller.addComputerPlayer("Me", null, 3);
+  }
+
 
   @Test
   public void attack() {
@@ -115,6 +137,11 @@ public class GraphicalControllerTest {
             + "Moved to location: Forest", view.recentMockLog(1)[0]);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void moveBad() {
+    controller.move("");
+  }
+
   @Test
   public void movePet() {
     controller.movePet("Road");
@@ -122,6 +149,11 @@ public class GraphicalControllerTest {
     assertTrue(player.recentMockLog(3)[0].contains("movePet called, spaceToMoveTo"));
     assertEquals("logGameplay called. msg = **null**\n"
             + "Moved pet to location: Road", view.recentMockLog(1)[0]);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void movePetBad() {
+    controller.movePet("");
   }
 
   @Test
@@ -132,6 +164,11 @@ public class GraphicalControllerTest {
             player.recentMockLog(2)[0]);
     assertEquals("logGameplay called. msg = **null**\n"
             + "null picked up item: Polka-Dots", view.recentMockLog(1)[0]);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void pickupBad() {
+    controller.pickup("");
   }
 
   @Test
@@ -154,6 +191,11 @@ public class GraphicalControllerTest {
     assertEquals("setStartedState called. started = false", view.recentMockLog(2)[0]);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void setViewBad() {
+    controller.setView(null);
+  }
+
   @Test
   public void setModel() {
     controller.setModel(model);
@@ -161,6 +203,11 @@ public class GraphicalControllerTest {
     // Chain of events when setModel is invoked with the mock
     assertEquals("welcome called.", view.recentMockLog(1)[0]);
     assertEquals("setStartedState called. started = false", view.recentMockLog(2)[0]);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void setModelBad() {
+    controller.setModel((World) null);
   }
 
   @Test
