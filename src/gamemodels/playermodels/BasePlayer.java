@@ -21,6 +21,13 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
   protected Space space;
   protected boolean actionFinished;
 
+  /**
+   * Constructs a abstract base player, given its information.
+   *
+   * @param playerName the name of the player
+   * @param playerLocation the starting location of the player
+   * @param itemLimit the maximum number of items a player can carry
+   */
   protected BasePlayer(String playerName, Space playerLocation, int itemLimit) {
     // Validation
     if (playerName == null || playerName.isEmpty() || playerName.isBlank()) {
@@ -476,6 +483,12 @@ public abstract class BasePlayer implements Player, PlayerViewModel {
     return null;
   }
 
+  /**
+   * Automatically performs a random action based on the current options avaliable.
+   *
+   * @param world The game world that is being used for the players
+   * @return the result of the random action performed
+   */
   public abstract String takeRandomAction(World world);
 
   /**

@@ -13,6 +13,13 @@ import java.util.Random;
  */
 public class ComputerPlayerImpl extends BasePlayer {
 
+  /**
+   * Constructs a computer player capable of taking its own actions.
+   *
+   * @param playerName the name of the player
+   * @param playerLocation the staring location of the player
+   * @param itemLimit the maximum number of items the player can carry
+   */
   public ComputerPlayerImpl(String playerName, Space playerLocation, int itemLimit) {
     super(playerName, playerLocation, itemLimit);
   }
