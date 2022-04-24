@@ -275,6 +275,10 @@ public class GraphicalController implements UiController, ControllerFeatures {
     }
     this.model.setMaxNumberOfTurns(turnCount);
     this.started = true;
+    if (!model.getCurrentPlayer().completedTurn()) {
+      this.view.logGameplay(this.model.getCurrentPlayer().takeRandomAction(model));
+      this.advanceTurn();
+    }
     this.updateViewComponentStates();
     this.updateViewInfo();
   }
