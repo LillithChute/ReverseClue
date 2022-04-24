@@ -70,8 +70,8 @@ public class TargetImpl implements Target, TargetViewModel {
    * @param newHealth - The new value for the target's health.
    */
   public void setHealth(int newHealth) {
-    if (newHealth < 1) {
-      throw new IllegalArgumentException("The target cannot have negative or zero health!");
+    if (newHealth < 0) {
+      throw new IllegalArgumentException("Can't do negative damage!");
     }
 
     this.health = Math.max(newHealth, 0);
