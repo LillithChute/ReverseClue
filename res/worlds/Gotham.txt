@@ -1,0 +1,15 @@
+40 40 Gotham
+10 The Joker
+Harely Quinn
+2
+15  6 30 13 Bat Cave
+19 14 25 16 Gotham
+39
+0 5 Batcopter
+0 3 Batgrenades
+0 1 Batarrang
+0 4 Joker Repellent
+1 4 Staff
+1 3 Brass Knuckles
+1 3 Gun
+1 3 Robin
