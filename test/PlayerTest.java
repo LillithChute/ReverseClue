@@ -210,7 +210,8 @@ public class PlayerTest {
   public void testDescribePlayerNoItems() {
     Player newPlayer = getInstance.playerBuilder("Harley Quinn", beachHeadTwo, 4);
     newPlayer.move("Forest");
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -223,7 +224,8 @@ public class PlayerTest {
     newPlayer.move("Forest");
     newPlayer.takeItem("Javelin");
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -303,7 +305,8 @@ public class PlayerTest {
 
     // Beach head two has a neighbor, beach head one.  We should not see anything for beach head
     // one, which is where the target and the pet are.
-    assertEquals("Harley Quinn is in here in Beach Head Two.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head Two.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tPistol\n"
@@ -326,7 +329,8 @@ public class PlayerTest {
     // Move the pet and we should see Beach Head One stuff
     newPlayer.movePet(game.getTheSpaceByName("forest"), game.getSpaces());
 
-    assertEquals("Harley Quinn is in here in Beach Head Two.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head Two.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tPistol\n"
@@ -370,7 +374,8 @@ public class PlayerTest {
 
     // Beach head two has a neighbor, beach head one.  We should not see anything for beach head
     // one, which is where the target and the pet are.
-    assertEquals("Harley Quinn is in here in Forest.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Forest.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tSmall Stick\n"
@@ -423,7 +428,8 @@ public class PlayerTest {
 
     // Beach head two has a neighbor, beach head one.  We should not see anything for beach head
     // one, which is where the target and the pet are.
-    assertEquals("Harley Quinn is in here in Forest.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Forest.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tSmall Stick\n"
@@ -466,7 +472,8 @@ public class PlayerTest {
     // move player then look around.  Shouldn't see anything in the forest
     newPlayer.move("Insurgent Camp");
 
-    assertEquals("Harley Quinn is in here in Insurgent Camp.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Insurgent Camp.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tBlowgun\n"
@@ -505,7 +512,8 @@ public class PlayerTest {
             + "Boomerang\n", harley.getPlayerItemsDescription());
 
     // Make sure target and players are in her space.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tMongal\n"
@@ -546,7 +554,8 @@ public class PlayerTest {
     // Attack the target
     String result = harley.attack("helicopter");
 
-    assertEquals("You were seen!  Your attack was not successful.  "
+    assertEquals("**Harley Quinn**\n"
+            + "You were seen!  Your attack was not successful.  "
             + "Helicopter is now evidence.", result);
     assertEquals("Harley Quinn is carrying:\n"
             + "Boomerang\n", harley.getPlayerItemsDescription());
@@ -572,7 +581,8 @@ public class PlayerTest {
             + "Boomerang\n", harley.getPlayerItemsDescription());
 
     // Make sure target and players are in her space.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tMongal\n"
@@ -613,8 +623,8 @@ public class PlayerTest {
     // Attack the target
     String result = harley.attack("boomerang");
 
-    assertEquals("You were seen!  Your attack was not successful.  "
-            + "Boomerang is now evidence.", result);
+    assertEquals("**Harley Quinn**\n"
+            + "You were seen!  Your attack was not successful.  Boomerang is now evidence.", result);
 
     // Item to evidence
     assertEquals("Harley Quinn is carrying:\n"
@@ -641,7 +651,8 @@ public class PlayerTest {
             + "Conch Shell\n", harley.getPlayerItemsDescription());
 
     // Make sure target and players are in her space.
-    assertEquals("Harley Quinn is in here in Beach Head Two.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head Two.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tOcean Water\n"
@@ -662,8 +673,8 @@ public class PlayerTest {
     // Attack the target
     String result = harley.attack("Pistol");
 
-    assertEquals("You were seen!  Your attack was not successful.  "
-            + "Pistol is now evidence.", result);
+    assertEquals("**Harley Quinn**\n"
+            + "You were seen!  Your attack was not successful.  Pistol is now evidence.", result);
 
     // Item to evidence
     assertEquals("Harley Quinn is carrying:\n"
@@ -687,7 +698,8 @@ public class PlayerTest {
             + "Conch Shell\n", harley.getPlayerItemsDescription());
 
     // Make sure target and players are in her space.
-    assertEquals("Harley Quinn is in here in Beach Head Two.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head Two.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tOcean Water\n"
@@ -720,7 +732,8 @@ public class PlayerTest {
     assertEquals("Harley Quinn is carrying:\n", harley.getPlayerItemsDescription());
 
     // Make sure target is in her space.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tHelicopter\n"
@@ -763,8 +776,9 @@ public class PlayerTest {
     // Attack the target
     String result = harley.attack("Poke in the Eye");
 
-    assertEquals("You poked Starro The Conqueror in the eye and did 1 point of damage!"
-            + "  Starro The Conqueror now has 74 health remaining.", result);
+    assertEquals("**Harley Quinn**\n"
+            + "You poked Starro The Conqueror in the eye and did 1 point of damage!  "
+            + "Starro The Conqueror now has 74 health remaining.", result);
 
     // Item to evidence
     assertEquals("Harley Quinn is carrying:\n", harley.getPlayerItemsDescription());
@@ -787,7 +801,8 @@ public class PlayerTest {
             + "Boomerang\n", harley.getPlayerItemsDescription());
 
     // Make sure target is in her space.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tMongal\n"
@@ -828,9 +843,10 @@ public class PlayerTest {
     // Attack the target
     String result = harley.attack("helicopter");
 
-    assertEquals("You attacked with Helicopter and did 5 points of damage to "
-            + "Starro The Conqueror.  Helicopter is now evidence.  Starro The Conqueror "
-            + "now has 70 health remaining.", result);
+    assertEquals("**Harley Quinn**\n"
+            + "You attacked with Helicopter and did 5 points of damage to Starro The Conqueror.  "
+            + "Helicopter is now evidence.  Starro The Conqueror now has 70 health "
+            + "remaining.", result);
 
     // Item to evidence
     assertEquals("Harley Quinn is carrying:\n"
@@ -852,7 +868,8 @@ public class PlayerTest {
             + "Boomerang\n", harley.getPlayerItemsDescription());
 
     // Make sure target is in her space.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tMongal\n"
@@ -893,9 +910,8 @@ public class PlayerTest {
     // Attack the target
     String result = harley.attack("helicopter");
 
-    assertEquals("You attacked with Helicopter and did 5 points of damage to "
-            + "Starro The Conqueror.  Helicopter is now evidence.  Starro The Conqueror "
-            + "now has 70 health remaining.", result);
+    assertEquals("**Harley Quinn**\n"
+            + "You attacked with Helicopter and did 5 points of damage to Starro The Conqueror.  Helicopter is now evidence.  Starro The Conqueror now has 70 health remaining.", result);
 
     // Item to evidence
     assertEquals("Harley Quinn is carrying:\n"
@@ -917,7 +933,8 @@ public class PlayerTest {
             + "Boomerang\n", harley.getPlayerItemsDescription());
 
     // Make sure target is in her space.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tMongal\n"
@@ -958,9 +975,10 @@ public class PlayerTest {
     // Attack the target
     String result = harley.attack("helicopter");
 
-    assertEquals("You attacked with Helicopter and did 5 points of damage to "
-            + "Starro The Conqueror.  Helicopter is now evidence.  Starro The Conqueror "
-            + "now has 70 health remaining.", result);
+    assertEquals("**Harley Quinn**\n"
+            + "You attacked with Helicopter and did 5 points of damage to Starro The Conqueror.  "
+            + "Helicopter is now evidence.  Starro The Conqueror now has 70 health "
+            + "remaining.", result);
 
     // Item to evidence
     assertEquals("Harley Quinn is carrying:\n"
@@ -982,7 +1000,8 @@ public class PlayerTest {
             + "Boomerang\n", harley.getPlayerItemsDescription());
 
     // Make sure target is in her space.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tMongal\n"
@@ -1023,9 +1042,9 @@ public class PlayerTest {
     // Attack the target
     String result = harley.attack("helicopter");
 
-    assertEquals("You attacked with Helicopter and did 5 points of damage to Starro The "
-            + "Conqueror.  Helicopter is now evidence.  Starro The Conqueror now has 0 health "
-            + "remaining.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "You attacked with Helicopter and did 5 points of damage to Starro The Conqueror.  "
+            + "Helicopter is now evidence.  Starro The Conqueror now has 0 health remaining.\n"
             + "\n"
             + "Congratulations!  You killed Starro The Conqueror!\n", result);
 
@@ -1042,7 +1061,8 @@ public class PlayerTest {
     Player harley = game.getCurrentPlayer();
 
     // Make sure target is in her space.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tHelicopter\n"

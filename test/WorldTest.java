@@ -139,7 +139,8 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Beach Head Two");
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -152,7 +153,8 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Beach Head Two");
     game.addComputerPlayer("Computer Harley Quinn", playerLocation, 4);
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Computer Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Computer Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tComputer Harley Quinn is carrying:\n"
@@ -165,7 +167,8 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -173,7 +176,8 @@ public class WorldTest {
 
     game.getCurrentPlayer().takeItem("Blowgun");
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -187,7 +191,8 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -195,7 +200,8 @@ public class WorldTest {
 
     game.getCurrentPlayer().takeItem("Blowgun");
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -204,7 +210,8 @@ public class WorldTest {
 
     game.getCurrentPlayer().takeItem("Sling Shot");
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -219,7 +226,8 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -234,7 +242,8 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -249,7 +258,8 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
     game.addPlayer("Harley Quinn", playerLocation, 4);
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -265,7 +275,8 @@ public class WorldTest {
     Space playerLocation = game.getTheSpaceByName("Insurgent Camp");
     game.addPlayer("Harley Quinn", playerLocation, 1);
 
-    assertEquals("Player Description:\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Player Description:\n"
             + "\tName: Harley Quinn\n"
             + "\tItems:\n"
             + "\t\tHarley Quinn is carrying:\n"
@@ -321,7 +332,8 @@ public class WorldTest {
     game.addPlayer("Harley Quinn", playerLocation, 1);
     description = game.getCurrentPlayer().lookAround();
 
-    assertEquals("Harley Quinn is in here in Insurgent Camp.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Insurgent Camp.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tBlowgun\n"
@@ -366,7 +378,8 @@ public class WorldTest {
 
     String description = game.getCurrentPlayer().lookAround();
 
-    assertEquals("Harley Quinn is in here in Insurgent Camp.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Insurgent Camp.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tBlowgun\n"
@@ -414,7 +427,8 @@ public class WorldTest {
 
     String description = game.getCurrentPlayer().lookAround();
 
-    assertEquals("Harley Quinn is in here in Insurgent Camp.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Insurgent Camp.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tBlowgun\n"
@@ -466,7 +480,8 @@ public class WorldTest {
     // Move the turn forward
     game.nextTurn();
 
-    assertEquals("Harley Quinn is in here in Insurgent Camp.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Insurgent Camp.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tBlowgun\n"
@@ -503,7 +518,8 @@ public class WorldTest {
     // Rat Catcher
     description = game.getCurrentPlayer().lookAround();
 
-    assertEquals("Rat Catcher is in here in Forest.\n"
+    assertEquals("**Rat Catcher**\n"
+            + "Rat Catcher is in here in Forest.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tSmall Stick\n"
@@ -550,7 +566,8 @@ public class WorldTest {
             + "Boomerang\n", harley.getPlayerItemsDescription());
 
     // Make sure target is here but players are not.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tMongal\n"
@@ -591,9 +608,10 @@ public class WorldTest {
     // Computer should attack the target
     String result = harley.takeRandomAction(game);
 
-    assertEquals("You attacked with Helicopter and did 5 points of damage to Starro "
-            + "The Conqueror.  Helicopter is now evidence.  Starro The Conqueror now has 70 "
-            + "health remaining.", result);
+    assertEquals("**Harley Quinn**\n"
+            + "You attacked with Helicopter and did 5 points of damage to Starro The Conqueror.  "
+            + "Helicopter is now evidence.  Starro The Conqueror now has 70 health "
+            + "remaining.", result);
 
     // Item to evidence
     assertEquals("Harley Quinn is carrying:\n"
@@ -617,7 +635,8 @@ public class WorldTest {
             + "Boomerang\n", harley.getPlayerItemsDescription());
 
     // Make sure target is here but players are not.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tHelicopter\n"
@@ -658,8 +677,9 @@ public class WorldTest {
     // Computer should attack the target
     String result = harley.takeRandomAction(game);
 
-    assertEquals("You attacked with Boomerang and did 2 points of damage to Starro The "
-            + "Conqueror.  Boomerang is now evidence.  Starro The Conqueror now has 73 health "
+    assertEquals("**Harley Quinn**\n"
+            + "You attacked with Boomerang and did 2 points of damage to Starro The Conqueror.  "
+            + "Boomerang is now evidence.  Starro The Conqueror now has 73 health "
             + "remaining.", result);
 
     // Item to evidence
@@ -684,7 +704,8 @@ public class WorldTest {
             + "Boomerang\n", harley.getPlayerItemsDescription());
 
     // Make sure target is here but players are not.
-    assertEquals("Harley Quinn is in here in Beach Head One.\n"
+    assertEquals("**Harley Quinn**\n"
+            + "Harley Quinn is in here in Beach Head One.\n"
             + "\n"
             + "Here is a list of items located here:\n"
             + "\tMongal\n"
@@ -758,6 +779,6 @@ public class WorldTest {
   public void testMock() {
     MockWorld mock = new MockWorld();
     mock.getTurnTotal();
-    assertEquals("", mock.getMockLog().get(mock.getMockLog().size() - 1));
+    assertEquals("getTurnTotal called.", mock.getMockLog().get(mock.getMockLog().size() - 1));
   }
 }
